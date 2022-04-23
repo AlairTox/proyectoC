@@ -25,4 +25,5 @@ int main()
         }
         system("cls");
     }while(opc != 5);
+    return 0;
 }
