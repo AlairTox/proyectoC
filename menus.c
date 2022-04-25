@@ -12,7 +12,7 @@ int menuInicial(void){
         printf("ingresa [5]: Salir del Programa\n");
         scanf("%d", &opcion);
     }while(opcion < 1 || opcion > 5);
-    return opcion;dsnjkfndskjvnjkdfnvkjnfdkj
+    return opcion;
 }
 
 void menuCliente(void){
