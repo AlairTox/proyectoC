@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "listas.h"
 
 int menuInicial(void){
     int opcion;

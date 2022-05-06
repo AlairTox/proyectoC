@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "menus.h"
 
-
 int main()
 {
     int opc;
@@ -25,5 +24,4 @@ int main()
         }
         system("cls");
     }while(opc != 5);
-    return 0;
 }

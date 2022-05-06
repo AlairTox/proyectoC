@@ -1,0 +1,87 @@
+Requerimentos:
+    Funciones Directas:
+        Cliente:
+            seleccionProducto()
+            revisarCarrito()
+            realizarPedido()
+        Gerente:
+            verPedidos()
+            repartidoresEspera()
+            repartidoresTransito()
+            asignarPedido()
+        Repartidor:
+            pedidoAsignado()
+            entregaPedido()
+        Almacenista:
+            listaProductos()
+            agregarProductos()
+    
+    Funciones Indirectas:
+        crearElemento()//Listo
+        agregarElemento()//Listo(crearProducto)
+        imprimirElemento()//Listo
+        crearLista()//Listo
+        vaciaLista()//Listo
+        imprimirLista()//Listo
+
+    Estructuras:
+        Listas://Listo
+            RepartidoresEnTransito
+            Productos(Lista de Producto/Almacen)
+            Carrito(Lista de Producto/Cliente)
+        Colas://Listo
+            RepartidoresEnEspera(FIFO)
+            Pedidos(Lista de Carritos)
+        Elementos://Listo
+            Cliente{
+                char nombre;
+                char direccion;
+                int telefono;
+                int costo;
+            }
+            Repartidor{
+                Repartidor *sig, *ant;
+                char nombre;
+                int id;
+            }
+            Producto{
+                Producto *ant, *sig;   
+                char nombre;
+                int precio;
+                int existencias;
+            }
+
+    Funciones Ligadas(Todas):
+        agregarProducto -> listaProductos -> seleccionProducto ->
+        revisarCarrito -> realizarPedido -> verPedidos -> 
+        repartidoresEspera -> asignarPedido -> repartidoresTransito -> 
+        pedidoAsignado -> entregaPedido
+
+    Funcionalidades:
+        Cliente:
+            Puede presionar:
+                [s]: Producto Siguiente
+                [f]: Ultimo Producto
+                [p]: Producto Anteior
+                [i]: Primer Producto
+            Seleccionar Producto(seleccionProducto)
+                Indicando la cantidad(Esta cantidad se reduce del inventario(listaProductos))
+            Cancelar un Producto
+                Indicando la cantidad(Esta cantidad se agrega al inventario(listaProductos))
+            Realizar Pedido
+                Ingresa su nombre, telefono, dirección
+                Se le presenta su costo total
+                Se ingresa el pedido a una cola
+        Gerente:
+            Asignar Pedido
+                Ver Cola de Peiddos
+                Ver Cola de Repartidores en espera
+                Asignar un pedido a repartidores
+        Repartidor:
+            Acceder a su identificación
+            Ver Pedido Asignado
+            Ver información del Cliente
+            Informar de pedido entregaPedido
+        Almacenista:
+            Agregar un Producto
+            Ver la lista de Productos
