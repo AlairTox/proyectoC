@@ -82,8 +82,7 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
 Carrito* nuevoCarrito(void){
     Carrito *c;
     c = malloc(sizeof(Carrito));
-    c->n = 0;
-    c->fin = c->inicio = c->cliente = NULL;
+    c->Carrito = c->cliente = NULL;
 }
 
 void imprimirCarrito(Carrito *carrito){
