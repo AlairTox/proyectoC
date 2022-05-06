@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h"
+#include "listas.h"
 
 //FUNCIONES CLIENTE
 
@@ -109,4 +110,31 @@ void realizarPedido(ListaProductos * lista){
 
 void eliminarProducto(){
     //elimina un producto del carrito y suma n a existencias
+}
+
+
+//Funciones Almacenista
+void agregarProductos(ListaProductos * lista){
+    char *nombre;
+    int cantidad;
+    int precio;
+    Producto *p = lista->inicio;
+    printf("Ingrese el nombre del producto:     ");
+    fflush(stdin);
+    gets(nombre);
+    fflush(stdin);
+    printf("Ingrese la cantidad a almacenar:    ");
+    scanf("%d", cantidad);
+    printf("Ingrese el precio del producto:     ");
+    scanf("%d", precio);
+    while(vaciaListaProductos(lista)){
+        if(nombre = p->nombre){
+            p->precio = precio;
+            p->existencias += cantidad;
+            return;
+        }
+        p = p->sig;
+    }
+    agregarProducto(lista, nombre, precio, cantidad);
+    return;
 }

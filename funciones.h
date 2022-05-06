@@ -23,7 +23,7 @@ void pedidoAsignado();
 void entregaPedido();
 
 //funciones Almacenista
-void listaProductos(); //siguiente (tal vez ya la hizo alair)
-void agregarProductos();
+//void navegacionMenu-Usamos la misma función del cliente, solo queremos navegar en la lista
+void agregarProductos(ListaProductos *lista);
 
 #endif // FUNCIONES_H_INCLUDED
