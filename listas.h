@@ -15,6 +15,14 @@ typedef struct ListaRepartidoresTransito{
     int n;
 }ListaRepartidoresTransito;
 
+typedef struct ListaCarrito{
+    ListaProductos *Carrito;
+    Cliente* cliente;
+}Carrito;
+
+//Funciones ListaCarrito
+Carrito* nuevoCarrito(void);
+void imprimirCarrito(Carrito* carrito);
 //Funciones ListaProductos
 ListaProductos *nuevaListaProductos(void);
 void imprimirListaProductos(ListaProductos *lista);

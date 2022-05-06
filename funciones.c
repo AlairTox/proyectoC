@@ -2,91 +2,115 @@
 #include <stdlib.h>
 #include "funciones.h"
 #include "listas.h"
+#include "colas.h"
 
 //FUNCIONES CLIENTE
 
 void impresionNavegacion(ListaProductos *lista){
-    //aca seria uh. imprimir las opciones wasdm+.
-    //si desean cambiar las letras dense. la que no me convence es m, la puse a lo pendejo.
-    //no tengo ganas de hacerlo ahorita hope this helps <3 son puros printfs tho
+    printf("Para ver el siguiente producto, pulse D");
+    printf("Para ver el producto anterior, pulse A");
+    printf("Para ver el primer producto, pulse W");
+    printf("Para ver el ultimo producto, pulse S");
 }
 
 //pendiente: como leer tanto mayus como minus
-//pendiente: ver como integrar la funcion de añadir y eliminar producto en el switch. Ponerlos dentro de navegacion?
-//separar cada una de las funciones?
+//volver a unir la mamada esta en 3 funciones navegacion productos cliente, navegacion cl
 
-void navegacionMenu(ListaProductos *lista, char opc){
+Producto *siguienteProducto(ListaProductos *lista, Producto *p){
+    if(p == lista->fin){
+        p = lista->inicio;
+        imprimirProducto(p);
+        return p;
+    }
+    p = p->sig;
+    imprimirProducto(p);
+    return p;
+}
+
+Producto *productoAnterior(ListaProductos *lista, Producto *p){
+    if(p == lista->inicio){
+        p = lista->fin;
+        imprimirProducto(p);
+        return p;
+    }
+    p = p->ant;
+    imprimirProducto(p);
+    return p;
+}
+
+Producto *primerProducto(ListaProductos *lista, Producto *p){
+    if(p == lista->inicio){
+        printf("\nYa se encuentra en el primer elemento de la lista\n");
+        return p;
+    }
+    p = lista->inicio;
+    imprimirProducto(p);
+    return p;
+}
+
+Producto *ultimoProducto(ListaProductos *lista, Producto *p){
+    if(p == lista->fin){
+        printf("\nYa se encuentra en el ultimo elemento de la lista\n");
+        return p;
+    }
+    p = lista->fin;
+    imprimirProducto(p);
+    return p;
+}
+
+void navegacionProductos(ListaProductos *lista, char opc){
     //Permite moverse a lo largo de cualquier menu de productos
     Producto *p;
     int check=0;
-    //Impresion del menu aca
 
     if(vaciaListaProductos(lista)){
         printf("No hay ningun articulo disponible.\n");
         return;
-    }
-    p = lista->inicio;
-    imprimirProducto(p);
+    }else{
+        p = lista->inicio;
+        imprimirProducto(p);
+        do{
+            opc = getchar();
+            switch(opc){
+                case 'D': //ir al siguiente
+                    p = siguienteProducto(lista, p);
+                    break;
 
-    do{
-        opc = getchar();
-        switch(opc){
-            case 'D': //ir al siguiente
-                if(p == lista->fin){
-                    p = lista->inicio;
-                    imprimirProducto(p);
+                case 'A': //ir al anterior
+                    p = productoAnterior(lista, p);
+                    break;
+
+                case 'W': //ir al inicio
+                    p = primerProducto(lista, p);
+                    break;
+
+                case 'S': //ir al final
+                    p = ultimoProducto(lista, p);
+                    break;
+
+                case 'M': //salir de este menu
+                    check = 1;
+                    break;
+
+                default:
+                    printf("Opcion incorrecta. Intente de nuevo.\n");
                     break;
                 }
-                p = p->sig;
-                imprimirProducto(p);
-                break;
-
-            case 'A': //ir al anterior
-                if(p == lista->inicio){
-                    p = lista->fin;
-                    imprimirProducto(p);
-                    break;
-                }
-                p = p->ant;
-                imprimirProducto(p);
-                break;
-
-            case 'W': //ir al inicio
-                if(p == lista->inicio){
-                    printf("\nYa se encuentra en el primer elemento de la lista\n");
-                    break;
-                }
-                p = lista->inicio;
-                imprimirProducto(p);
-                break;
-
-            case 'S': //ir al final
-                if(p == lista->fin){
-                    printf("\nYa se encuentra en el ultimo elemento de la lista\n");
-                    break;
-                }
-                p = lista->fin;
-                imprimirProducto(p);
-                break;
-
-            case 'M': //salir de este menu
-               check = 1;
-               break;
-
-            default:
-                printf("");
-            }
-        }while(!check);
+            }while(!check);
+        }
     }
 
-void seleccionProducto(ListaProductos *lista){
+    
+void seleccionProducto(ListaProductos *lista, Carrito *carrito){
 	//a�adir al carrito a la lista: (resta n a existencias)
 }
 
-void revisarCarrito(ListaProductos * lista){
+void revisarCarrito(Carrito * carrito){
+    char opc;
     printf("Este es su carrito: \n");
     printf("***************************\n");
-    navegacionMenu(lista);
+    opc = getchar();
+    navegacionMenu(carrito, opc);
 }
 
 void realizarPedido(ListaProductos * lista){
@@ -97,9 +121,9 @@ void realizarPedido(ListaProductos * lista){
     printf("Desea finalizar su pedido? [Y/N] \n");
 
     if(opc == 'Y' || opc == 'y'){
+
+        //crea nuevo cliente en la lista de clientes
         //imprime para que pida los datos
-        //crea nuevo cliente
-        //
         //se da el anuncio de que el pedido ya est� en camino
     }
     else if(opc == 'N' || opc == 'n'){
@@ -113,7 +137,21 @@ void eliminarProducto(){
 }
 
 
-//Funciones Almacenista
+//Funciones Gerente------------------------------------------------------------------------------------------------------------------
+void verPedidos(Pedidos *colaPedidos){
+    while(vacioPedido(colaPedidos)){
+        imprimirListaProductos(colaPedidos->Pedidos);
+    }
+}
+
+void repartidoresEspera(RepartidoresEspera *colaRepartidores){
+    Repartidor *p = colaRepartidores->RepartidoresEnEspera;
+    for(int j = 0;j < colaRepartidores->numeroRepartidoresEspera; j++){
+        imprimirRepartidor(p);
+    }
+}
+
+//Funciones Almacenista--------------------------------------------------------------------------------------------------------------
 void agregarProductos(ListaProductos * lista){
     char *nombre;
     int cantidad;
@@ -137,4 +175,8 @@ void agregarProductos(ListaProductos * lista){
     }
     agregarProducto(lista, nombre, precio, cantidad);
     return;
+}
+//
+void pedidoAsignado(){
+    
 }

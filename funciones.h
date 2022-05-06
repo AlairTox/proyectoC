@@ -13,8 +13,8 @@ void realizarPedido();
 void eliminarProducto();
 
 //funciones Gerente
-void verPedidos();
-void repartidoresEspera();
+void verPedidos(Pedidos *colaPedidos);
+void repartidoresEspera(RepartidoresEspera *colaRepartidores);
 void repartidoresTransito();
 void asignarPedido();
 

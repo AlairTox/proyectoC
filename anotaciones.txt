@@ -12,7 +12,7 @@ Requerimentos:
         Repartidor:
             pedidoAsignado()
             entregaPedido()
-        Almacenista:
+        Almacenista://Listo
             listaProductos()
             agregarProductos()
     

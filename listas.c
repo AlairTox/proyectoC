@@ -12,7 +12,7 @@ ListaProductos *nuevaListaProductos(void){
     return p;
 }
 
-//VERFICAR DE LA LISTA DE PRODUCTOS ESTÁ VACÍA
+//VERIFICAR QUE LA LISTA DE PRODUCTOS ESTÁ VACÍA
 int vaciaListaProductos(ListaProductos *lista){
     return lista->inicio == NULL;    
 }
@@ -21,7 +21,7 @@ int vaciaListaProductos(ListaProductos *lista){
 void imprimirListaProductos(ListaProductos * lista){
     Producto *p;
     if(vaciaListaProductos(lista)){
-        printf("Lista de Productos vacia\n");
+        printf("Lista vacia\n");
         return;
     }
     p = lista->inicio;
@@ -29,7 +29,7 @@ void imprimirListaProductos(ListaProductos * lista){
         imprimirProducto(p);
         p = p->sig;
     }
-    printf("\n");
+    printf("-------------------------\n");
     return;
 }
 
@@ -78,3 +78,15 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     return;
 }
 
+//Funciones Carrito
+Carrito* nuevoCarrito(void){
+    Carrito *c;
+    c = malloc(sizeof(Carrito));
+    c->n = 0;
+    c->fin = c->inicio = c->cliente = NULL;
+}
+
+void imprimirCarrito(Carrito *carrito){
+    imprimirListaProductos(carrito);
+    imprimirCliente(carrito->cliente);  
+}
