@@ -6,11 +6,12 @@
 
 //FUNCIONES CLIENTE
 
-void impresionNavegacion(ListaProductos *lista){
+void impresionNavegacion(void){
     printf("Para ver el siguiente producto, pulse D");
     printf("Para ver el producto anterior, pulse A");
     printf("Para ver el primer producto, pulse W");
     printf("Para ver el ultimo producto, pulse S");
+    printf("Para salir del menu, pulse X");
 }
 
 //pendiente: como leer tanto mayus como minus
@@ -88,8 +89,12 @@ void navegacionProductos(ListaProductos *lista, char opc){
                     p = ultimoProducto(lista, p);
                     break;
 
-                case 'M': //salir de este menu
+                case 'X': //salir de este menu
                     check = 1;
+                    break;
+
+                case '+': //aniadir al carro
+                    //funcion de añadir
                     break;
 
                 default:
@@ -102,15 +107,19 @@ void navegacionProductos(ListaProductos *lista, char opc){
 
     
 void seleccionProducto(ListaProductos *lista, Carrito *carrito){
-	//a�adir al carrito a la lista: (resta n a existencias)
+	//obtener los datos de p
+    //leer cuantas existencias desea añadir
+    //restar n a lista de productos
+    //crear producto en lista carrito
+    //ponerle n a enxistencias
 }
 
 void revisarCarrito(Carrito * carrito){
+    //aqui va la navegacion del carrito
     char opc;
     printf("Este es su carrito: \n");
     printf("***************************\n");
     opc = getchar();
-    navegacionMenu(carrito, opc);
 }
 
 void realizarPedido(ListaProductos * lista){
@@ -121,6 +130,9 @@ void realizarPedido(ListaProductos * lista){
     printf("Desea finalizar su pedido? [Y/N] \n");
 
     if(opc == 'Y' || opc == 'y'){
+        printf("Ingrese su nombre completo:\t");
+        print("Ingrese su direccion:\t");
+        print("Ingrese su telefono:\t");
 
         //crea nuevo cliente en la lista de clientes
         //imprime para que pida los datos
