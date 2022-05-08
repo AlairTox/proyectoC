@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 #include "listas.h"
+
 //FUNCIONES DE LA LISTA DE PRODUCTOS------------------------------
 //CREAR LISTA DE PRODUCTOS
 ListaProductos *nuevaListaProductos(void){
@@ -14,11 +15,11 @@ ListaProductos *nuevaListaProductos(void){
 
 //VERIFICAR QUE LA LISTA DE PRODUCTOS ESTÁ VACÍA
 int vaciaListaProductos(ListaProductos *lista){
-    return lista->inicio == NULL;    
+    return lista->inicio == NULL;
 }
 
 //IMPRIMIR LA LISTA DE PRODUCTOS
-void imprimirListaProductos(ListaProductos * lista){
+void imprimirListaProductos(ListaProductos *lista){
     Producto *p;
     if(vaciaListaProductos(lista)){
         printf("Lista vacia\n");
@@ -36,7 +37,7 @@ void imprimirListaProductos(ListaProductos * lista){
 //AGREGAR UN PRODUCTO A LA LISTA DE PRODUCTOS
 void agregarProducto(ListaProductos *lista, char *nombre, int precio, int existencias){
     Producto *e =crearProducto(nombre, precio, existencias);
-    if(listaVacia(lista)){
+    if(vaciaListaProductos(lista)){
         lista->inicio = e;
         lista->fin = e;
         return;
@@ -58,7 +59,7 @@ ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void){
 
 //VERIFICAR SI LA LISTA DE REPARTIDORES ESTÁ VACÍA
 int vaciaListaRepartidoresTransito(ListaRepartidoresTransito *lista){
-    return lista->inicio == NULL;    
+    return lista->inicio == NULL;
 }
 
 //IMPRIME LISTA DE REPARTIDORES
@@ -78,14 +79,69 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     return;
 }
 
-//Funciones Carrito
-Carrito* nuevoCarrito(void){
-    Carrito *c;
-    c = malloc(sizeof(Carrito));
-    c->Carrito = c->cliente = NULL;
+//AÑADIR REPARTIDOR A LA LISTA DE REPARTIDORES EN TRANSITO
+void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id){
+        Repartidor *r = crearRepartidor (nombre, id);
+    if(vaciaListaRepartidoresTransito(lista)){
+        lista->inicio = r;
+        lista->fin = r;
+        return;
+    }
+    r->ant = lista->fin;
+    lista->fin->sig = r;
+    lista->fin = r;
 }
 
-void imprimirCarrito(Carrito *carrito){
-    imprimirListaProductos(carrito);
-    imprimirCliente(carrito->cliente);  
+
+
+//FUNCIONES DE CARRITO---------------------------------------------------------
+//CREAR NUEVO CARRITO
+ListaCarrito* nuevoCarrito(void){
+    ListaCarrito *c;
+    c = malloc(sizeof(ListaCarrito));
+    c->inicio = c->fin = NULL;
+    c->cliente = NULL;
+    return c;
+}
+
+//IMPRIMIR EL CARRITO
+void imprimirCarrito(ListaCarrito *carrito){
+    Producto *p;
+    if(vacioCarrito(carrito)){
+        printf("Su carrito esta vacio\n");
+        return;
+    }
+    p = carrito->inicio;
+    while(p!=NULL){
+        imprimirProducto(p);
+        p = p->sig;
+    }
+    printf("-------------------------\n");
+    if(carrito->cliente){
+        imprimirCliente(carrito->cliente);
+    }
+}
+
+//VERIFICAR SI EL CARRITO ESTA VACIO
+int vacioCarrito(ListaCarrito *carrito){
+    return carrito->inicio == NULL;
+}
+
+//AGREGAR PEDIDO AL CARRITO
+void agregarPedido(ListaCarrito *carrito, char *nombre, int precio, int existencias){
+    Producto *e = crearProducto(nombre, precio, existencias);
+    if(vacioCarrito(carrito)){
+        carrito->inicio = e;
+        carrito->fin = e;
+        return;
+    }
+    e->ant = carrito->fin;
+    carrito->fin->sig = e;
+    carrito->fin = e;
+}
+
+//AGREGAR DATOS DEL CLIENTE AL CARRITO
+void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, int costo){
+    Cliente *c = nuevoCliente(nombre, direccion, telefono, costo);
+    carrito->cliente = c;
 }

@@ -1,153 +1,229 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "funciones.h"
 #include "listas.h"
 #include "colas.h"
+#define MAX_CHAR 100
 
 //FUNCIONES CLIENTE
 
 void impresionNavegacion(void){
-    printf("Para ver el siguiente producto, pulse D");
-    printf("Para ver el producto anterior, pulse A");
-    printf("Para ver el primer producto, pulse W");
-    printf("Para ver el ultimo producto, pulse S");
-    printf("Para salir del menu, pulse X");
+    printf("Para ver el siguiente producto, pulse D\n");
+    printf("Para ver el producto anterior, pulse A\n");
+    printf("Para ver el primer producto, pulse W\n");
+    printf("Para ver el ultimo producto, pulse S\n");
+    printf("Para salir del menu, pulse X\n");
 }
 
-//pendiente: como leer tanto mayus como minus
-//volver a unir la mamada esta en 3 funciones navegacion productos cliente, navegacion cl
-
-Producto *siguienteProducto(ListaProductos *lista, Producto *p){
-    if(p == lista->fin){
-        p = lista->inicio;
-        imprimirProducto(p);
-        return p;
+void seleccionProducto(Producto *p, ListaCarrito *carrito){
+    int articulos;
+    printf("Cuantos articulos desea anadir a su carrito? \t");
+    scanf("%d", &articulos);
+    if(articulos > p->existencias){
+        printf("No puede pedir tantos articulos\n");
+    }else{
+        p->existencias = (p->existencias - articulos);
+        agregarPedido(carrito, p->nombre, p->precio, articulos);
+        printf("El producto ha sido agregado al carrito.\n");
     }
-    p = p->sig;
-    imprimirProducto(p);
-    return p;
 }
 
-Producto *productoAnterior(ListaProductos *lista, Producto *p){
-    if(p == lista->inicio){
-        p = lista->fin;
-        imprimirProducto(p);
-        return p;
-    }
-    p = p->ant;
-    imprimirProducto(p);
-    return p;
-}
-
-Producto *primerProducto(ListaProductos *lista, Producto *p){
-    if(p == lista->inicio){
-        printf("\nYa se encuentra en el primer elemento de la lista\n");
-        return p;
-    }
-    p = lista->inicio;
-    imprimirProducto(p);
-    return p;
-}
-
-Producto *ultimoProducto(ListaProductos *lista, Producto *p){
-    if(p == lista->fin){
-        printf("\nYa se encuentra en el ultimo elemento de la lista\n");
-        return p;
-    }
-    p = lista->fin;
-    imprimirProducto(p);
-    return p;
-}
-
-void navegacionProductos(ListaProductos *lista, char opc){
-    //Permite moverse a lo largo de cualquier menu de productos
+int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
+    //Permite moverse a lo largo del menu de productos y añadir al carrito
+    char opc;
     Producto *p;
     int check=0;
 
     if(vaciaListaProductos(lista)){
         printf("No hay ningun articulo disponible.\n");
-        return;
+        system("Pause");
+        check = 1;
+        system("cls");
+        return check;
     }else{
         p = lista->inicio;
-        imprimirProducto(p);
         do{
+            system("cls");
+            impresionNavegacion();
+            printf("Para agregar un producto a su carrito, pulse +\n");
+            imprimirProducto(p);
+            fflush(stdin);
             opc = getchar();
+            fflush(stdin);
             switch(opc){
                 case 'D': //ir al siguiente
-                    p = siguienteProducto(lista, p);
+                    if(p == lista->fin){
+                        p = lista->inicio;
+                        break;
+                    }
+                    p = p->sig;
                     break;
 
                 case 'A': //ir al anterior
-                    p = productoAnterior(lista, p);
+                    if(p == lista->inicio){
+                        p = lista->fin;
+                        break;
+                    }
+                    p = p->ant;
                     break;
 
                 case 'W': //ir al inicio
-                    p = primerProducto(lista, p);
+                    if(p == lista->inicio){
+                        printf("\nYa se encuentra en el primer elemento de la lista\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = lista->inicio;
                     break;
 
                 case 'S': //ir al final
-                    p = ultimoProducto(lista, p);
+                    if(p == lista->fin){
+                        printf("\nYa se encuentra en el ultimo elemento de la lista\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = lista->fin;
                     break;
 
                 case 'X': //salir de este menu
                     check = 1;
+                    system("cls");
                     break;
 
-                case '+': //aniadir al carro
-                    //funcion de añadir
+                case '+': //añadir al carro
+                    seleccionProducto(p, carrito);
+                    system("Pause");
                     break;
 
                 default:
                     printf("Opcion incorrecta. Intente de nuevo.\n");
+                    system("Pause");
                     break;
                 }
             }while(!check);
         }
+        return check;
     }
 
-    
-void seleccionProducto(ListaProductos *lista, Carrito *carrito){
-	//obtener los datos de p
-    //leer cuantas existencias desea añadir
-    //restar n a lista de productos
-    //crear producto en lista carrito
-    //ponerle n a enxistencias
+void eliminarProductoCarrito(Producto *p){
+    Producto *nodoBorrado = p;
+    p = p->sig;
+    nodoBorrado->sig = NULL;
 }
 
-void revisarCarrito(Carrito * carrito){
-    //aqui va la navegacion del carrito
+int revisarCarrito(ListaCarrito *carrito){
+    //permite navegar el carrito y eliminar productos de este
     char opc;
-    printf("Este es su carrito: \n");
-    printf("***************************\n");
-    opc = getchar();
-}
+    Producto *p;
+    int check=0;
 
-void realizarPedido(ListaProductos * lista){
-    char opc;
+    if(vacioCarrito(carrito)){
+        printf("No hay ningun articulo en su carrito.\n");
+        system("Pause");
+        check=1;
+        system("cls");
+        return check;
+    }else{
+        p = carrito->inicio;
+        do{
+            system("cls");
+            impresionNavegacion();
+            printf("Para eliminar un producto de su carrito, pulse -\n");
+            imprimirProducto(p);
+            fflush(stdin);
+            opc = getchar();
+            fflush(stdin);
+            switch(opc){
+                case 'D': //ir al siguiente
+                    if(p == carrito->fin){
+                        p = carrito->inicio;
+                        break;
+                    }
+                    p = p->sig;
+                    break;
+
+                case 'A': //ir al anterior
+                    if(p == carrito->inicio){
+                        p = carrito->fin;
+                        break;
+                    }
+                    p = p->ant;
+                    break;
+
+                case 'W': //ir al inicio
+                    if(p == carrito->inicio){
+                        printf("\nYa se encuentra en el primer elemento de su carrito\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = carrito->inicio;
+                    break;
+
+                case 'S': //ir al final
+                    if(p == carrito->fin){
+                        printf("\nYa se encuentra en el ultimo elemento de su carrito\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = carrito->fin;
+                    break;
+
+                case 'X': //salir de este menu
+                    check = 1;
+                    system("cls");
+                    break;
+
+                case '-': //eliminar del carrito
+                    eliminarProductoCarrito(p);
+                    printf("Producto eliminado\n");
+                    system("Pause");
+                    break;
+
+                default:
+                    printf("Opcion incorrecta. Intente de nuevo.\n");
+                    system("Pause");
+                    break;
+                }
+            }while(!check);
+        }
+    return check;
+    }
+
+void realizarPedido(ListaCarrito *carrito){
+    char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
+    double telefono;
     printf("Este es su pedido final: \n");
     printf("***************************\n");
-    imprimirListaProductos(lista);
+    imprimirCarrito(carrito);
     printf("Desea finalizar su pedido? [Y/N] \n");
-
-    if(opc == 'Y' || opc == 'y'){
+    fflush(stdin);
+    opcPedido = getchar();
+    fflush(stdin);
+    if(opcPedido == 'Y' || opcPedido == 'y'){
         printf("Ingrese su nombre completo:\t");
-        print("Ingrese su direccion:\t");
-        print("Ingrese su telefono:\t");
-
-        //crea nuevo cliente en la lista de clientes
-        //imprime para que pida los datos
-        //se da el anuncio de que el pedido ya est� en camino
+        fflush(stdin);
+        gets(nombre);
+        fflush(stdin);
+        printf("Ingrese su direccion:\t");
+        fflush(stdin);
+        gets(direccion);
+        fflush(stdin);
+        printf("Ingrese su telefono:\t");
+        scanf("%lf", &telefono);
+        agregarCliente(carrito, nombre, direccion, telefono, 200);
+        printf("\nSu pedido se ha realizado exitosamente\n");
     }
-    else if(opc == 'N' || opc == 'n'){
-        printf("Se le regresar� al menu principal para clientes.\n");
-        menuCliente();
+    else if(opcPedido == 'N' || opcPedido == 'n'){
+        printf("Se le regresara al menu principal para clientes.\n");
+        system("Pause");
+        return;
+    }
+    else{
+        printf("Opcion incorrecta. \n");
+        system("Pause");
     }
 }
-
-void eliminarProducto(){
-    //elimina un producto del carrito y suma n a existencias
-}
-
 
 //Funciones Gerente------------------------------------------------------------------------------------------------------------------
 void verPedidos(Pedidos *colaPedidos){
@@ -164,21 +240,21 @@ void repartidoresEspera(RepartidoresEspera *colaRepartidores){
 }
 
 //Funciones Almacenista--------------------------------------------------------------------------------------------------------------
-void agregarProductos(ListaProductos * lista){
-    char *nombre;
-    int cantidad;
-    int precio;
+void agregarProductos(ListaProductos *lista){
+    char nombre[MAX_CHAR];
+    int cantidad=0;
+    int precio=0;
     Producto *p = lista->inicio;
     printf("Ingrese el nombre del producto:     ");
     fflush(stdin);
     gets(nombre);
     fflush(stdin);
     printf("Ingrese la cantidad a almacenar:    ");
-    scanf("%d", cantidad);
+    scanf("%d", &cantidad);
     printf("Ingrese el precio del producto:     ");
-    scanf("%d", precio);
+    scanf("%d", &precio);
     while(vaciaListaProductos(lista)){
-        if(nombre = p->nombre){
+        if(strcmpi (nombre, p->nombre)){
             p->precio = precio;
             p->existencias += cantidad;
             return;
@@ -190,5 +266,5 @@ void agregarProductos(ListaProductos * lista){
 }
 //
 void pedidoAsignado(){
-    
+
 }

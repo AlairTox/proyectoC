@@ -1,0 +1,23 @@
+CAMBIOS:
+-Se modificaron todas las funciones de elementos ya existentes, haciendolas funcionales
+-Se crearon funciones en listaCarrito. Sus funciones todas son funcionales
+-Se añadió la funcion agregarRepartidor y se hizo funcional.
+-Todas las funciones de listaProductos, listaRepartidoresTransito y listaCarrito son funcionales.
+-Se modificaron las funciones de menuInicial y menuCliente.
+
+Archivos modificados:
+elemento.c
+elemento.h
+funciones.c
+funciones.h
+listas.c
+listas.h
+main.c
+menus.c
+menus.h
+
+*** PENDIENTE ****
+Leer tanto mayus y minus en las navegaciones de cliente
+Hacer que funcione eliminar producto
+Calcular el costo a pagar en realizarPedido
+Corregir en todos los menús: que lea caracteres tambien, para que no explote el programa

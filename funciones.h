@@ -2,15 +2,15 @@
 #define FUNCIONES_H_INCLUDED
 
 #include "listas.h"
-#include "elemento.h"
+#include "colas.h"
 
 //funciones Cliente
-void impresionNavegacion(ListaProductos *lista);
-void navegacionMenu(ListaProductos *lista);
-void seleccionProducto(ListaProductos *lista);
-void revisarCarrito();
-void realizarPedido();
-void eliminarProducto();
+void impresionNavegacion(void);
+void seleccionProducto(Producto *p, ListaCarrito *carrito);
+int navegacionProductos(ListaProductos *lista, ListaCarrito *Carrito);
+void eliminarProductoCarrito(Producto *p);
+int revisarCarrito(ListaCarrito *carrito);
+void realizarPedido(ListaCarrito *carrito);
 
 //funciones Gerente
 void verPedidos(Pedidos *colaPedidos);

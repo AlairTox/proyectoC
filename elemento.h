@@ -4,7 +4,7 @@
 typedef struct Cliente{
     char *nombre;
     char *direccion;
-    int telefono;
+    double telefono;
     int costo;
 }Cliente;
 
@@ -26,7 +26,7 @@ Producto *crearProducto(char *nombre, int precio, int existencias);
 void imprimirProducto(Producto *e);
 
 //Funciones Cliente
-Cliente *nuevoCliente(char *nombre, char *direccion, int telefono, int costo);
+Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, int costo);
 void imprimirCliente(Cliente * C);
 
 //FuncionesRepartidor

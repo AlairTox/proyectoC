@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listas.h"
+#include "funciones.h"
 
 int menuInicial(void){
     int opcion;
@@ -16,8 +17,8 @@ int menuInicial(void){
     return opcion;
 }
 
-void menuCliente(void){
-    int opcionCliente;
+int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente){
+    int check;
     do{
         printf("Este es el menu para Clientes\n");
         printf("Ingresa [1]: Seleccionar Productos\n");
@@ -28,18 +29,37 @@ void menuCliente(void){
     }while(opcionCliente < 1 || opcionCliente > 4);
     switch(opcionCliente){
         case 1:
-            seleccionProducto();
+            do{
+                system("cls");
+                check = navegacionProductos(lista, carrito);
+            }while(!check);
         break;
         case 2:
-            revisarCarrito();
+            do{
+                system("cls");
+                check = revisarCarrito(carrito);
+            }while(!check);
         break;
-        case 3: 
-            realizarPedido();
+        case 3:
+            system("cls");
+            if(vacioCarrito(carrito)){
+                printf("No hay ningun articulo en su carrito.\n");
+                system("Pause");
+                system("cls");
+            }else{
+                realizarPedido(carrito);
+                //imprimirCarrito(carrito); //ESTO ES SOLO PARA VERIFICAR QUE QUEDE BIEN. SE DEBE BORRAR.
+                //fflush(stdin);
+                system("Pause");
+                system("cls");
+                //return opcionCliente;
+            }
         break;
         case 4:
-            return;
+            return opcionCliente;
         break;
     }
+    return opcionCliente;
 }
 
 void menuGerente(void){
@@ -55,61 +75,64 @@ void menuGerente(void){
     }while(opcionGerente < 1 || opcionGerente > 5);
     switch(opcionGerente){
         case 1:
-            verPedidos();
+
+            //verPedidos();
         break;
         case 2:
-            repartidoresEspera();
+            //repartidoresEspera();
         break;
-        case 3: 
-            repartidoresTransito();
+        case 3:
+            //repartidoresTransito();
         break;
         case 4:
-            asignarPedido();
+            //asignarPedido();
         break;
         case 5:
-            return; 
+            return;
         break;
-    }    
+    }
 }
 
 void menuRepartidor(void){
-    int opcionRepartidor;
+    int opcionRepartidor=0;
     do{
         printf("Este es el menu del Repartidor\n");
         printf("Ingresa [1]: Ver Pedido Asignado\n");
         printf("Ingresa [2]: Notificar una entrega de pedido\n");
         printf("Ingresa [3]: Salir de este menu\n");
+        scanf("%d", &opcionRepartidor);
     }while(opcionRepartidor < 1 || opcionRepartidor > 3);
     switch(opcionRepartidor){
         case 1:
-            pedidoAsignado();
+            //pedidoAsignado();
         break;
         case 2:
-            entregaPedido();
+            //entregaPedido();
         break;
-        case 3: 
+        case 3:
             return;
         break;
-    }    
+    }
 }
 
 void menuAlmacenista(void){
-    int opcionAlmacenista;
+    int opcionAlmacenista=0;
     do{
         printf("Este es el menu del Almacenista\n");
         printf("Ingresa [1]: Mostrar la lista de Productos\n");
         printf("Ingresa [2]: Registrar la llegada de un producto\n");
         printf("Ingresa [3]: Salir de este menu\n");
+        scanf("%d", &opcionAlmacenista);
     }while(opcionAlmacenista < 1 || opcionAlmacenista > 3);
     switch(opcionAlmacenista){
         case 1:
-            listaProductos();
+            //listaProductos();
         break;
         case 2:
-            agregarProductos();
+            //agregarProductos();
         break;
-        case 3: 
+        case 3:
             return;
         break;
-    }    
+    }
 }
