@@ -1,4 +1,4 @@
-#include <stdio.h>
+    #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "funciones.h"
@@ -7,6 +7,15 @@
 #define MAX_CHAR 100
 
 //FUNCIONES CLIENTE
+char convertirMayus(char caracter){
+    if (isalpha(caracter)){
+        if(caracter>=97 && caracter<=122){
+            caracter-= 32;
+            return caracter;
+        }else
+            return caracter;
+    }
+}
 
 void impresionNavegacion(void){
     printf("Para ver el siguiente producto, pulse D\n");
@@ -50,6 +59,7 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
             imprimirProducto(p);
             fflush(stdin);
             opc = getchar();
+            convertirMayus(opc);
             fflush(stdin);
             switch(opc){
                 case 'D': //ir al siguiente
@@ -110,6 +120,11 @@ void eliminarProductoCarrito(Producto *p){
     Producto *nodoBorrado = p;
     p = p->sig;
     nodoBorrado->sig = NULL;
+    // Producto *nodoBorrado = p;
+    // p->ant->sig = p->sig;
+    // p->sig->ant = p->ant;
+    // p->sig = p->ant = NULL
+
 }
 
 int revisarCarrito(ListaCarrito *carrito){
@@ -133,6 +148,7 @@ int revisarCarrito(ListaCarrito *carrito){
             imprimirProducto(p);
             fflush(stdin);
             opc = getchar();
+            convertirMayus(opc);
             fflush(stdin);
             switch(opc){
                 case 'D': //ir al siguiente
@@ -191,8 +207,15 @@ int revisarCarrito(ListaCarrito *carrito){
     }
 
 void realizarPedido(ListaCarrito *carrito){
+    Producto *p = carrito->inicio;
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
+    float pago;
+    while(p->precio){
+        pago = pago + p->precio;
+        p = p->sig;
+    }
+
     printf("Este es su pedido final: \n");
     printf("***************************\n");
     imprimirCarrito(carrito);
@@ -212,6 +235,7 @@ void realizarPedido(ListaCarrito *carrito){
         printf("Ingrese su telefono:\t");
         scanf("%lf", &telefono);
         agregarCliente(carrito, nombre, direccion, telefono, 200);
+        printf("Debe pagar: %.2f pesos\n", pago);
         printf("\nSu pedido se ha realizado exitosamente\n");
     }
     else if(opcPedido == 'N' || opcPedido == 'n'){
@@ -267,4 +291,41 @@ void agregarProductos(ListaProductos *lista){
 //
 void pedidoAsignado(){
 
+}
+//FUNCIONES Producto
+void grabarProducto(char *archivo, struct Producto p[])
+    {
+        FILE *file;
+        file = fopen(archivo, "wt");
+
+        if (file == NULL)
+        {
+            printf("No se puede abrir el archivo: [%s]\n", archivo);
+            exit(-1);
+        }
+        for(int k=0; k<21;k++) {
+            fwrite(&p[k], sizeof(struct Producto), 1, file);
+        }   
+            
+        
+        fclose(file);
+        printf("Archivo generado exitosamente!\n");
+    }
+
+void recuperarProducto(char *archivo, struct Producto v[])
+{
+    FILE *file;
+    file = fopen(archivo, "r");
+
+    if (file == NULL)
+    {
+        printf("No existe el archivo: \n");
+        exit(-2);
+    }
+
+    for (int k = 0; k < 21; k++)
+    {
+        fread(&v[k], sizeof(struct Producto), 21, file);
+    }
+    fclose(file);
 }

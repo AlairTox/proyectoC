@@ -15,9 +15,3 @@ listas.h
 main.c
 menus.c
 menus.h
-
-*** PENDIENTE ****
-Leer tanto mayus y minus en las navegaciones de cliente
-Hacer que funcione eliminar producto
-Calcular el costo a pagar en realizarPedido
-Corregir en todos los menús: que lea caracteres tambien, para que no explote el programa
