@@ -1,6 +1,8 @@
-    #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+
 #include "funciones.h"
 #include "listas.h"
 #include "colas.h"
@@ -10,11 +12,12 @@
 char convertirMayus(char caracter){
     if (isalpha(caracter)){
         if(caracter>=97 && caracter<=122){
-            caracter-= 32;
+            caracter-=32;
             return caracter;
         }else
             return caracter;
-    }
+    }else
+        return caracter;
 }
 
 void impresionNavegacion(void){
@@ -32,7 +35,7 @@ void seleccionProducto(Producto *p, ListaCarrito *carrito){
     if(articulos > p->existencias){
         printf("No puede pedir tantos articulos\n");
     }else{
-        p->existencias = (p->existencias - articulos);
+        //p->existencias = (p->existencias - articulos);
         agregarPedido(carrito, p->nombre, p->precio, articulos);
         printf("El producto ha sido agregado al carrito.\n");
     }
@@ -59,8 +62,8 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
             imprimirProducto(p);
             fflush(stdin);
             opc = getchar();
-            convertirMayus(opc);
             fflush(stdin);
+            opc = convertirMayus(opc);
             switch(opc){
                 case 'D': //ir al siguiente
                     if(p == lista->fin){
@@ -117,14 +120,11 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
     }
 
 void eliminarProductoCarrito(Producto *p){
+    //pendiente: que funcione bien esto
     Producto *nodoBorrado = p;
-    p = p->sig;
-    nodoBorrado->sig = NULL;
-    // Producto *nodoBorrado = p;
-    // p->ant->sig = p->sig;
-    // p->sig->ant = p->ant;
-    // p->sig = p->ant = NULL
-
+    p->ant->sig = p->sig;
+    p->sig->ant = p->ant;
+    p->sig = p->ant = NULL;
 }
 
 int revisarCarrito(ListaCarrito *carrito){
@@ -148,8 +148,8 @@ int revisarCarrito(ListaCarrito *carrito){
             imprimirProducto(p);
             fflush(stdin);
             opc = getchar();
-            convertirMayus(opc);
             fflush(stdin);
+            opc = convertirMayus(opc);
             switch(opc){
                 case 'D': //ir al siguiente
                     if(p == carrito->fin){
@@ -211,11 +211,7 @@ void realizarPedido(ListaCarrito *carrito){
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
     float pago;
-    while(p->precio){
-        pago = pago + p->precio;
-        p = p->sig;
-    }
-
+    //pendiente: obtener el total de pago
     printf("Este es su pedido final: \n");
     printf("***************************\n");
     imprimirCarrito(carrito);
@@ -305,9 +301,9 @@ void grabarProducto(char *archivo, struct Producto p[])
         }
         for(int k=0; k<21;k++) {
             fwrite(&p[k], sizeof(struct Producto), 1, file);
-        }   
-            
-        
+        }
+
+
         fclose(file);
         printf("Archivo generado exitosamente!\n");
     }
