@@ -6,6 +6,7 @@
 #include "funciones.h"
 
 int main(){
+    Pedidos *colaPedidos = crearColaPedidos(2);
     int o=0;
     printf("Pruebas Productos\n\n");
     ListaProductos *listProd = nuevaListaProductos();
@@ -34,7 +35,7 @@ int main(){
                 case 1:
                     system("cls");
                     do{
-                    opcionCliente = menuCliente(listProd, carro1, opcionCliente);
+                    opcionCliente = menuCliente(listProd, carro1, opcionCliente, colaPedidos);
                     }while(opcionCliente != 4);
                     break;
 
@@ -51,5 +52,5 @@ int main(){
             system("cls");
         }while(opc != 5);
     }
-
+    imprimirColaPedidos(colaPedidos);
 }

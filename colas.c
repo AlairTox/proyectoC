@@ -17,9 +17,10 @@ Pedidos* crearColaPedidos(int numeroPedidos){
     p->tope = -1;
     p->numeroPedidos = numeroPedidos;
     p->Pedidos = malloc(sizeof(ListaProductos)*numeroPedidos);
+    return p;
 }
 
-void pushPedido(Pedidos *colaPedidos, ListaProductos *carritoCliente){
+void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
     //Añade el nuevo pedido al inicio de la cola
     if(colaPedidos->tope == (colaPedidos->numeroPedidos -1)){
         colaPedidos->numeroPedidos = colaPedidos->numeroPedidos + 5;
@@ -32,7 +33,7 @@ void pushPedido(Pedidos *colaPedidos, ListaProductos *carritoCliente){
     colaPedidos->Pedidos[0]  = *carritoCliente;
 }
 
-void popPedido(Pedidos *colaPedidos, ListaProductos* pedidoAsignado){
+void popPedido(Pedidos *colaPedidos, ListaCarrito* pedidoAsignado){
     //Elimina el pedido más antiguo una vez el pedido se asigna a un repartidor
     if(vacioPedido(colaPedidos)){
         printf("La cola de pedidos está vacía\n");
@@ -41,6 +42,12 @@ void popPedido(Pedidos *colaPedidos, ListaProductos* pedidoAsignado){
         *pedidoAsignado = colaPedidos->Pedidos[colaPedidos->tope];
         colaPedidos->tope--;
     }
+}
+
+void imprimirColaPedidos(Pedidos *colaPedidos){
+    while(vacioPedido(colaPedidos)){
+          imprimirCarrito(colaPedidos->Pedidos);
+          }
 }
 
 //Funciones Cola de Repartidores en Espera
@@ -80,5 +87,11 @@ void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorL
         *repartidorLibre = colaRepartidores->RepartidoresEnEspera[colaRepartidores->tope];
         colaRepartidores->tope--;
         return;
+    }
+}
+
+void imprimirColaRepartidores(RepartidoresEspera *colaRepartidores){
+    while(vacioRepartidor(colaRepartidores)){
+        imprimirRepartidor(colaRepartidores->RepartidoresEnEspera);
     }
 }

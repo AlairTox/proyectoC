@@ -16,6 +16,7 @@ typedef struct ListaRepartidoresTransito{
 }ListaRepartidoresTransito;
 
 typedef struct ListaCarrito{
+    struct ListaCarrito *ant, *sig;
     Producto *inicio, *fin;
     int n;
     Cliente* cliente;

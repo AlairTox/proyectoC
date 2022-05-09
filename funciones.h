@@ -11,7 +11,7 @@ void seleccionProducto(Producto *p, ListaCarrito *carrito);
 int navegacionProductos(ListaProductos *lista, ListaCarrito *Carrito);
 void eliminarProductoCarrito(Producto *p);
 int revisarCarrito(ListaCarrito *carrito);
-void realizarPedido(ListaCarrito *carrito);
+void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
 
 //funciones Gerente
 void verPedidos(Pedidos *colaPedidos);

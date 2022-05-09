@@ -119,13 +119,13 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
         return check;
     }
 
-void eliminarProductoCarrito(Producto *p){
+/*void eliminarProductoCarrito(Producto *p){
     //pendiente: que funcione bien esto
     Producto *nodoBorrado = p;
     p->ant->sig = p->sig;
     p->sig->ant = p->ant;
     p->sig = p->ant = NULL;
-}
+}*/
 
 int revisarCarrito(ListaCarrito *carrito){
     //permite navegar el carrito y eliminar productos de este
@@ -191,7 +191,7 @@ int revisarCarrito(ListaCarrito *carrito){
                     break;
 
                 case '-': //eliminar del carrito
-                    eliminarProductoCarrito(p);
+                    //eliminarProductoCarrito(p);
                     printf("Producto eliminado\n");
                     system("Pause");
                     break;
@@ -206,7 +206,7 @@ int revisarCarrito(ListaCarrito *carrito){
     return check;
     }
 
-void realizarPedido(ListaCarrito *carrito){
+void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
     Producto *p = carrito->inicio;
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
@@ -231,6 +231,7 @@ void realizarPedido(ListaCarrito *carrito){
         printf("Ingrese su telefono:\t");
         scanf("%lf", &telefono);
         agregarCliente(carrito, nombre, direccion, telefono, 200);
+        pushPedido(colaPedidos, carrito);
         printf("Debe pagar: %.2f pesos\n", pago);
         printf("\nSu pedido se ha realizado exitosamente\n");
     }
@@ -248,80 +249,6 @@ void realizarPedido(ListaCarrito *carrito){
 //Funciones Gerente------------------------------------------------------------------------------------------------------------------
 void verPedidos(Pedidos *colaPedidos){
     while(vacioPedido(colaPedidos)){
-        imprimirListaProductos(colaPedidos->Pedidos);
+        imprimirColaPedidos(colaPedidos);
     }
-}
-
-void repartidoresEspera(RepartidoresEspera *colaRepartidores){
-    Repartidor *p = colaRepartidores->RepartidoresEnEspera;
-    for(int j = 0;j < colaRepartidores->numeroRepartidoresEspera; j++){
-        imprimirRepartidor(p);
-    }
-}
-
-//Funciones Almacenista--------------------------------------------------------------------------------------------------------------
-void agregarProductos(ListaProductos *lista){
-    char nombre[MAX_CHAR];
-    int cantidad=0;
-    int precio=0;
-    Producto *p = lista->inicio;
-    printf("Ingrese el nombre del producto:     ");
-    fflush(stdin);
-    gets(nombre);
-    fflush(stdin);
-    printf("Ingrese la cantidad a almacenar:    ");
-    scanf("%d", &cantidad);
-    printf("Ingrese el precio del producto:     ");
-    scanf("%d", &precio);
-    while(vaciaListaProductos(lista)){
-        if(strcmpi (nombre, p->nombre)){
-            p->precio = precio;
-            p->existencias += cantidad;
-            return;
-        }
-        p = p->sig;
-    }
-    agregarProducto(lista, nombre, precio, cantidad);
-    return;
-}
-//
-void pedidoAsignado(){
-
-}
-//FUNCIONES Producto
-void grabarProducto(char *archivo, struct Producto p[])
-    {
-        FILE *file;
-        file = fopen(archivo, "wt");
-
-        if (file == NULL)
-        {
-            printf("No se puede abrir el archivo: [%s]\n", archivo);
-            exit(-1);
-        }
-        for(int k=0; k<21;k++) {
-            fwrite(&p[k], sizeof(struct Producto), 1, file);
-        }
-
-
-        fclose(file);
-        printf("Archivo generado exitosamente!\n");
-    }
-
-void recuperarProducto(char *archivo, struct Producto v[])
-{
-    FILE *file;
-    file = fopen(archivo, "r");
-
-    if (file == NULL)
-    {
-        printf("No existe el archivo: \n");
-        exit(-2);
-    }
-
-    for (int k = 0; k < 21; k++)
-    {
-        fread(&v[k], sizeof(struct Producto), 21, file);
-    }
-    fclose(file);
 }

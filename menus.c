@@ -17,7 +17,7 @@ int menuInicial(void){
     return opcion;
 }
 
-int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente){
+int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente, Pedidos *colaPedidos){
     int check;
     do{
         printf("Este es el menu para Clientes\n");
@@ -47,7 +47,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente)
                 system("Pause");
                 system("cls");
             }else{
-                realizarPedido(carrito);
+                realizarPedido(carrito, colaPedidos);
                 //imprimirCarrito(carrito); //ESTO ES SOLO PARA VERIFICAR QUE QUEDE BIEN. SE DEBE BORRAR.
                 //fflush(stdin);
                 system("Pause");
