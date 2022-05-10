@@ -11,11 +11,11 @@ int vacioPedido(Pedidos *colaPedidos){
     return 0;
 }
 
-Pedidos* crearColaPedidos(int numeroPedidos){
+Pedidos* crearColaPedidos(){
     Pedidos* p;
     p = malloc(sizeof(Pedidos));
     p->inicio = p->fin = NULL;
-    p->numeroPedidos = numeroPedidos;
+    p->numeroPedidos = 0;
     return p;
 }
 
@@ -71,10 +71,10 @@ int vacioRepartidor(RepartidoresEspera *colaRepartidores){
     return 0;
 }
 
-RepartidoresEspera *crearColaRepartidores(int numeroRepartidoresEspera){
+RepartidoresEspera *crearColaRepartidores(){
     RepartidoresEspera *p;
     p = malloc(sizeof(RepartidoresEspera));
-    p->numeroRepartidoresEspera = numeroRepartidoresEspera;
+    p->numeroRepartidoresEspera = 0;
     p->inicio = p->fin = NULL;
     return p;
 }
