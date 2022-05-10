@@ -47,11 +47,13 @@ ListaCarrito* popPedido(Pedidos *colaPedidos){
 }
 
 void imprimirColaPedidos(Pedidos *colaPedidos){
+    printf("Entrada a imprimirColaPedidos");
     ListaCarrito *c = colaPedidos->fin;
-    while(c != NULL){
-          imprimirCarrito(c);
-          c = c->ant;
-          }
+    while(c->ant != NULL){
+        imprimirCarrito(c);
+        c = c->ant;
+    }
+    printf("Salida de imprimirColaPedidos\n");
     return;
 }
 
@@ -91,8 +93,9 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
 
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     Repartidor *r = colaRepartidores->fin;
-    while(r != NULL){
+    while(r->ant != NULL){
         imprimirRepartidor(r);
         r = r->ant;
     }
+    return;
 }

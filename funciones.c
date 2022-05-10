@@ -204,7 +204,7 @@ int revisarCarrito(ListaCarrito *carrito){
                         eliminarProductoCarrito(p, carrito);
                         printf("Producto eliminado. \n");
                         system("Pause");
-                        return;
+                        break;
                     }else if(opcEliminar == 2){
                         printf("Ingrese cuantas unidades desea eliminar: \t");
                         scanf("%d", &unidadesMenos);
@@ -215,7 +215,7 @@ int revisarCarrito(ListaCarrito *carrito){
                             eliminarProductoCarrito(p, carrito);
                             printf("Producto eliminado. \n");
                             system("Pause");
-                            return;
+                            break;
                         }else{
                             p->existencias = p->existencias - unidadesMenos;
                         }
@@ -284,14 +284,18 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
 //Funciones Gerente------------------------------------------------------------------------------------------------------------------
 void verPedidos(Pedidos *colaPedidos){
     imprimirColaPedidos(colaPedidos);
+    printf("Salida de la funcion verPedidos\n");
+    return;
 }
 
 void repartidoresEspera(RepartidoresEspera *colaRepartidores){
     imprimirRepartidoresEspera(colaRepartidores);
+    return;
 }
 
 void repartidoresTransito(ListaRepartidoresTransito *listaRepartidores){
     imprimirListaRepartidoresTransito(listaRepartidores);
+    return;
 }
 
 void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos){

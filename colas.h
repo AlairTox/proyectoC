@@ -28,4 +28,3 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores);
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores);
 
 #endif // PILAS_H_INCLUDED
-

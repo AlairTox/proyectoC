@@ -7,6 +7,10 @@
 
 int main(){
     Pedidos *colaPedidos = crearColaPedidos();
+    ListaRepartidoresTransito *listaRepartidores = nuevaListaRepartidoresTransito();
+    RepartidoresEspera *colaRepartidores = crearColaRepartidores();
+    Repartidor *repartidor = crearRepartidor("Pancrasio", 2584);
+    pushRepartidor(colaRepartidores, repartidor);
     int o=0;
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
@@ -17,7 +21,7 @@ int main(){
     agregarProducto(listProd, "Pan", 10, 150);
     agregarProducto(listProd, "Wawa", 20, 350);
     agregarProducto(listProd, "Galletas", 40, 50);
-    agregarProducto(listProd, "eee", 10, 10);
+    //agregarProducto(listProd, "eee", 10, 10);//No sé por que se rompe aqui así que la comento
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
@@ -40,18 +44,18 @@ int main(){
                     break;
 
                 case 2:
-                    menuGerente();
+                    menuGerente(colaPedidos, colaRepartidores, listaRepartidores);
                     break;
                 case 3:
-                    menuRepartidor();
+                    menuRepartidor(listaRepartidores, colaRepartidores, repartidor);
                     break;
                 case 4:
-                    menuAlmacenista();
+                    menuAlmacenista(listProd);
                     break;
             }
             system("cls");
         }while(opc != 5);
     }
-    printf("Impresion de cola de pedidos\n");
-    imprimirColaPedidos(colaPedidos);
+    //printf("Impresion de cola de pedidos\n");
+    //imprimirColaPedidos(colaPedidos);
 }
