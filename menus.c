@@ -63,7 +63,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
     return opcionCliente;
 }
 
-void menuGerente(void){
+void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores){
     int opcionGerente;
     do{
         printf("Este es el menu del Gerente\n");
@@ -76,11 +76,10 @@ void menuGerente(void){
     }while(opcionGerente < 1 || opcionGerente > 5);
     switch(opcionGerente){
         case 1:
-
-            //verPedidos();
+            verPedidos(colaPedidos);
         break;
         case 2:
-            //repartidoresEspera();
+            repartidoresEspera(colaRepartidores);
         break;
         case 3:
             //repartidoresTransito();

@@ -16,12 +16,12 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
 //funciones Gerente
 void verPedidos(Pedidos *colaPedidos);
 void repartidoresEspera(RepartidoresEspera *colaRepartidores);
-void repartidoresTransito();
-void asignarPedido();
+void repartidoresTransito(ListaRepartidoresTransito *listaRepartidores);
+void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores , Pedidos *colaPedidos);
 
 //funciones Repartidor
-void pedidoAsignado();
-void entregaPedido();
+void pedidoAsignado();//Pendiente
+void entregaPedido();//Pendiente
 
 //funciones Almacenista
 //void navegacionMenu-Usamos la misma función del cliente, solo queremos navegar en la lista

@@ -6,7 +6,7 @@
 #include "funciones.h"
 
 int main(){
-    Pedidos *colaPedidos = crearColaPedidos(2);
+    Pedidos *colaPedidos = crearColaPedidos();
     int o=0;
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
@@ -22,7 +22,7 @@ int main(){
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
     else imprimirListaProductos(listProd);
-    printf("DEsea continuar?");
+    printf("Desea continuar?");
     scanf("%d", &o);
     system("cls");
 
@@ -54,4 +54,4 @@ int main(){
     }
     printf("Impresion de cola de pedidos\n");
     imprimirColaPedidos(colaPedidos);
-    printf("Termino de impresion de cola de pedidos\n");
+}

@@ -74,6 +74,7 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     while(p!=NULL){
         printf("Nombre: %s\n", p->nombre);
         printf("ID: %d\n", p->id);
+        printf("-----------------\n");
         p = p->sig;
     }
     printf("\n");

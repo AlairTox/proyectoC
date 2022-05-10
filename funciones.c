@@ -310,6 +310,38 @@ void repartidoresEspera(RepartidoresEspera *colaRepartidores){
     imprimirRepartidoresEspera(colaRepartidores);
 }
 
+void repartidoresTransito(ListaRepartidoresTransito *listaRepartidores){
+    imprimirListaRepartidoresTransito(listaRepartidores);
+}
+
+void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos){
+    //Impresion del último pedido y último pedido (A los que se les hara pop de las colas)
+    char opc;
+    Repartidor *repartidorOcupado = NULL;
+    ListaCarrito *pedidoAsginado = NULL;
+    printf("Repartidor con mas tiempo en la cola\n");
+    imprimirRepartidor(colaRepartidores->fin);
+    printf("Pedido con mas tiempo en la cola\n");
+    imprimirCarrito(colaPedidos->fin);
+    printf("Desea asignar el pedido?[Y/N]\n");
+    do{
+        fflush(stdin);
+        opc = getchar();
+        fflush(stdin);
+        if(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N'){
+            printf("Ingrese una opcion valida\n");
+        }
+    }while(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N');
+    if(opc == 'Y' || opc == 'y'){
+        repartidorOcupado = popRepartidor(colaRepartidores);
+        pedidoAsginado = popPedido(colaPedidos);
+        repartidorOcupado->pedidoAsignado = pedidoAsginado;
+        agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
+        return;
+    }
+    return;
+}
+
 //Funciones Almacenista--------------------------------------------------------------------------------------------------------------
 void agregarProductos(ListaProductos *lista){
     char nombre[MAX_CHAR];
