@@ -55,4 +55,3 @@ int main(){
     printf("Impresion de cola de pedidos\n");
     imprimirColaPedidos(colaPedidos);
     printf("Termino de impresion de cola de pedidos\n");
-}

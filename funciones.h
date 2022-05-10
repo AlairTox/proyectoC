@@ -8,8 +8,8 @@
 char convertirMayus(char caracter);
 void impresionNavegacion(void);
 void seleccionProducto(Producto *p, ListaCarrito *carrito);
-int navegacionProductos(ListaProductos *lista, ListaCarrito *Carrito);
-void eliminarProductoCarrito(Producto *p);
+int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito);
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 int revisarCarrito(ListaCarrito *carrito);
 void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
 

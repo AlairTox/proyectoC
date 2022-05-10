@@ -5,7 +5,7 @@
 #include <string.h>
 
 //Funciones Producto
-Producto *crearProducto(char *nombre, int precio, int existencias){
+Producto *crearProducto(char *nombre, float precio, int existencias){
     Producto *e;
     e = malloc(sizeof(Producto));
     e->ant = e->sig = NULL;
@@ -19,11 +19,11 @@ Producto *crearProducto(char *nombre, int precio, int existencias){
 void imprimirProducto(Producto *e){
         printf("Producto: %s\n", e->nombre);
         printf("Existencias: %d\n", e->existencias);
-        printf("Costo: %d\n", e->precio);
+        printf("Costo: %.2f\n", e->precio);
 }
 
 //Funciones Cliente
-Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, int costo){
+Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, float costo){
     Cliente* c;
     c = malloc(sizeof(Cliente));
     c->costo = costo;
@@ -39,7 +39,7 @@ void imprimirCliente(Cliente *c){
     printf("Nombre del Cliente: %s\n", c->nombre);
     printf("Direccion: %s\n", c->direccion);
     printf("Telefono: %.0f\n", c->telefono);
-    printf("Precio a pagar: %d\n", c->costo);
+    printf("Precio a pagar: %.2f\n", c->costo);
 }
 
 //Funciones Repartidor

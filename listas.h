@@ -27,7 +27,7 @@ typedef struct ListaCarrito{
 ListaProductos *nuevaListaProductos(void);
 void imprimirListaProductos(ListaProductos *lista);
 int vaciaListaProductos(ListaProductos *lista);
-void agregarProducto(ListaProductos *lista, char *nombre, int precio, int existencias);
+void agregarProducto(ListaProductos *lista, char *nombre, float precio, int existencias);
 
 //Funciones ListaRepartidores
 ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void);
@@ -39,7 +39,7 @@ void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id);
 ListaCarrito* nuevoCarrito(void);
 void imprimirCarrito(ListaCarrito* carrito);
 int vacioCarrito(ListaCarrito *carrito);
-void agregarPedido(ListaCarrito *carrito, char *nombre, int precio, int existencias);
-void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, int costo);
+void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias);
+void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo);
 
 #endif // LISTAS_H_INCLUDED

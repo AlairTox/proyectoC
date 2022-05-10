@@ -36,7 +36,7 @@ void seleccionProducto(Producto *p, ListaCarrito *carrito){
         printf("No puede pedir tantos articulos\n");
     }else{
         //p->existencias = (p->existencias - articulos);
-        agregarPedido(carrito, p->nombre, p->precio, articulos);
+        agregarProductoCarrito(carrito, p->nombre, p->precio, articulos);
         printf("El producto ha sido agregado al carrito.\n");
     }
 }
@@ -119,19 +119,32 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
         return check;
     }
 
-/*void eliminarProductoCarrito(Producto *p){
-    //pendiente: que funcione bien esto
-    Producto *nodoBorrado = p;
-    p->ant->sig = p->sig;
-    p->sig->ant = p->ant;
-    p->sig = p->ant = NULL;
-}*/
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito){
+    if(carrito->inicio == carrito->fin){
+        carrito->inicio = carrito->fin = NULL;
+    }
+    else if(p == carrito->inicio){
+        carrito->inicio = carrito->inicio->sig;
+        carrito->inicio->ant = NULL;
+        p->sig = NULL;
+    }
+    else if(p == carrito->fin){
+        carrito->fin = carrito->fin->ant;
+        carrito->fin->sig = NULL;
+        p->ant = NULL;
+    }
+    else{
+        p->ant->sig = p->sig;
+        p->sig->ant = p->ant;
+        p->sig = p->ant = NULL;
+    }
+}
 
 int revisarCarrito(ListaCarrito *carrito){
     //permite navegar el carrito y eliminar productos de este
     char opc;
-    Producto *p;
-    int check=0;
+    Producto *p, *a;
+    int check=0, opcEliminar, unidadesMenos;
 
     if(vacioCarrito(carrito)){
         printf("No hay ningun articulo en su carrito.\n");
@@ -141,10 +154,14 @@ int revisarCarrito(ListaCarrito *carrito){
         return check;
     }else{
         p = carrito->inicio;
+        a = carrito->inicio;
+        float total=0;
+
         do{
             system("cls");
             impresionNavegacion();
             printf("Para eliminar un producto de su carrito, pulse -\n");
+            printf("Para verificar su pago total, pulse T\n");
             imprimirProducto(p);
             fflush(stdin);
             opc = getchar();
@@ -185,15 +202,49 @@ int revisarCarrito(ListaCarrito *carrito){
                     p = carrito->fin;
                     break;
 
+                case 'T': //calcular total
+                    while(a!=NULL){
+                        total = total + (a->precio * a->existencias);
+                        a = a->sig;
+                    }
+                    printf("Su pago total actualmente es de: %.2f\n", total);
+                    a = carrito->inicio;
+                    total = 0;
+                    system("Pause");
+                    break;
+
                 case 'X': //salir de este menu
                     check = 1;
                     system("cls");
                     break;
 
                 case '-': //eliminar del carrito
-                    //eliminarProductoCarrito(p);
-                    printf("Producto eliminado\n");
-                    system("Pause");
+                    printf("\n1 - Eliminar todo el producto \n2 - Reducir numero de existencias\n");
+                    scanf("%d", &opcEliminar);
+                    if(opcEliminar == 1){
+                        eliminarProductoCarrito(p, carrito);
+                        printf("Producto eliminado. \n");
+                        system("Pause");
+                        return;
+                    }else if(opcEliminar == 2){
+                        printf("Ingrese cuantas unidades desea eliminar: \t");
+                        scanf("%d", &unidadesMenos);
+                        if(unidadesMenos > p->existencias){
+                            printf("No puede eliminar tantas unidades.\n");
+                            system("Pause");
+                        }else if(unidadesMenos == p->existencias){
+                            eliminarProductoCarrito(p, carrito);
+                            printf("Producto eliminado. \n");
+                            system("Pause");
+                            return;
+                        }else{
+                            p->existencias = p->existencias - unidadesMenos;
+                        }
+                    }else{
+                        printf("Opcion incorrecta. Intente de nuevo.\n");
+                        system("Pause");
+                    }
+
                     break;
 
                 default:
@@ -201,17 +252,21 @@ int revisarCarrito(ListaCarrito *carrito){
                     system("Pause");
                     break;
                 }
+
             }while(!check);
         }
     return check;
     }
 
 void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
-    //Producto *p = carrito->inicio;
+    Producto *p = carrito->inicio;
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
-    //float pago;
-    //pendiente: obtener el total de pago
+    float pago=0;
+    while(p!=NULL){
+        pago = pago + (p->precio * p->existencias);
+        p = p->sig;
+    }
     printf("Este es su pedido final: \n");
     printf("***************************\n");
     imprimirCarrito(carrito);
@@ -230,10 +285,10 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
         fflush(stdin);
         printf("Ingrese su telefono:\t");
         scanf("%lf", &telefono);
-        agregarCliente(carrito, nombre, direccion, telefono, 200);
+        system("cls");
+        agregarCliente(carrito, nombre, direccion, telefono, pago);
         pushPedido(colaPedidos, carrito);
-        //printf("Debe pagar: %.2f pesos\n", pago);
-        printf("\nSu pedido se ha realizado exitosamente\n");
+        printf("Su pedido se ha realizado exitosamente!\n");
     }
     else if(opcPedido == 'N' || opcPedido == 'n'){
         printf("Se le regresara al menu principal para clientes.\n");

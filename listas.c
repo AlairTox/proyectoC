@@ -35,7 +35,7 @@ void imprimirListaProductos(ListaProductos *lista){
 }
 
 //AGREGAR UN PRODUCTO A LA LISTA DE PRODUCTOS
-void agregarProducto(ListaProductos *lista, char *nombre, int precio, int existencias){
+void agregarProducto(ListaProductos *lista, char *nombre, float precio, int existencias){
     Producto *e = crearProducto(nombre, precio, existencias);
     if(vaciaListaProductos(lista)){
         lista->inicio = e;
@@ -128,8 +128,8 @@ int vacioCarrito(ListaCarrito *carrito){
     return carrito->inicio == NULL;
 }
 
-//AGREGAR PEDIDO AL CARRITO
-void agregarPedido(ListaCarrito *carrito, char *nombre, int precio, int existencias){
+//AGREGAR PRODUCTO AL CARRITO
+void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias){
     Producto *e = crearProducto(nombre, precio, existencias);
     if(vacioCarrito(carrito)){
         carrito->inicio = e;
@@ -142,7 +142,7 @@ void agregarPedido(ListaCarrito *carrito, char *nombre, int precio, int existenc
 }
 
 //AGREGAR DATOS DEL CLIENTE AL CARRITO
-void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, int costo){
+void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo){
     Cliente *c = nuevoCliente(nombre, direccion, telefono, costo);
     carrito->cliente = c;
 }
