@@ -1,6 +1,6 @@
 Requerimentos:
     Funciones Directas:
-        Cliente:
+        Cliente://LISTO
             seleccionProducto()
             revisarCarrito()
             realizarPedido()

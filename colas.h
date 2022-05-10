@@ -18,15 +18,14 @@ typedef struct RepartidoresEspera{//Repartidores que están esperando que se les
 //Funciones Cola de Pedidos
 Pedidos* crearColaPedidos();
 void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente);
-void popPedido(Pedidos *colaPedidos, ListaCarrito *pedidoAsignado);
-int vacioPedido(Pedidos *colaPedidos);
+ListaCarrito* popPedido(Pedidos *colaPedidos);
 void imprimirColaPedidos(Pedidos *colaPedidos);
 
 //Funciones Cola de Repartidores en Espera
 RepartidoresEspera *crearColaRepartidores();
-int vacioRepartidor(RepartidoresEspera *colaRepartidores);
 void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre);
-void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorOcupado);
+Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores);
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores);
 
 #endif // PILAS_H_INCLUDED
+
