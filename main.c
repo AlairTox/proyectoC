@@ -8,7 +8,6 @@
 int main(){
     Pedidos *colaPedidos = crearColaPedidos(2);
     int o=0;
-    printf("Pruebas Productos\n\n");
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
     printf("Lista creada\n");
@@ -19,6 +18,7 @@ int main(){
     agregarProducto(listProd, "Wawa", 20, 350);
     agregarProducto(listProd, "Galletas", 40, 50);
     agregarProducto(listProd, "eee", 10, 10);
+    printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
     else imprimirListaProductos(listProd);
@@ -52,5 +52,7 @@ int main(){
             system("cls");
         }while(opc != 5);
     }
+    printf("Impresion de cola de pedidos\n");
     imprimirColaPedidos(colaPedidos);
+    printf("Termino de impresion de cola de pedidos\n");
 }

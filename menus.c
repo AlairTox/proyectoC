@@ -48,6 +48,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
                 system("cls");
             }else{
                 realizarPedido(carrito, colaPedidos);
+                printf("Si ves esto es por que paso de la funcion realizarPedido\n");
                 //imprimirCarrito(carrito); //ESTO ES SOLO PARA VERIFICAR QUE QUEDE BIEN. SE DEBE BORRAR.
                 //fflush(stdin);
                 system("Pause");

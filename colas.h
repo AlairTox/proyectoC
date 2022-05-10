@@ -6,15 +6,13 @@
 
 typedef struct Pedidos{//Pedidos hechos que el gerente asigna a los repartidores
     int numeroPedidos;
-    ListaCarrito* Pedidos;
-    int tope;
+    ListaCarrito *inicio, *fin;
 
 }Pedidos;
 
 typedef struct RepartidoresEspera{//Repartidores que están esperando que se les asigne un pedido
-    Repartidor* RepartidoresEnEspera;
+    Repartidor *inicio, *fin;
     int numeroRepartidoresEspera;
-    int tope;
 }RepartidoresEspera;
 
 //Funciones Cola de Pedidos
@@ -27,8 +25,8 @@ void imprimirColaPedidos(Pedidos *colaPedidos);
 //Funciones Cola de Repartidores en Espera
 RepartidoresEspera *crearColaRepartidores(int numeroRepartidoresEspera);
 int vacioRepartidor(RepartidoresEspera *colaRepartidores);
-void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorOcupado);
-void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre);
+void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre);
+void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorOcupado);
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores);
 
 #endif // PILAS_H_INCLUDED

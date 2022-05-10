@@ -36,7 +36,7 @@ void imprimirListaProductos(ListaProductos *lista){
 
 //AGREGAR UN PRODUCTO A LA LISTA DE PRODUCTOS
 void agregarProducto(ListaProductos *lista, char *nombre, int precio, int existencias){
-    Producto *e =crearProducto(nombre, precio, existencias);
+    Producto *e = crearProducto(nombre, precio, existencias);
     if(vaciaListaProductos(lista)){
         lista->inicio = e;
         lista->fin = e;
@@ -45,6 +45,7 @@ void agregarProducto(ListaProductos *lista, char *nombre, int precio, int existe
     e->ant = lista->fin;
     lista->fin->sig = e;
     lista->fin = e;
+    return;
 }
 
 //FUNCIONES DE LA LISTA DE REPARTIDORES---------------------------------------------------------
@@ -117,7 +118,7 @@ void imprimirCarrito(ListaCarrito *carrito){
         p = p->sig;
     }
     printf("-------------------------\n");
-    if(carrito->cliente){
+    if(carrito->cliente != NULL){
         imprimirCliente(carrito->cliente);
     }
 }

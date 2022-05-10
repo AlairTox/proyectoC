@@ -6,7 +6,7 @@
 //Funciones Cola de pedidos
 int vacioPedido(Pedidos *colaPedidos){
     //verificar que este vacio
-    if(colaPedidos->tope == 1)
+    if(colaPedidos->inicio == NULL)
         return 1;
     return 0;
 }
@@ -14,23 +14,27 @@ int vacioPedido(Pedidos *colaPedidos){
 Pedidos* crearColaPedidos(int numeroPedidos){
     Pedidos* p;
     p = malloc(sizeof(Pedidos));
-    p->tope = -1;
+    p->inicio = p->fin = NULL;
     p->numeroPedidos = numeroPedidos;
-    p->Pedidos = malloc(sizeof(ListaProductos)*numeroPedidos);
     return p;
 }
 
-void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
+void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){//FUNCION TERMINADA
     //Añade el nuevo pedido al inicio de la cola
-    if(colaPedidos->tope == (colaPedidos->numeroPedidos -1)){
-        colaPedidos->numeroPedidos = colaPedidos->numeroPedidos + 5;
-        colaPedidos->Pedidos = realloc(colaPedidos->Pedidos,colaPedidos->numeroPedidos*sizeof(Pedidos));
+    printf("Impresion Entrada(AntesIF)pushPedido\n");
+    if(colaPedidos->inicio == NULL){
+        printf("Impresion dentro de IF pushPedido\n");
+        colaPedidos->inicio = colaPedidos->fin = carritoCliente;
+        printf("Impresion de pedido dentro de colaPedidos\n");
+        imprimirCarrito(colaPedidos->inicio);
+        printf("\n\n\n");
+        return;
     }
-    colaPedidos->tope++;
-    for(int j = colaPedidos->numeroPedidos;j == 0;j--){//Verificar el funcionamiento de esta porqueria
-        colaPedidos->Pedidos[j+1] = colaPedidos->Pedidos[j];
-    }
-    colaPedidos->Pedidos[0]  = *carritoCliente;
+    imprimirCarrito(carritoCliente);
+    carritoCliente->sig = colaPedidos->inicio;
+    colaPedidos->inicio->ant = carritoCliente;
+    colaPedidos->inicio = carritoCliente;
+    colaPedidos->numeroPedidos++;
 }
 
 void popPedido(Pedidos *colaPedidos, ListaCarrito* pedidoAsignado){
@@ -38,21 +42,31 @@ void popPedido(Pedidos *colaPedidos, ListaCarrito* pedidoAsignado){
     if(vacioPedido(colaPedidos)){
         printf("La cola de pedidos está vacía\n");
         return;
-    } else {
-        *pedidoAsignado = colaPedidos->Pedidos[colaPedidos->tope];
-        colaPedidos->tope--;
     }
+    if(colaPedidos->inicio == colaPedidos->fin){
+        pedidoAsignado = colaPedidos->inicio;
+        colaPedidos->numeroPedidos--;
+        colaPedidos->inicio = colaPedidos->fin = NULL;
+    }
+    pedidoAsignado = colaPedidos->fin;
+    colaPedidos->fin->ant->sig = NULL;
+    colaPedidos->fin = colaPedidos->fin->ant;
+    pedidoAsignado->ant = NULL;
 }
 
 void imprimirColaPedidos(Pedidos *colaPedidos){
-    while(vacioPedido(colaPedidos)){
-          imprimirCarrito(colaPedidos->Pedidos);
+    ListaCarrito *c = colaPedidos->inicio;
+    while(c != NULL){
+        printf("Impresion de entrada al ciclo imprimirColaPedidos\n");
+          imprimirCarrito(c);
+          c = c->sig;
           }
+    return;
 }
 
 //Funciones Cola de Repartidores en Espera
 int vacioRepartidor(RepartidoresEspera *colaRepartidores){
-    if(colaRepartidores->tope == 1)
+    if(colaRepartidores->inicio == NULL)
         return 1;
     return 0;
 }
@@ -60,38 +74,37 @@ int vacioRepartidor(RepartidoresEspera *colaRepartidores){
 RepartidoresEspera *crearColaRepartidores(int numeroRepartidoresEspera){
     RepartidoresEspera *p;
     p = malloc(sizeof(RepartidoresEspera));
-    p->tope = -1;
     p->numeroRepartidoresEspera = numeroRepartidoresEspera;
-    p->RepartidoresEnEspera = malloc(sizeof(Repartidor)*numeroRepartidoresEspera);
+    p->inicio = p->fin = NULL;
     return p;
 }
 
 
-void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorOcupado){
-    if(colaRepartidores->tope == (colaRepartidores->numeroRepartidoresEspera - 1)){
-        colaRepartidores->numeroRepartidoresEspera += 5;
-        colaRepartidores->RepartidoresEnEspera = realloc(colaRepartidores->RepartidoresEnEspera, colaRepartidores->numeroRepartidoresEspera * sizeof(Repartidor));
+void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre){
+    if(colaRepartidores->inicio == NULL){
+    colaRepartidores->inicio = colaRepartidores->fin = repartidorLibre;
     }
-    colaRepartidores->tope++;
-    for(int j = colaRepartidores->numeroRepartidoresEspera;j == 0;j--){
-        colaRepartidores->RepartidoresEnEspera[j+1] = colaRepartidores->RepartidoresEnEspera[j];
-    }
-    colaRepartidores->RepartidoresEnEspera[0] = *repartidorOcupado;
+    repartidorLibre->sig = colaRepartidores->inicio;
+    colaRepartidores->inicio->ant = repartidorLibre;
+    colaRepartidores->inicio = repartidorLibre;
+    colaRepartidores->numeroRepartidoresEspera++;
 }
 
-void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre){
-    if(vacioRepartidor(colaRepartidores)){
-        printf("La cola de reaprtidores en espera está vacía");
-        return;
-    } else {
-        *repartidorLibre = colaRepartidores->RepartidoresEnEspera[colaRepartidores->tope];
-        colaRepartidores->tope--;
+void popRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorOcupado){
+    if(colaRepartidores->inicio ==  NULL){
+        printf("La cola de reaprtidores en espera ya está vacía");
         return;
     }
+    repartidorOcupado = colaRepartidores->fin;
+    colaRepartidores->fin->ant->sig = NULL;
+    colaRepartidores->fin = colaRepartidores->fin->ant;
+    repartidorOcupado->ant = NULL;
 }
 
-void imprimirColaRepartidores(RepartidoresEspera *colaRepartidores){
-    while(vacioRepartidor(colaRepartidores)){
-        imprimirRepartidor(colaRepartidores->RepartidoresEnEspera);
+void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
+    Repartidor *r = colaRepartidores->inicio;
+    while(r != NULL){
+        imprimirRepartidor(r);
+        r = r->sig;
     }
 }
