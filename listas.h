@@ -34,6 +34,7 @@ ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void);
 int vaciaListaRepartidoresTransito(ListaRepartidoresTransito *lista);
 void imprimirListaRepartidoresTransito(ListaRepartidoresTransito *lista);
 void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id);
+void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor);
 
 //Funciones Carrito
 ListaCarrito* nuevoCarrito(void);
@@ -41,5 +42,6 @@ void imprimirCarrito(ListaCarrito* carrito);
 int vacioCarrito(ListaCarrito *carrito);
 void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias);
 void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo);
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 
 #endif // LISTAS_H_INCLUDED

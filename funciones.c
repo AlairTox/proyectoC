@@ -119,27 +119,6 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
         return check;
     }
 
-void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito){
-    if(carrito->inicio == carrito->fin){
-        carrito->inicio = carrito->fin = NULL;
-    }
-    else if(p == carrito->inicio){
-        carrito->inicio = carrito->inicio->sig;
-        carrito->inicio->ant = NULL;
-        p->sig = NULL;
-    }
-    else if(p == carrito->fin){
-        carrito->fin = carrito->fin->ant;
-        carrito->fin->sig = NULL;
-        p->ant = NULL;
-    }
-    else{
-        p->ant->sig = p->sig;
-        p->sig->ant = p->ant;
-        p->sig = p->ant = NULL;
-    }
-}
-
 int revisarCarrito(ListaCarrito *carrito){
     //permite navegar el carrito y eliminar productos de este
     char opc;
@@ -301,6 +280,7 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
     }
 }
 
+
 //Funciones Gerente------------------------------------------------------------------------------------------------------------------
 void verPedidos(Pedidos *colaPedidos){
     imprimirColaPedidos(colaPedidos);
@@ -338,6 +318,31 @@ void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEsp
         repartidorOcupado->pedidoAsignado = pedidoAsginado;
         agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
         return;
+    }
+    return;
+}
+//Funciones Repartidor-----------------------------------------------------------------------------------------------------------------
+
+void pedidoAsignado(Repartidor *repartidor){
+    printf("Hola %s, se te asigno este pedido:\n", repartidor->nombre);
+    imprimirCarrito(repartidor->pedidoAsignado);
+}
+
+void entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores){
+    int opc;
+    printf("Hola %s, pulsa [Y] para confirmar la entrega del pedido, de lo contrario pulsa [N]",repartidor->nombre);
+    do{
+        fflush(stdin);
+        opc = getchar();
+        fflush(stdin);
+        if(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N'){
+            printf("Ingrese una opcion valida\n");
+        }
+    }while(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N');
+    if(opc == 'Y' || opc == 'y'){
+        eliminarRepartidor(lista, repartidor);
+        pushRepartidor(colaRepartidores, repartidor);
+        printf("Has regresado a la cola de repartidores, espera un nuevo pedido\n");
     }
     return;
 }

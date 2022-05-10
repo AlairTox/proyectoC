@@ -9,7 +9,6 @@ char convertirMayus(char caracter);
 void impresionNavegacion(void);
 void seleccionProducto(Producto *p, ListaCarrito *carrito);
 int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito);
-void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 int revisarCarrito(ListaCarrito *carrito);
 void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
 
@@ -20,8 +19,8 @@ void repartidoresTransito(ListaRepartidoresTransito *listaRepartidores);
 void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores , Pedidos *colaPedidos);
 
 //funciones Repartidor
-void pedidoAsignado();//Pendiente
-void entregaPedido();//Pendiente
+void pedidoAsignado(Repartidor *repartidor);
+void entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores);
 
 //funciones Almacenista
 //void navegacionMenu-Usamos la misma función del cliente, solo queremos navegar en la lista
