@@ -372,10 +372,7 @@ void agregarProductos(ListaProductos *lista){
     agregarProducto(lista, nombre, precio, cantidad);
     return;
 }
-//
-void pedidoAsignado(){
 
-}
 //FUNCIONES Producto
 void grabarProducto(char *archivo, struct Producto p[])
     {

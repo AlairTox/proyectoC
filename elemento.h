@@ -10,7 +10,7 @@ typedef struct Cliente{
 
 typedef struct Repartidor{
     struct Repartidor *ant, *sig;
-    ListaCarrito *pedidoAsignado;
+    void *pedidoAsignado;
     char *nombre;
     int id;
 }Repartidor;

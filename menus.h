@@ -4,8 +4,8 @@
 #include "colas.h"
 int menuInicial(void);
 int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente, Pedidos *colaPedidos);
-void menuGerente(void);
-void menuRepartidor(void);
-void menuAlmacenista(void);
+void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores);
+void menuRepartidor(ListaRepartidoresTransito *listaRepartidores,RepartidoresEspera *colaRepartidores,Repartidor *repartidor);
+void menuAlmacenista(ListaProductos *lista);
 
 #endif // MENUS_H_INCLUDED

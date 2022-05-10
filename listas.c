@@ -100,7 +100,7 @@ void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor
         printf("La lista de repartidores en transito esta vacia\n");
         return;
     }
-    if(lista->inicio == lista->fin == repartidor){
+    if(lista->inicio == repartidor && lista->fin == repartidor){
         lista->inicio = lista->fin = NULL;
         lista->n--;
         return;

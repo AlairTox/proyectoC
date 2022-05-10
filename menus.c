@@ -63,7 +63,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
     return opcionCliente;
 }
 
-void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores){
+void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
     int opcionGerente;
     do{
         printf("Este es el menu del Gerente\n");
@@ -82,10 +82,10 @@ void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores){
             repartidoresEspera(colaRepartidores);
         break;
         case 3:
-            //repartidoresTransito();
+            repartidoresTransito(listaRepartidores);
         break;
         case 4:
-            //asignarPedido();
+            asignarPedido(listaRepartidores, colaRepartidores, colaPedidos);
         break;
         case 5:
             return;
@@ -93,7 +93,7 @@ void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores){
     }
 }
 
-void menuRepartidor(void){
+void menuRepartidor(ListaRepartidoresTransito *listaRepartidores,RepartidoresEspera *colaRepartidores,Repartidor *repartidor){
     int opcionRepartidor=0;
     do{
         printf("Este es el menu del Repartidor\n");
@@ -104,10 +104,10 @@ void menuRepartidor(void){
     }while(opcionRepartidor < 1 || opcionRepartidor > 3);
     switch(opcionRepartidor){
         case 1:
-            //pedidoAsignado();
+            pedidoAsignado(repartidor);
         break;
         case 2:
-            //entregaPedido();
+            entregaPedido(repartidor, listaRepartidores, colaRepartidores);
         break;
         case 3:
             return;
@@ -115,7 +115,7 @@ void menuRepartidor(void){
     }
 }
 
-void menuAlmacenista(void){
+void menuAlmacenista(ListaProductos *lista){
     int opcionAlmacenista=0;
     do{
         printf("Este es el menu del Almacenista\n");
@@ -126,10 +126,10 @@ void menuAlmacenista(void){
     }while(opcionAlmacenista < 1 || opcionAlmacenista > 3);
     switch(opcionAlmacenista){
         case 1:
-            //listaProductos();
+            //listaProductos();//Pendiente
         break;
         case 2:
-            //agregarProductos();
+            agregarProductos(lista);
         break;
         case 3:
             return;
