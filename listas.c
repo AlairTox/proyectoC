@@ -122,3 +122,77 @@ void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor
     repartidor->ant = repartidor->sig = NULL;
     return;
 }
+
+//FUNCIONES DE CARRITO---------------------------------------------------------
+//CREAR NUEVO CARRITO
+ListaCarrito* nuevoCarrito(void){
+    ListaCarrito *c;
+    c = malloc(sizeof(ListaCarrito));
+    c->inicio = c->fin = NULL;
+    c->cliente = NULL;
+    return c;
+}
+
+//IMPRIMIR EL CARRITO
+void imprimirCarrito(ListaCarrito *carrito){
+    Producto *p;
+    if(vacioCarrito(carrito)){
+        printf("Su carrito esta vacio\n");
+        return;
+    }
+    p = carrito->inicio;
+    while(p!=NULL){
+        imprimirProducto(p);
+        p = p->sig;
+    }
+    printf("-------------------------\n");
+    if(carrito->cliente != NULL){
+        imprimirCliente(carrito->cliente);
+    }
+}
+
+//VERIFICAR SI EL CARRITO ESTA VACIO
+int vacioCarrito(ListaCarrito *carrito){
+    return carrito->inicio == NULL;
+}
+
+//AGREGAR PRODUCTO AL CARRITO
+void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias){
+    Producto *e = crearProducto(nombre, precio, existencias);
+    if(vacioCarrito(carrito)){
+        carrito->inicio = e;
+        carrito->fin = e;
+        return;
+    }
+    e->ant = carrito->fin;
+    carrito->fin->sig = e;
+    carrito->fin = e;
+}
+
+//AGREGAR DATOS DEL CLIENTE AL CARRITO
+void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo){
+    Cliente *c = nuevoCliente(nombre, direccion, telefono, costo);
+    carrito->cliente = c;
+}
+
+//ELIMINAR UN PRODUCTO DEL CARRITO
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito){
+    if(carrito->inicio == carrito->fin){
+        carrito->inicio = carrito->fin = NULL;
+    }
+    else if(p == carrito->inicio){
+        carrito->inicio = carrito->inicio->sig;
+        carrito->inicio->ant = NULL;
+        p->sig = NULL;
+    }
+    else if(p == carrito->fin){
+        carrito->fin = carrito->fin->ant;
+        carrito->fin->sig = NULL;
+        p->ant = NULL;
+    }
+    else{
+        p->ant->sig = p->sig;
+        p->sig->ant = p->ant;
+        p->sig = p->ant = NULL;
+    }
+}
