@@ -3,6 +3,7 @@
 #include "listas.h"
 #include "funciones.h"
 
+//Impresión y selección del submenu
 int menuInicial(void){
     int opcion;
     do{
@@ -17,6 +18,7 @@ int menuInicial(void){
     return opcion;
 }
 
+//Impresión de opciones iniciales para el cliente
 int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente, Pedidos *colaPedidos){
     int check;
     do{
@@ -61,6 +63,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
     return opcionCliente;
 }
 
+//Impresión y selección de las opciones para el gerente
 int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores, int opcionGerente){
     int check;
     do{
@@ -103,6 +106,7 @@ int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, List
     return opcionGerente;
 }
 
+//Impresión y selección de las opciones para el repartidor
 int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int opcionRepartidor){
     int check = 0;
     do{
@@ -130,8 +134,9 @@ int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, Rep
     return opcionRepartidor;
 }
 
+//Impresión y selección de las opciones para el almacenista
 void menuAlmacenista(void){
-    int opcionAlmacenista=0;
+    int opcionAlmacenista;
     do{
         printf("Este es el menu del Almacenista\n");
         printf("Ingresa [1]: Mostrar la lista de Productos\n");

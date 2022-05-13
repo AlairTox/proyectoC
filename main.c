@@ -5,9 +5,9 @@
 #include "colas.h"
 #include "funciones.h"
 
-int main(){
+int main(void){
     Pedidos *colaPedidos = crearColaPedidos();
-    int o=0;
+    int o = 0;
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
     printf("Lista creada\n");
@@ -44,17 +44,17 @@ int main(){
                     system("cls");
                     do{
                         opcionCliente = menuCliente(listProd, carro1, opcionCliente, colaPedidos);
-                    }while(opcionCliente!=4);
+                    }while(opcionCliente != 4);
                     break;
                 case 2:
                     do{
                         opcionGerente = menuGerente(colaPedidos, colaRep, listRep, opcionGerente);
-                    }while(opcionGerente!=5);
+                    }while(opcionGerente != 5);
                     break;
                 case 3:
                     do{
-                        opcionRepartidor =menuRepartidor(repLibre, listRep, colaRep, opcionRepartidor);
-                    }while(opcionRepartidor!=3);
+                        opcionRepartidor = menuRepartidor(repLibre, listRep, colaRep, opcionRepartidor);
+                    }while(opcionRepartidor != 3);
                     break;
                 case 4:
                     menuAlmacenista();

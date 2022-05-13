@@ -3,18 +3,19 @@
 
 #include "elemento.h"
 
+//LISTA DE PRODUCTOS
 typedef struct ListaProductos{
-    //productos que se mostraran al almacenista
     Producto *inicio, *fin;
     int n;
 }ListaProductos;
 
+//lISTA DE REPARTIDORES
 typedef struct ListaRepartidoresTransito{
-    //La lista de repartidores que estan en camino
     Repartidor  *inicio, *fin;
     int n;
 }ListaRepartidoresTransito;
 
+//LISTA CARRITO
 typedef struct ListaCarrito{
     struct ListaCarrito *ant, *sig;
     Producto *inicio, *fin;
@@ -28,6 +29,7 @@ ListaProductos *nuevaListaProductos(void);
 void imprimirListaProductos(ListaProductos *lista);
 int vaciaListaProductos(ListaProductos *lista);
 void agregarProducto(ListaProductos *lista, char *nombre, float precio, int existencias);
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 
 //Funciones ListaRepartidores
 ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void);

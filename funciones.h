@@ -9,7 +9,6 @@ char convertirMayus(char caracter);
 void impresionNavegacion(void);
 void seleccionProducto(Producto *p, ListaCarrito *carrito);
 int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito);
-void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 int revisarCarrito(ListaCarrito *carrito);
 int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
 
@@ -27,4 +26,5 @@ void agregarProductos(ListaProductos *lista);
 //funciones Producto
 void grabarProducto(char *nombre, struct Producto p[]);
 void recuperarProducto(char *archivo, struct Producto v[]);
+
 #endif // FUNCIONES_H_INCLUDED
