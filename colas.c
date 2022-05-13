@@ -29,15 +29,19 @@ void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
 //Elimina el pedido al final de la cola de pedidos, regresando su dirección
 ListaCarrito* popPedido(Pedidos *colaPedidos){
     ListaCarrito *pedidoAsignado;
+
     if(colaPedidos->inicio == NULL){
         printf("La cola de pedidos está vacía\n");
         return NULL;
     }
+
     if(colaPedidos->inicio == colaPedidos->fin){
         pedidoAsignado = colaPedidos->inicio;
         colaPedidos->numeroPedidos--;
         colaPedidos->inicio = colaPedidos->fin = NULL;
+        return pedidoAsignado;
     }
+
     pedidoAsignado = colaPedidos->fin;
     colaPedidos->fin->ant->sig = NULL;
     colaPedidos->fin = colaPedidos->fin->ant;
@@ -49,21 +53,19 @@ ListaCarrito* popPedido(Pedidos *colaPedidos){
 void imprimirColaPedidos(Pedidos *colaPedidos){
     ListaCarrito *c = colaPedidos->fin;
     if(c == NULL){
-        printf("No hay ningun pedido\n");
+        printf("La cola de pedidos esta vacia\n");
         return;
     }
-    while(c != NULL){
-        printf("dentro del while\n");
-        printf("************************\n");
+    if(c == colaPedidos->inicio){
         imprimirCarrito(c);
-        if(c->ant == NULL){
-                printf("anterior es nulo");
-            return;
-        }else{
+        return;
+    }else{
+        while(c != NULL){
+            imprimirCarrito(c);
             c = c->ant;
         }
     }
-    printf("ya salimos\n");
+    return;
 }
 
 //FUNCIONES COLA DE REPARTIDORES
@@ -90,10 +92,19 @@ void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidor
 //Elimina el último repartidor al final de la cola de repartidores//Regresando su dirección
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
     Repartidor *repartidorOcupado;
+
     if(colaRepartidores->inicio ==  NULL){
         printf("La cola de reaprtidores en espera ya esta vacia\n");
         return NULL;
     }
+
+    if(colaRepartidores->inicio == colaRepartidores->fin){
+        repartidorOcupado = colaRepartidores->inicio;
+        colaRepartidores->numeroRepartidoresEspera--;
+        colaRepartidores->inicio = colaRepartidores->fin = NULL;
+        return repartidorOcupado;
+    }
+
     repartidorOcupado = colaRepartidores->fin;
     colaRepartidores->fin->ant->sig = NULL;
     colaRepartidores->fin = colaRepartidores->fin->ant;
@@ -104,9 +115,14 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
 //Imprime la cola de repartidores
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     Repartidor *r = colaRepartidores->fin;
-    if(r == colaRepartidores->inicio)
+    if(r == NULL){
+        printf("La cola de repartidores esta vacia\n");
+        return;
+    }
+    if(r == colaRepartidores->inicio){
         imprimirRepartidor(r);
-    else{
+        return;
+    }else{
         while(r != NULL){
             imprimirRepartidor(r);
             r = r->ant;

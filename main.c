@@ -35,7 +35,7 @@ int main(void){
     system("cls");
 
     if(o){
-        int opc, opcionCliente, opcionGerente, opcionRepartidor;
+        int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
         do{
             opc = menuInicial();
             switch (opc)
@@ -57,7 +57,9 @@ int main(void){
                     }while(opcionRepartidor != 3);
                     break;
                 case 4:
-                    menuAlmacenista();
+                    do{
+                        opcionAlmacenista = menuAlmacenista(listProd, opcionAlmacenista);
+                    }while(opcionAlmacenista != 3);
                     break;
             }
             system("cls");

@@ -123,7 +123,7 @@ int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, Rep
         case 2:
             do{
                 system("cls");
-                check = entregaPedido(repartidor, lista, colaRepartidores);
+                check = entregaPedido(repartidor, lista, colaRepartidores, check);
                 system("Pause");
             }while(!check);
         break;
@@ -135,8 +135,8 @@ int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, Rep
 }
 
 //Impresión y selección de las opciones para el almacenista
-void menuAlmacenista(void){
-    int opcionAlmacenista;
+int menuAlmacenista(ListaProductos *lista, int opcionAlmacenista){
+    int check = 0;
     do{
         printf("Este es el menu del Almacenista\n");
         printf("Ingresa [1]: Mostrar la lista de Productos\n");
@@ -146,10 +146,10 @@ void menuAlmacenista(void){
     }while(opcionAlmacenista < 1 || opcionAlmacenista > 3);
     switch(opcionAlmacenista){
         case 1:
-            //listaProductos();
+            check = verificarListaProductos(lista, check);
         break;
         case 2:
-            //agregarProductos();
+            agregarProductos(lista);
         break;
         case 3:
             return;

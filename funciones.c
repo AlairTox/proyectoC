@@ -298,7 +298,11 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
     Repartidor *repartidorOcupado;
     ListaCarrito *pedidoAsignado;
     printf("Repartidor con mas tiempo en la cola\n");
-    imprimirRepartidor(colaRepartidores->fin);
+    if(colaRepartidores->fin != NULL){
+        imprimirRepartidor(colaRepartidores->fin);
+    }else{
+        printf("No hay repartidores en la cola\n");
+    }
     printf("Pedido con mas tiempo en la cola\n");
     if(colaPedidos->fin == NULL){
         printf("No hay ningun pedido\n");
@@ -333,7 +337,6 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
 void pedidoAsignado(Repartidor *repartidor){
     if(repartidor->pedidoAsignado == NULL){
         printf("Por el momento no tienes ningun pedido asignado\n");
-        return;
     }else{
         printf("Hola %s, se te asigno este pedido:\n", repartidor->nombre);
         imprimirCarrito(repartidor->pedidoAsignado);
@@ -341,8 +344,8 @@ void pedidoAsignado(Repartidor *repartidor){
 }
 
 //Se le pregunta al repartidor si el pedido se ha entregado, en caso afirmativo se le regresa a la cola de pedidos
-int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores){
-    int opc, check = 0;
+int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int check){
+    int opc;
     printf("Hola %s, pulsa [Y] para confirmar la entrega del pedido, de lo contrario pulsa [N]", repartidor->nombre);
     fflush(stdin);
     opc = getchar();
@@ -391,6 +394,77 @@ void agregarProductos(ListaProductos *lista){
     }
     agregarProducto(lista, nombre, precio, cantidad);
     return;
+}
+
+//Navegación de productos para el almacenista
+int verificarListaProductos(ListaProductos *lista, int check){
+    char opc;
+    Producto *p;
+
+    if(vaciaListaProductos(lista)){
+        printf("No hay ningun articulo disponible.\n");
+        system("Pause");
+        check = 1;
+        system("cls");
+        return check;
+    }else{
+        p = lista->inicio;
+        do{
+            system("cls");
+            impresionNavegacion();
+            imprimirProducto(p);
+            fflush(stdin);
+            opc = getchar();
+            fflush(stdin);
+            opc = convertirMayus(opc);
+            switch(opc){
+                case 'D': //ir al siguiente
+                    if(p == lista->fin){
+                        p = lista->inicio;
+                        break;
+                    }
+                    p = p->sig;
+                    break;
+
+                case 'A': //ir al anterior
+                    if(p == lista->inicio){
+                        p = lista->fin;
+                        break;
+                    }
+                    p = p->ant;
+                    break;
+
+                case 'W': //ir al inicio
+                    if(p == lista->inicio){
+                        printf("\nYa se encuentra en el primer elemento de la lista\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = lista->inicio;
+                    break;
+
+                case 'S': //ir al final
+                    if(p == lista->fin){
+                        printf("\nYa se encuentra en el ultimo elemento de la lista\n");
+                        system("Pause");
+                        break;
+                    }
+                    p = lista->fin;
+                    break;
+
+                case 'X': //salir de este menu
+                    check = 1;
+                    system("cls");
+                    break;
+
+                default:
+                    printf("Opcion incorrecta. Intente de nuevo.\n");
+                    system("Pause");
+                    break;
+                }
+            }while(!check);
+        }
+        return check;
 }
 
 //FUNCIONES PRODUCTO-----------------------------------------------------------------------------------------------------------------

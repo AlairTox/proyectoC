@@ -8,6 +8,6 @@ int menuInicial(void);
 int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente, Pedidos *colaPedidos);
 int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores, int opcionGerente);
 int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int opcionRepartidor);
-void menuAlmacenista(void);
+int menuAlmacenista(ListaProductos *lista, int opcionAlmacenista);
 
 #endif // MENUS_H_INCLUDED
