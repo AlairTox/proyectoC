@@ -40,11 +40,13 @@ void agregarProducto(ListaProductos *lista, char *nombre, float precio, int exis
     if(vaciaListaProductos(lista)){
         lista->inicio = e;
         lista->fin = e;
+        lista->n = 1;
         return;
     }
     e->ant = lista->fin;
     lista->fin->sig = e;
     lista->fin = e;
+    lista->n += 1;
     return;
 }
 

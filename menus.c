@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "listas.h"
 #include "funciones.h"
 
@@ -14,13 +15,19 @@ int menuInicial(void){
         printf("Ingresa [4]: Almacenista\n");
         printf("ingresa [5]: Salir del Programa\n");
         scanf("%d", &opcion);
+        //do{
+            //scanf("%d", &opcion);
+            //printf("%d", isdigit(opcion));
+            //if(!isdigit(opcion))
+                //printf("Ingrese un valor numerico\n");
+            //}while(!isdigit(opcion));
     }while(opcion < 1 || opcion > 5);
     return opcion;
 }
 
 //Impresión de opciones iniciales para el cliente
-int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente, Pedidos *colaPedidos){
-    int check;
+int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos){
+    int check = 0;
     do{
         printf("Este es el menu para Clientes\n");
         printf("Ingresa [1]: Seleccionar Productos\n");
@@ -33,13 +40,13 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
         case 1:
             do{
                 system("cls");
-                check = navegacionProductos(lista, carrito);
+                check = navegacionProductos(lista, carrito, check);
             }while(!check);
         break;
         case 2:
             do{
                 system("cls");
-                check = revisarCarrito(carrito);
+                check = revisarCarrito(carrito, check);
             }while(!check);
         break;
         case 3:
@@ -50,7 +57,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
                 system("cls");
             }else{
                 do{
-                    check = realizarPedido(carrito, colaPedidos);
+                    check = realizarPedido(carrito, colaPedidos, check);
                     system("Pause");
                     system("cls");
                 }while(!check);
@@ -64,7 +71,7 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
 }
 
 //Impresión y selección de las opciones para el gerente
-int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores, int opcionGerente){
+int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
     int check;
     do{
         printf("Este es el menu del Gerente\n");
@@ -95,7 +102,7 @@ int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, List
         case 4:
             do{
                 system("cls");
-                check = asignarPedido(listaRepartidores, colaRepartidores, colaPedidos);
+                check = asignarPedido(listaRepartidores, colaRepartidores, colaPedidos, check);
                 system("Pause");
             }while(!check);
         break;
@@ -107,7 +114,7 @@ int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, List
 }
 
 //Impresión y selección de las opciones para el repartidor
-int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int opcionRepartidor){
+int menuRepartidor(int opcionRepartidor, Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores){
     int check = 0;
     do{
         printf("Este es el menu del Repartidor\n");
@@ -135,7 +142,7 @@ int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, Rep
 }
 
 //Impresión y selección de las opciones para el almacenista
-int menuAlmacenista(ListaProductos *lista, int opcionAlmacenista){
+int menuAlmacenista(int opcionAlmacenista, ListaProductos *lista){
     int check = 0;
     do{
         printf("Este es el menu del Almacenista\n");
@@ -152,7 +159,8 @@ int menuAlmacenista(ListaProductos *lista, int opcionAlmacenista){
             agregarProductos(lista);
         break;
         case 3:
-            return;
+            return opcionAlmacenista;
         break;
     }
+    return opcionAlmacenista;
 }

@@ -1,5 +1,5 @@
-#ifndef PILAS_H_INCLUDED
-#define PILAS_H_INCLUDED
+#ifndef COLAS_H_INCLUDED
+#define COLAS_H_INCLUDED
 
 #include "elemento.h"
 #include "listas.h"
@@ -31,4 +31,4 @@ void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidor
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores);
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores);
 
-#endif // PILAS_H_INCLUDED
+#endif // COLAS_H_INCLUDED

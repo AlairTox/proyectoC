@@ -8,12 +8,12 @@
 char convertirMayus(char caracter);
 void impresionNavegacion(void);
 void seleccionProducto(Producto *p, ListaCarrito *carrito);
-int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito);
-int revisarCarrito(ListaCarrito *carrito);
-int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos);
+int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check);
+int revisarCarrito(ListaCarrito *carrito, int check);
+int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check);
 
 //funciones Gerente
-int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos);
+int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos, int check);
 
 //funciones Repartidor
 void pedidoAsignado(Repartidor *repartidor);
@@ -29,3 +29,4 @@ void grabarProducto(char *nombre, struct Producto p[]);
 void recuperarProducto(char *archivo, struct Producto v[]);
 
 #endif // FUNCIONES_H_INCLUDED
+

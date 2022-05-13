@@ -45,11 +45,10 @@ void seleccionProducto(Producto *p, ListaCarrito *carrito){
 }
 
 //Navegación de la lista de productos, se puede acceder a la función para agregar productos al carrito
-int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
-
+int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check){
     char opc;
     Producto *p;
-    int check = 0;
+    check = 0;
 
     if(vaciaListaProductos(lista)){
         printf("No hay ningun articulo disponible.\n");
@@ -124,10 +123,11 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
     }
 
 //Navegación por el carrito, permite elimnar prodctos de este total o parcialmente
-int revisarCarrito(ListaCarrito *carrito){
+int revisarCarrito(ListaCarrito *carrito, int check){
     char opc;
     Producto *p, *a;
-    int check = 0, opcEliminar, unidadesMenos;
+    int opcEliminar, unidadesMenos;
+    check = 0;
 
     if(vacioCarrito(carrito)){
         printf("No hay ningun articulo en su carrito.\n");
@@ -242,9 +242,9 @@ int revisarCarrito(ListaCarrito *carrito){
     }
 
 //Recoleccion de datos del cliente para finalizar el pedido, se hace push a la cola de pedidos
-int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
+int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check){
     Producto *p = carrito->inicio;
-    int check = 0;
+    check = 0;
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
     float pago = 0;
@@ -292,8 +292,8 @@ int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
 //FUNCIONES GERENTE------------------------------------------------------------------------------------------------------------------
 //Se muestra el pedido y repartidor con mas tiempo de espera para decidir si se le asigna el pedido, se hace pop a ambas colas y se
 //añade al repartidor a la lista de repartidores
-int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos){
-    int check = 0;
+int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos, int check){
+    check = 0;
     char opc;
     Repartidor *repartidorOcupado;
     ListaCarrito *pedidoAsignado;
@@ -345,6 +345,7 @@ void pedidoAsignado(Repartidor *repartidor){
 
 //Se le pregunta al repartidor si el pedido se ha entregado, en caso afirmativo se le regresa a la cola de pedidos
 int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int check){
+    check = 0;
     int opc;
     printf("Hola %s, pulsa [Y] para confirmar la entrega del pedido, de lo contrario pulsa [N]", repartidor->nombre);
     fflush(stdin);
@@ -398,6 +399,7 @@ void agregarProductos(ListaProductos *lista){
 
 //Navegación de productos para el almacenista
 int verificarListaProductos(ListaProductos *lista, int check){
+    check = 0;
     char opc;
     Producto *p;
 
@@ -467,41 +469,3 @@ int verificarListaProductos(ListaProductos *lista, int check){
         return check;
 }
 
-//FUNCIONES PRODUCTO-----------------------------------------------------------------------------------------------------------------
-//Esto ni va aqui, hay que encontrarle un lugar a  esta chingadera
-void grabarProducto(char *archivo, struct Producto p[])
-    {
-        FILE *file;
-        file = fopen(archivo, "wt");
-
-        if (file == NULL)
-        {
-            printf("No se puede abrir el archivo: [%s]\n", archivo);
-            exit(-1);
-        }
-        for(int k=0; k<21;k++) {
-            fwrite(&p[k], sizeof(struct Producto), 1, file);
-        }
-
-
-        fclose(file);
-        printf("Archivo generado exitosamente!\n");
-    }
-
-void recuperarProducto(char *archivo, struct Producto v[])
-{
-    FILE *file;
-    file = fopen(archivo, "r");
-
-    if (file == NULL)
-    {
-        printf("No existe el archivo: \n");
-        exit(-2);
-    }
-
-    for (int k = 0; k < 21; k++)
-    {
-        fread(&v[k], sizeof(struct Producto), 21, file);
-    }
-    fclose(file);
-}

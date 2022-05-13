@@ -2,22 +2,34 @@
 #include <stdlib.h>
 #include "menus.h"
 #include "listas.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "menus.h"
+#include "listas.h"
 #include "colas.h"
 #include "funciones.h"
+#include "stock.h"
 
 int main(void){
     Pedidos *colaPedidos = crearColaPedidos();
     int o = 0;
+    ListaProductos *lista = nuevaListaProductos();
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
     printf("Lista creada\n");
-    if(vaciaListaProductos(listProd))
+    if(vaciaListaProductos(lista))
         printf("Lista Vacia\n");
-    else imprimirListaProductos(listProd);
-    agregarProducto(listProd, "Pan", 10, 150);
-    agregarProducto(listProd, "Wawa", 20, 350);
-    agregarProducto(listProd, "Galletas", 40, 50);
-    agregarProducto(listProd, "eee", 10, 10);
+    else imprimirListaProductos(lista);
+
+    agregarProducto(lista, "AMD Ryzen 9 5950X", 12449.99, 10);
+    agregarProducto(lista, "AMD Ryzen 5 5600G", 3630.79, 10);
+    agregarProducto(lista, "Intel Core i9 12900K", 12099.99, 10);
+    agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);
+    agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);
+    printf("Stock creado");
+    //grabarStock("stock.txt", lista);
+    //recuperarStock("stock.txt", listProd);
+
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
@@ -37,28 +49,28 @@ int main(void){
     if(o){
         int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
         do{
-            opc = menuInicial();
+            opc = menuInicial(opc);
             switch (opc)
             {
                 case 1:
                     system("cls");
                     do{
-                        opcionCliente = menuCliente(listProd, carro1, opcionCliente, colaPedidos);
+                        opcionCliente = menuCliente(opcionCliente, listProd, carro1, colaPedidos);
                     }while(opcionCliente != 4);
                     break;
                 case 2:
                     do{
-                        opcionGerente = menuGerente(colaPedidos, colaRep, listRep, opcionGerente);
+                        opcionGerente = menuGerente(opcionGerente, colaPedidos, colaRep, listRep);
                     }while(opcionGerente != 5);
                     break;
                 case 3:
                     do{
-                        opcionRepartidor = menuRepartidor(repLibre, listRep, colaRep, opcionRepartidor);
+                        opcionRepartidor = menuRepartidor(opcionRepartidor, repLibre, listRep, colaRep);
                     }while(opcionRepartidor != 3);
                     break;
                 case 4:
                     do{
-                        opcionAlmacenista = menuAlmacenista(listProd, opcionAlmacenista);
+                        opcionAlmacenista = menuAlmacenista(opcionAlmacenista, listProd);
                     }while(opcionAlmacenista != 3);
                     break;
             }
