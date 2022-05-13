@@ -4,20 +4,19 @@
 #include "colas.h"
 
 //Funciones Cola de pedidos
+
 Pedidos* crearColaPedidos(){
     Pedidos* p;
     p = malloc(sizeof(Pedidos));
-    p->inicio = p->fin = NULL;
     p->numeroPedidos = 0;
+    p->inicio = p->fin = NULL;
     return p;
 }
 
-void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
+void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){//FUNCION TERMINADA
     //Añade el nuevo pedido al inicio de la cola
     if(colaPedidos->inicio == NULL){
         colaPedidos->inicio = colaPedidos->fin = carritoCliente;
-        imprimirCarrito(colaPedidos->inicio);
-        printf("\n\n\n");
         return;
     }
     imprimirCarrito(carritoCliente);
@@ -47,14 +46,23 @@ ListaCarrito* popPedido(Pedidos *colaPedidos){
 }
 
 void imprimirColaPedidos(Pedidos *colaPedidos){
-    printf("Entrada a imprimirColaPedidos");
     ListaCarrito *c = colaPedidos->fin;
-    while(c->ant != NULL){
-        imprimirCarrito(c);
-        c = c->ant;
+    if(c == NULL){
+        printf("No hay ningun pedido\n");
+        return;
     }
-    printf("Salida de imprimirColaPedidos\n");
-    return;
+    while(c != NULL){
+        printf("dentro del while\n");
+        printf("************************\n");
+        imprimirCarrito(c);
+        if(c->ant == NULL){
+                printf("anterior es nulo");
+            return;
+        }else{
+            c = c->ant;
+        }
+    }
+    printf("ya salimos\n");
 }
 
 //Funciones Cola de Repartidores en Espera
@@ -81,7 +89,7 @@ void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidor
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
     Repartidor *repartidorOcupado;
     if(colaRepartidores->inicio ==  NULL){
-        printf("La cola de repartidores en espera ya está vacía");
+        printf("La cola de reaprtidores en espera ya está vacía");
         return NULL;
     }
     repartidorOcupado = colaRepartidores->fin;
@@ -93,9 +101,13 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
 
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     Repartidor *r = colaRepartidores->fin;
-    while(r->ant != NULL){
+    if(r == colaRepartidores->inicio)
         imprimirRepartidor(r);
-        r = r->ant;
+    else{
+        while(r != NULL){
+            imprimirRepartidor(r);
+            r = r->ant;
+        }
     }
     return;
 }

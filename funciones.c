@@ -119,6 +119,27 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito){
         return check;
     }
 
+void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito){
+    if(carrito->inicio == carrito->fin){
+        carrito->inicio = carrito->fin = NULL;
+    }
+    else if(p == carrito->inicio){
+        carrito->inicio = carrito->inicio->sig;
+        carrito->inicio->ant = NULL;
+        p->sig = NULL;
+    }
+    else if(p == carrito->fin){
+        carrito->fin = carrito->fin->ant;
+        carrito->fin->sig = NULL;
+        p->ant = NULL;
+    }
+    else{
+        p->ant->sig = p->sig;
+        p->sig->ant = p->ant;
+        p->sig = p->ant = NULL;
+    }
+}
+
 int revisarCarrito(ListaCarrito *carrito){
     //permite navegar el carrito y eliminar productos de este
     char opc;
@@ -204,7 +225,7 @@ int revisarCarrito(ListaCarrito *carrito){
                         eliminarProductoCarrito(p, carrito);
                         printf("Producto eliminado. \n");
                         system("Pause");
-                        break;
+                        return check;
                     }else if(opcEliminar == 2){
                         printf("Ingrese cuantas unidades desea eliminar: \t");
                         scanf("%d", &unidadesMenos);
@@ -215,7 +236,7 @@ int revisarCarrito(ListaCarrito *carrito){
                             eliminarProductoCarrito(p, carrito);
                             printf("Producto eliminado. \n");
                             system("Pause");
-                            break;
+                            return check;
                         }else{
                             p->existencias = p->existencias - unidadesMenos;
                         }
@@ -237,8 +258,9 @@ int revisarCarrito(ListaCarrito *carrito){
     return check;
     }
 
-void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
+int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
     Producto *p = carrito->inicio;
+    int check = 0;
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
     float pago=0;
@@ -249,6 +271,7 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
     printf("Este es su pedido final: \n");
     printf("***************************\n");
     imprimirCarrito(carrito);
+    printf("\nPago total: %.2f\n\n", pago);
     printf("Desea finalizar su pedido? [Y/N] \n");
     fflush(stdin);
     opcPedido = getchar();
@@ -268,94 +291,99 @@ void realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos){
         agregarCliente(carrito, nombre, direccion, telefono, pago);
         pushPedido(colaPedidos, carrito);
         printf("Su pedido se ha realizado exitosamente!\n");
+        check = 1;
     }
     else if(opcPedido == 'N' || opcPedido == 'n'){
         printf("Se le regresara al menu principal para clientes.\n");
-        system("Pause");
-        return;
+        check = 1;
+        return check;
     }
     else{
-        printf("Opcion incorrecta. \n");
-        system("Pause");
+        printf("Ingrese una opcion valida\n");
+        return check;
     }
+    return check;
 }
-
 
 //Funciones Gerente------------------------------------------------------------------------------------------------------------------
-void verPedidos(Pedidos *colaPedidos){
-    imprimirColaPedidos(colaPedidos);
-    printf("Salida de la funcion verPedidos\n");
-    return;
-}
-
-void repartidoresEspera(RepartidoresEspera *colaRepartidores){
-    imprimirRepartidoresEspera(colaRepartidores);
-    return;
-}
-
-void repartidoresTransito(ListaRepartidoresTransito *listaRepartidores){
-    imprimirListaRepartidoresTransito(listaRepartidores);
-    return;
-}
-
-void asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos){
-    //Impresion del último pedido y último pedido (A los que se les hara pop de las colas)
+int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos){
+    int check = 0;
     char opc;
-    Repartidor *repartidorOcupado = NULL;
-    ListaCarrito *pedidoAsginado = NULL;
+    Repartidor *repartidorOcupado;
+    ListaCarrito *pedidoAsignado;
     printf("Repartidor con mas tiempo en la cola\n");
     imprimirRepartidor(colaRepartidores->fin);
     printf("Pedido con mas tiempo en la cola\n");
-    imprimirCarrito(colaPedidos->fin);
-    printf("Desea asignar el pedido?[Y/N]\n");
-    do{
+    if(colaPedidos->fin == NULL){
+        printf("No hay ningun pedido\n");
+        check = 1;
+        return check;
+    }else{
+        imprimirCarrito(colaPedidos->fin);
+        printf("Desesa asignar el pedido?[Y/N]\n");
         fflush(stdin);
         opc = getchar();
         fflush(stdin);
-        if(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N'){
+        if(opc == 'Y' || opc == 'y'){
+            printf("leido :]");
+            repartidorOcupado = popRepartidor(colaRepartidores); //aqui se rompe
+            pedidoAsignado = popPedido(colaPedidos);
+            repartidorOcupado->pedidoAsignado = pedidoAsignado;
+            agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
+        }else if(opc == 'N' || opc == 'n'){
+            printf("Se le regresara al menu principal para gerente.\n");
+            check = 1;
+            return check;
+        }else{
             printf("Ingrese una opcion valida\n");
+            return check;
         }
-    }while(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N');
-    if(opc == 'Y' || opc == 'y'){
-        repartidorOcupado = popRepartidor(colaRepartidores);
-        pedidoAsginado = popPedido(colaPedidos);
-        repartidorOcupado->pedidoAsignado = pedidoAsginado;
-        agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
-        return;
     }
-    return;
+    return check;
 }
+
 //Funciones Repartidor-----------------------------------------------------------------------------------------------------------------
 
 void pedidoAsignado(Repartidor *repartidor){
-    printf("Hola %s, se te asigno este pedido:\n", repartidor->nombre);
-    imprimirCarrito(repartidor->pedidoAsignado);
+    if(repartidor->pedidoAsignado == NULL){
+        printf("Por el momento no tienes ningun pedido asignado\n");
+        return;
+    }else{
+        printf("Hola %s, se te asigno este pedido:\n", repartidor->nombre);
+        imprimirCarrito(repartidor->pedidoAsignado);
+    }
 }
 
-void entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores){
-    int opc;
+int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores){
+    int opc, check = 0;
     printf("Hola %s, pulsa [Y] para confirmar la entrega del pedido, de lo contrario pulsa [N]",repartidor->nombre);
-    do{
-        fflush(stdin);
-        opc = getchar();
-        fflush(stdin);
-        if(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N'){
-            printf("Ingrese una opcion valida\n");
-        }
-    }while(opc != 'Y' || opc != 'y' || opc != 'n' || opc != 'N');
+    fflush(stdin);
+    opc = getchar();
+    fflush(stdin);
     if(opc == 'Y' || opc == 'y'){
         eliminarRepartidor(lista, repartidor);
         pushRepartidor(colaRepartidores, repartidor);
         printf("Has regresado a la cola de repartidores, espera un nuevo pedido\n");
+        check = 1;
     }
-    return;
+    else if(opc == 'N' || opc == 'n'){
+        printf("Se le regresara al menu principal para repartidores.\n");
+        check = 1;
+        return check;
+    }
+    else{
+        printf("Ingrese una opcion valida\n");
+        return check;
+    }
+    return check;
 }
+
 
 //Funciones Almacenista--------------------------------------------------------------------------------------------------------------
 void agregarProductos(ListaProductos *lista){
     char nombre[MAX_CHAR];
     int cantidad=0;
-    int precio=0;
+    float precio=0;
     Producto *p = lista->inicio;
     printf("Ingrese el nombre del producto:     ");
     fflush(stdin);
@@ -364,7 +392,7 @@ void agregarProductos(ListaProductos *lista){
     printf("Ingrese la cantidad a almacenar:    ");
     scanf("%d", &cantidad);
     printf("Ingrese el precio del producto:     ");
-    scanf("%d", &precio);
+    scanf("%f", &precio);
     while(vaciaListaProductos(lista)){
         if(strcmpi (nombre, p->nombre)){
             p->precio = precio;

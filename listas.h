@@ -42,6 +42,5 @@ void imprimirCarrito(ListaCarrito* carrito);
 int vacioCarrito(ListaCarrito *carrito);
 void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias);
 void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo);
-void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 
 #endif // LISTAS_H_INCLUDED

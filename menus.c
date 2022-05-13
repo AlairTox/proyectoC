@@ -47,13 +47,11 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
                 system("Pause");
                 system("cls");
             }else{
-                realizarPedido(carrito, colaPedidos);
-                printf("Si ves esto es por que paso de la funcion realizarPedido\n");
-                //imprimirCarrito(carrito); //ESTO ES SOLO PARA VERIFICAR QUE QUEDE BIEN. SE DEBE BORRAR.
-                //fflush(stdin);
-                system("Pause");
-                system("cls");
-                //return opcionCliente;
+                do{
+                    check = realizarPedido(carrito, colaPedidos);
+                    system("Pause");
+                    system("cls");
+                }while(!check);
             }
         break;
         case 4:
@@ -63,8 +61,8 @@ int menuCliente(ListaProductos *lista, ListaCarrito *carrito, int opcionCliente,
     return opcionCliente;
 }
 
-void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
-    int opcionGerente;
+int menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores, int opcionGerente){
+    int check;
     do{
         printf("Este es el menu del Gerente\n");
         printf("Ingresa [1]: Ver la cola de Pedidos\n");
@@ -76,25 +74,37 @@ void menuGerente(Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, Lis
     }while(opcionGerente < 1 || opcionGerente > 5);
     switch(opcionGerente){
         case 1:
-            verPedidos(colaPedidos);
+            imprimirColaPedidos(colaPedidos);
+            system("Pause");
+            system("cls");
         break;
         case 2:
-            repartidoresEspera(colaRepartidores);
+            imprimirRepartidoresEspera(colaRepartidores);
+            system("Pause");
+            system("cls");
+
         break;
         case 3:
-            repartidoresTransito(listaRepartidores);
+            imprimirListaRepartidoresTransito(listaRepartidores);
+            system("Pause");
+            system("cls");
         break;
         case 4:
-            asignarPedido(listaRepartidores, colaRepartidores, colaPedidos);
+            do{
+                system("cls");
+                check = asignarPedido(listaRepartidores, colaRepartidores, colaPedidos);
+                system("Pause");
+            }while(!check);
         break;
         case 5:
-            return;
+            return opcionGerente;
         break;
     }
+    return opcionGerente;
 }
 
-void menuRepartidor(ListaRepartidoresTransito *listaRepartidores,RepartidoresEspera *colaRepartidores,Repartidor *repartidor){
-    int opcionRepartidor=0;
+int menuRepartidor(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int opcionRepartidor){
+    int check = 0;
     do{
         printf("Este es el menu del Repartidor\n");
         printf("Ingresa [1]: Ver Pedido Asignado\n");
@@ -107,15 +117,20 @@ void menuRepartidor(ListaRepartidoresTransito *listaRepartidores,RepartidoresEsp
             pedidoAsignado(repartidor);
         break;
         case 2:
-            entregaPedido(repartidor, listaRepartidores, colaRepartidores);
+            do{
+                system("cls");
+                check = entregaPedido(repartidor, lista, colaRepartidores);
+                system("Pause");
+            }while(!check);
         break;
         case 3:
-            return;
+            return opcionRepartidor;
         break;
     }
+    return opcionRepartidor;
 }
 
-void menuAlmacenista(ListaProductos *lista){
+void menuAlmacenista(void){
     int opcionAlmacenista=0;
     do{
         printf("Este es el menu del Almacenista\n");
@@ -126,10 +141,10 @@ void menuAlmacenista(ListaProductos *lista){
     }while(opcionAlmacenista < 1 || opcionAlmacenista > 3);
     switch(opcionAlmacenista){
         case 1:
-            //listaProductos();//Pendiente
+            //listaProductos();
         break;
         case 2:
-            agregarProductos(lista);
+            //agregarProductos();
         break;
         case 3:
             return;

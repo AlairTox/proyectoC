@@ -7,10 +7,6 @@
 
 int main(){
     Pedidos *colaPedidos = crearColaPedidos();
-    ListaRepartidoresTransito *listaRepartidores = nuevaListaRepartidoresTransito();
-    RepartidoresEspera *colaRepartidores = crearColaRepartidores();
-    Repartidor *repartidor = crearRepartidor("Pancrasio", 2584);
-    pushRepartidor(colaRepartidores, repartidor);
     int o=0;
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
@@ -21,17 +17,25 @@ int main(){
     agregarProducto(listProd, "Pan", 10, 150);
     agregarProducto(listProd, "Wawa", 20, 350);
     agregarProducto(listProd, "Galletas", 40, 50);
-    //agregarProducto(listProd, "eee", 10, 10);//No sé por que se rompe aqui así que la comento
+    agregarProducto(listProd, "eee", 10, 10);
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
     else imprimirListaProductos(listProd);
+    RepartidoresEspera *colaRep = crearColaRepartidores();
+    Repartidor *repLibre = crearRepartidor("Pancrasio", 2504);
+    //Repartidor *repLibre2 = crearRepartidor("Cosito Raz", 2204);
+    pushRepartidor(colaRep, repLibre);
+    //pushRepartidor(colaRep, repLibre2);
+    ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
+    agregarRepartidor(listRep, "Cosito Raz", 2504);
+
     printf("Desea continuar?");
     scanf("%d", &o);
     system("cls");
 
     if(o){
-        int opc, opcionCliente;
+        int opc, opcionCliente, opcionGerente, opcionRepartidor;
         do{
             opc = menuInicial();
             switch (opc)
@@ -39,23 +43,28 @@ int main(){
                 case 1:
                     system("cls");
                     do{
-                    opcionCliente = menuCliente(listProd, carro1, opcionCliente, colaPedidos);
-                    }while(opcionCliente != 4);
+                        opcionCliente = menuCliente(listProd, carro1, opcionCliente, colaPedidos);
+                    }while(opcionCliente!=4);
                     break;
-
                 case 2:
-                    menuGerente(colaPedidos, colaRepartidores, listaRepartidores);
+                    do{
+                        opcionGerente = menuGerente(colaPedidos, colaRep, listRep, opcionGerente);
+                    }while(opcionGerente!=5);
                     break;
                 case 3:
-                    menuRepartidor(listaRepartidores, colaRepartidores, repartidor);
+                    do{
+                        opcionRepartidor =menuRepartidor(repLibre, listRep, colaRep, opcionRepartidor);
+                    }while(opcionRepartidor!=3);
                     break;
                 case 4:
-                    menuAlmacenista(listProd);
+                    menuAlmacenista();
                     break;
             }
             system("cls");
         }while(opc != 5);
     }
-    //printf("Impresion de cola de pedidos\n");
-    //imprimirColaPedidos(colaPedidos);
+
+    printf("Impresion de cola de pedidos\n");
+    imprimirColaPedidos(colaPedidos);
+    printf("Termino de impresion de cola de pedidos\n");
 }

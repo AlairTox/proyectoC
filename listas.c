@@ -74,7 +74,6 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     while(p!=NULL){
         printf("Nombre: %s\n", p->nombre);
         printf("ID: %d\n", p->id);
-        printf("-----------------\n");
         p = p->sig;
     }
     printf("\n");
@@ -96,31 +95,24 @@ void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id){
 
 //ELIMINAR UN REPARTIDOR DE LA LISTA DE TRANSITO
 void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor){
-    if(lista->inicio == NULL){
+    if (lista->inicio == NULL){
         printf("La lista de repartidores en transito esta vacia\n");
-        return;
-    }
-    if(lista->inicio == repartidor && lista->fin == repartidor){
+    } else if (lista->inicio == repartidor && lista->fin == repartidor){
         lista->inicio = lista->fin = NULL;
         lista->n--;
-        return;
-    }
-    if(lista->inicio == repartidor){
+    } else if (lista->inicio == repartidor){
         lista->inicio->sig->ant = NULL;
         lista->inicio = lista->inicio->sig;
         repartidor->ant = repartidor->sig = NULL;
-        return;
-    }
-    if(lista->fin == repartidor){
+    } else if (lista->fin == repartidor){
         lista->fin->ant->sig = NULL;
         lista->fin = lista->fin->ant;
         repartidor->ant = repartidor->sig = NULL;
-        return;
-    }
+    } else {
     repartidor->ant->sig = repartidor->sig;
     repartidor->sig->ant = repartidor->ant;
     repartidor->ant = repartidor->sig = NULL;
-    return;
+    }
 }
 
 //FUNCIONES DE CARRITO---------------------------------------------------------
@@ -173,26 +165,4 @@ void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, i
 void agregarCliente(ListaCarrito *carrito, char *nombre, char *direccion, double telefono, float costo){
     Cliente *c = nuevoCliente(nombre, direccion, telefono, costo);
     carrito->cliente = c;
-}
-
-//ELIMINAR UN PRODUCTO DEL CARRITO
-void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito){
-    if(carrito->inicio == carrito->fin){
-        carrito->inicio = carrito->fin = NULL;
-    }
-    else if(p == carrito->inicio){
-        carrito->inicio = carrito->inicio->sig;
-        carrito->inicio->ant = NULL;
-        p->sig = NULL;
-    }
-    else if(p == carrito->fin){
-        carrito->fin = carrito->fin->ant;
-        carrito->fin->sig = NULL;
-        p->ant = NULL;
-    }
-    else{
-        p->ant->sig = p->sig;
-        p->sig->ant = p->ant;
-        p->sig = p->ant = NULL;
-    }
 }
