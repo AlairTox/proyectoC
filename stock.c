@@ -33,18 +33,25 @@ void crearStock(ListaProductos *lista){
 void grabarStock(char *archivo, ListaProductos *lista){
     Producto *p = lista->inicio;
     FILE *file;
-    file = fopen(archivo, "w");
+    file = fopen(archivo, "wb");
 
     if (file == NULL){
             printf("No se puede abrir el archivo: [%s]\n", archivo);
             exit(-1);
         }
-        while(p!=NULL){
-            fwrite(p, sizeof(struct Producto), 1, file);
+        for(int k = 0; k < lista->n; k++){
+            fwrite(p, sizeof(Producto), 1, file);
             p = p->sig;
         }
         fclose(file);
-        printf("Archivo generado exitosamente!\n");
+        printf("Archivo generado exitosamente(creo, espero, anhelo, ruego)\n");
+        //Lo dejo comentado por si se necesita
+        // while(p!=NULL){
+        //     fwrite(p, sizeof(struct Producto), 1, file);
+        //     p = p->sig;
+        // }
+        // fclose(file);
+        // printf("Archivo generado exitosamente!\n");
     }
 
 //Esta funcion lee el .dat para crear la lista de Productos
@@ -52,15 +59,27 @@ void recuperarStock(char *archivo, ListaProductos *lista){
     printf("entramos funcion");
     Producto *p = lista->inicio;
     FILE *file;
-    file = fopen(archivo, "r");
+    file = fopen(archivo, "rb");
 
     if (file == NULL){
-        printf("No existe el archivo: \n");
+        printf("No existe el archivo: [%s]\n", archivo);
         exit(-2);
     }
 
     while(!feof(file)){
         printf("entramos while");
+        //ACA problema, esto se la razón de que no funcione pero no sé como solucionarlo
+        //Basicamente cuando inicia el programa lo primero que se hace es recuperar el stock para que todo el resto funcione
+        //lista->inicio es NULL así que p es NULL, p->sig es NULL, se está asignando información 
+        //a direcciones nulas, por lo que esto o no lo guarda o se rompe
+        //Solución pensada: usar la función de agregar producto para generar nuevas direcciones en la lista
+        //Problema: agregarProducto necesita de nombre, costo y existencias, así que o se puede modificar esa función
+        //para que solo se mande la dirección de producto y eso irlo agregando a la lista, pero es moverle mucho
+        //Mas o menos sería asi:
+        //Producto *p = crearProducto(algo generico, algo generico, algo generico);
+        //fread(p, sizeof(struct Producto), 1, file);
+        //agregar Producto(lista, p);
+        //
         fread(p, sizeof(struct Producto), 1, file);
         p = p->sig;
     }

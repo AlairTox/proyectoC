@@ -27,8 +27,8 @@ int main(void){
     agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);
     agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);
     printf("Stock creado");
-    //grabarStock("stock.txt", lista);
-    //recuperarStock("stock.txt", listProd);
+    //grabarStock("stock.dat", lista);
+    //recuperarStock("stock.dat", listProd);
 
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
