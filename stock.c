@@ -68,20 +68,13 @@ void recuperarStock(char *archivo, ListaProductos *lista){
 
     while(!feof(file)){
         printf("entramos while");
-        //ACA problema, esto se la razón de que no funcione pero no sé como solucionarlo
-        //Basicamente cuando inicia el programa lo primero que se hace es recuperar el stock para que todo el resto funcione
-        //lista->inicio es NULL así que p es NULL, p->sig es NULL, se está asignando información 
-        //a direcciones nulas, por lo que esto o no lo guarda o se rompe
-        //Solución pensada: usar la función de agregar producto para generar nuevas direcciones en la lista
-        //Problema: agregarProducto necesita de nombre, costo y existencias, así que o se puede modificar esa función
-        //para que solo se mande la dirección de producto y eso irlo agregando a la lista, pero es moverle mucho
-        //Mas o menos sería asi:
-        //Producto *p = crearProducto(algo generico, algo generico, algo generico);
-        //fread(p, sizeof(struct Producto), 1, file);
-        //agregar Producto(lista, p);
-        //
         fread(p, sizeof(struct Producto), 1, file);
         p = p->sig;
+
+        if(!feof(file)){
+            fclose(file);
+            return;
+        }
     }
     printf("terminamos funcion");
     fclose(file);
