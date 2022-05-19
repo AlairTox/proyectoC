@@ -65,7 +65,7 @@ int main(void){
                     break;
                 case 3:
                     do{
-                        opcionRepartidor = menuRepartidor(opcionRepartidor, repLibre, listRep, colaRep);
+                        opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep);
                     }while(opcionRepartidor != 3);
                     break;
                 case 4:

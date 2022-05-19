@@ -369,6 +369,28 @@ int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, Repa
     return check;
 }
 
+Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
+    Repartidor *r = colaRepartidores->fin;
+    int id = 0;
+    printf("Ingrese su ID: \t");
+    scanf("&d", &id);
+    do{//Busqueda en la cola
+        if(r->id == id){
+            printf("Bienvenid@ %s\n", r->nombre);
+            return r;
+        }
+        r = r->ant;
+    }while(r != NULL);
+    r = listaRepartidores->inicio;
+    do{//Busqueda en la lista
+        if(r->id == id){
+            printf("Bienvenid@ %s\n", r->nombre);
+            return r;
+        }
+        r = r->sig;
+    }while(r != NULL);
+    return NULL;
+}
 
 //FUNCIONES ALMACENISTA--------------------------------------------------------------------------------------------------------------
 //Se agrega un producto en cantidad o en su totalidad a la lista de productos

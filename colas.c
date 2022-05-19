@@ -130,3 +130,11 @@ void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     }
     return;
 }
+
+void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
+    pushRepartidor(colaRepartidores, crearRepartidor("Juan Perez", 2504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Domínguez", 1302));
+    pushRepartidor(colaRepartidores, crearRepartidor("María Aguilar", 1857));
+    pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
+    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernández", 2504));
+}
