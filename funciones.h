@@ -18,6 +18,7 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
 //funciones Repartidor
 void pedidoAsignado(Repartidor *repartidor);
 int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, int check);
+Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores);
 
 //funciones Almacenista
 //void navegacionMenu-Usamos la misma función del cliente, solo queremos navegar en la lista

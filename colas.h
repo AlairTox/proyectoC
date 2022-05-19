@@ -30,6 +30,6 @@ int vacioRepartidor(RepartidoresEspera *colaRepartidores);
 void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre);
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores);
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores);
-void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores)
+void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores);
 
 #endif // COLAS_H_INCLUDED

@@ -373,7 +373,7 @@ Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidores
     Repartidor *r = colaRepartidores->fin;
     int id = 0;
     printf("Ingrese su ID: \t");
-    scanf("&d", &id);
+    scanf("%d", &id);
     do{//Busqueda en la cola
         if(r->id == id){
             printf("Bienvenid@ %s\n", r->nombre);
