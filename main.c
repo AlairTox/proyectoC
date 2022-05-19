@@ -32,6 +32,9 @@ int main(void){
 
     printf("Stock creado");
     grabarStock("stock.dat", lista);
+
+    //crearStock(listProd);//FUNCION A REPARAR
+    
     //recuperarStock("stock.dat", listProd);
 
     printf("Impresion antes de la lista\n");
