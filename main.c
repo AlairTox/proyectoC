@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "menus.h"
-#include "listas.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "listas.h"
+#include "menus.h"
 #include "menus.h"
 #include "listas.h"
 #include "colas.h"
@@ -16,6 +17,8 @@ int main(void){
     ListaProductos *lista = nuevaListaProductos();
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carro1 = nuevoCarrito();
+    RepartidoresEspera *colaRep = crearColaRepartidores();
+    inicializarColaRepartidores(colaRep);
     printf("Lista creada\n");
     if(vaciaListaProductos(lista))
         printf("Lista Vacia\n");
@@ -26,23 +29,19 @@ int main(void){
     agregarProducto(lista, "Intel Core i9 12900K", 12099.99, 10);
     agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);
     agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);
+
     printf("Stock creado");
-    //grabarStock("stock.dat", lista);
+    grabarStock("stock.dat", lista);
     //recuperarStock("stock.dat", listProd);
 
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
         printf("Lista Vacia\n");
     else imprimirListaProductos(listProd);
-    RepartidoresEspera *colaRep = crearColaRepartidores();
-    Repartidor *repLibre = crearRepartidor("Pancrasio", 2504);
-    //Repartidor *repLibre2 = crearRepartidor("Cosito Raz", 2204);
-    pushRepartidor(colaRep, repLibre);
-    //pushRepartidor(colaRep, repLibre2);
-    ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
-    agregarRepartidor(listRep, "Cosito Raz", 2504);
 
-    printf("Desea continuar?");
+    ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
+
+    printf("Inicializacion del programa completa. Desea continuar?");
     scanf("%d", &o);
     system("cls");
 
@@ -78,7 +77,4 @@ int main(void){
         }while(opc != 5);
     }
 
-    printf("Impresion de cola de pedidos\n");
-    imprimirColaPedidos(colaPedidos);
-    printf("Termino de impresion de cola de pedidos\n");
-}
+    return 0;
