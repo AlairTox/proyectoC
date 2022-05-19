@@ -1,12 +1,17 @@
 #ifndef ELEMENTO_H_INCLUDED
 #define ELEMENTO_H_INCLUDED
 
+//INFO PRODUCTO
+typedef struct infoProducto{
+    char nombre[35];
+    float precio;
+    int existencias;
+} infoProducto;
+
 //PRODUCTO
 typedef struct Producto{
     struct Producto *ant, *sig;
-    char *nombre;
-    float precio;
-    int existencias;
+    infoProducto *info;
 }Producto;
 
 //CLIENTE

@@ -16,7 +16,7 @@ int main(void){
     int o = 0;
     ListaProductos *lista = nuevaListaProductos();
     ListaProductos *listProd = nuevaListaProductos();
-    ListaCarrito *carro1 = nuevoCarrito();
+    
     RepartidoresEspera *colaRep = crearColaRepartidores();
     inicializarColaRepartidores(colaRep);
     printf("Lista creada\n");
@@ -57,7 +57,7 @@ int main(void){
                 case 1:
                     system("cls");
                     do{
-                        opcionCliente = menuCliente(opcionCliente, listProd, carro1, colaPedidos);
+                        opcionCliente = menuCliente(opcionCliente, listProd, colaPedidos);
                     }while(opcionCliente != 4);
                     break;
                 case 2:

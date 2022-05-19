@@ -10,18 +10,18 @@ Producto *crearProducto(char *nombre, float precio, int existencias){
     Producto *e;
     e = malloc(sizeof(Producto));
     e->ant = e->sig = NULL;
-    e->nombre = malloc(sizeof(char)*(strlen(nombre)));
-    strcpy(e->nombre, nombre);
-    e->existencias = existencias;
-    e->precio = precio;
+    e->info = malloc(sizeof(infoProducto));
+    strcpy(e->info->nombre, nombre);
+    e->info->existencias = existencias;
+    e->info->precio = precio;
     return e;
 }
 
 //Impresión de producto
 void imprimirProducto(Producto *e){
-        printf("Producto: %s\n", e->nombre);
-        printf("Existencias: %d\n", e->existencias);
-        printf("Costo: %.2f\n", e->precio);
+        printf("Producto: %s\n", e->info->nombre);
+        printf("Existencias: %d\n", e->info->existencias);
+        printf("Costo: %.2f\n", e->info->precio);
 }
 
 //FUNCIONES CLIENTE

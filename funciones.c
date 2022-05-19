@@ -35,11 +35,11 @@ void seleccionProducto(Producto *p, ListaCarrito *carrito){
     int articulos;
     printf("Cuantos articulos desea anadir a su carrito? \t");
     scanf("%d", &articulos);
-    if(articulos > p->existencias){
+    if(articulos > p->info->existencias){
         printf("No puede pedir tantos articulos\n");
     }else{
         //p->existencias = (p->existencias - articulos);
-        agregarProductoCarrito(carrito, p->nombre, p->precio, articulos);
+        agregarProductoCarrito(carrito, p->info->nombre, p->info->precio, articulos);
         printf("El producto ha sido agregado al carrito.\n");
     }
 }
@@ -187,7 +187,7 @@ int revisarCarrito(ListaCarrito *carrito, int check){
 
                 case 'T': //calculo del precio total a pagar
                     while(a != NULL){
-                        total = total + (a->precio * a->existencias);
+                        total = total + (a->info->precio * a->info->existencias);
                         a = a->sig;
                     }
                     printf("Su pago total actualmente es de: %.2f\n", total);
@@ -212,16 +212,16 @@ int revisarCarrito(ListaCarrito *carrito, int check){
                     }else if(opcEliminar == 2){
                         printf("Ingrese cuantas unidades desea eliminar: \t");
                         scanf("%d", &unidadesMenos);
-                        if(unidadesMenos > p->existencias){
+                        if(unidadesMenos > p->info->existencias){
                             printf("No puede eliminar tantas unidades.\n");
                             system("Pause");
-                        }else if(unidadesMenos == p->existencias){
+                        }else if(unidadesMenos == p->info->existencias){
                             eliminarProductoCarrito(p, carrito);
                             printf("Producto eliminado. \n");
                             system("Pause");
                             return check;
                         }else{
-                            p->existencias = p->existencias - unidadesMenos;
+                            p->info->existencias = p->info->existencias - unidadesMenos;
                         }
                     }else{
                         printf("Opcion incorrecta. Intente de nuevo.\n");
@@ -249,7 +249,7 @@ int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check){
     double telefono;
     float pago = 0;
     while(p != NULL){
-        pago = pago + (p->precio * p->existencias);
+        pago = pago + (p->info->precio * p->info->existencias);
         p = p->sig;
     }
     printf("Este es su pedido final: \n");
@@ -408,9 +408,9 @@ void agregarProductos(ListaProductos *lista){
     printf("Ingrese el precio del producto:     ");
     scanf("%f", &precio);
     while(vaciaListaProductos(lista)){
-        if(strcmpi(nombre, p->nombre)){
-            p->precio = precio;
-            p->existencias += cantidad;
+        if(strcmpi(nombre, p->info->nombre)){
+            p->info->precio = precio;
+            p->info->existencias += cantidad;
             return;
         }
         p = p->sig;
