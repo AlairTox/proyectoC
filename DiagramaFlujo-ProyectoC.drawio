@@ -267,7 +267,7 @@
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="X82TEkIW_1v4thmt-Yyp-123" value="&lt;font color=&quot;#0000ff&quot;&gt;imprimirColaRepartidoresEspera(dump?)&lt;/font&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;strokeColor=#FFFFFF;" parent="1" vertex="1">
-                    <mxGeometry x="556" y="518" width="256" height="31.5" as="geometry"/>
+                    <mxGeometry x="604" y="518" width="256" height="31.5" as="geometry"/>
                 </mxCell>
                 <mxCell id="X82TEkIW_1v4thmt-Yyp-130" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="X82TEkIW_1v4thmt-Yyp-126" target="X82TEkIW_1v4thmt-Yyp-129" edge="1">
                     <mxGeometry relative="1" as="geometry"/>

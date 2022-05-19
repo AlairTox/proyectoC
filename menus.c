@@ -26,8 +26,7 @@ int menuInicial(void){
 }
 
 //Impresión de opciones iniciales para el cliente
-int menuCliente(int opcionCliente, ListaProductos *lista, Pedidos *colaPedidos){
-    ListaCarrito *carrito = nuevoCarrito();
+int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos){
     int check = 0;
     do{
         printf("Este es el menu para Clientes\n");
@@ -59,6 +58,7 @@ int menuCliente(int opcionCliente, ListaProductos *lista, Pedidos *colaPedidos){
             }else{
                 do{
                     check = realizarPedido(carrito, colaPedidos, check);
+                    carrito = nuevoCarrito();
                     system("Pause");
                     system("cls");
                 }while(!check);

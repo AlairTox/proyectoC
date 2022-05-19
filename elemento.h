@@ -42,4 +42,6 @@ void imprimirCliente(Cliente * c);
 Repartidor *crearRepartidor (char *nombre, int id);
 void imprimirRepartidor(Repartidor * r);
 
+//Funcion infoProducto
+infoProducto *inicializarInfoProducto();
 #endif // ELEMENTO_H_INCLUDED

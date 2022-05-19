@@ -63,3 +63,14 @@ void imprimirRepartidor(Repartidor *r){
     printf("Nombre del repartidor: %s\n", r->nombre);
     printf("ID: %d\n", r->id);
 }
+
+//FUNCIONES INFOPRODUCTO
+//Inicialización de infoProducto
+infoProducto *inicializarInfoProducto(){
+    infoProducto *a;
+    a = malloc(sizeof(infoProducto));
+    a->existencias = 0;
+    a->nombre[0] = 'a';
+    a->precio = 0;
+    return a;
+}
