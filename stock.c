@@ -31,7 +31,8 @@ void crearStock(ListaProductos *lista){
 
 //Esta funcion crea el .dat con la lista de Productos indicada
 void grabarStock(char *archivo, ListaProductos *lista){
-    Producto *p = lista->inicio;
+    Producto *a = lista->inicio;
+    infoProducto *p = a->info;
     FILE *file;
     file = fopen(archivo, "wb");
 
@@ -40,24 +41,17 @@ void grabarStock(char *archivo, ListaProductos *lista){
             exit(-1);
         }
         for(int k = 0; k < lista->n; k++){
-            fwrite(p, sizeof(Producto), 1, file);
-            p = p->sig;
+            fwrite(p, sizeof(infoProducto), 1, file);
+            p = a->sig->info;
+            a = a->sig;
         }
         fclose(file);
-        printf("Archivo generado exitosamente(creo, espero, anhelo, ruego)\n");
-        //Lo dejo comentado por si se necesita
-        // while(p!=NULL){
-        //     fwrite(p, sizeof(struct Producto), 1, file);
-        //     p = p->sig;
-        // }
-        // fclose(file);
-        // printf("Archivo generado exitosamente!\n");
     }
 
 //Esta funcion lee el .dat para crear la lista de Productos
 void recuperarStock(char *archivo, ListaProductos *lista){
-    printf("entramos funcion");
     Producto *p = lista->inicio;
+    infoProducto *a;
     FILE *file;
     file = fopen(archivo, "rb");
 
@@ -67,16 +61,15 @@ void recuperarStock(char *archivo, ListaProductos *lista){
     }
 
     while(!feof(file)){
-        printf("entramos while");
-        fread(p, sizeof(struct Producto), 1, file);
+        fread(a, sizeof(struct infoProducto), 1, file);
+        p = crearProducto(a->nombre, a->precio, a->existencias);
         p = p->sig;
-
+        
         if(!feof(file)){
             fclose(file);
             return;
         }
     }
-    printf("terminamos funcion");
     fclose(file);
 }
 

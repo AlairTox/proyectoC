@@ -30,7 +30,6 @@ int menuCliente(int opcionCliente, ListaProductos *lista, Pedidos *colaPedidos){
     ListaCarrito *carrito = nuevoCarrito();
     int check = 0;
     do{
-        ListaCarrito *carro1 = nuevoCarrito();
         printf("Este es el menu para Clientes\n");
         printf("Ingresa [1]: Seleccionar Productos\n");
         printf("Ingresa [2]: Revisar el carrito de Compras\n");

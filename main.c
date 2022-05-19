@@ -11,7 +11,7 @@
 #include "funciones.h"
 #include "stock.h"
 
-int main(void){
+int main(void){ 
     Pedidos *colaPedidos = crearColaPedidos();
     int o = 0;
     ListaProductos *lista = nuevaListaProductos();
