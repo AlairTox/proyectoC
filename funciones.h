@@ -10,7 +10,7 @@ void impresionNavegacion(void);
 void seleccionProducto(Producto *p, ListaCarrito *carrito);
 int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check);
 int revisarCarrito(ListaCarrito *carrito, int check);
-int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check);
+int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos, int check);
 
 //funciones Gerente
 int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos, int check);

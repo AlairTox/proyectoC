@@ -242,9 +242,10 @@ int revisarCarrito(ListaCarrito *carrito, int check){
     }
 
 //Recoleccion de datos del cliente para finalizar el pedido, se hace push a la cola de pedidos
-int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check){
+int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos, int check){
     Producto *p = carrito->inicio;
-    check = 0;
+    Producto *a = lista->inicio;
+    check = 0; 
     char nombre[MAX_CHAR], direccion[MAX_CHAR], opcPedido;
     double telefono;
     float pago = 0;
@@ -261,6 +262,14 @@ int realizarPedido(ListaCarrito *carrito, Pedidos *colaPedidos, int check){
     opcPedido = getchar();
     fflush(stdin);
     if(opcPedido == 'Y' || opcPedido == 'y'){
+        while(a != NULL ){
+            if(strcmp(a->info->nombre, p->info->nombre)){
+                a->info->existencias = a->info->existencias - p->info->existencias;
+                if(p!=carrito->fin)
+                    p = p->sig; 
+            }
+            a = p->sig;          
+        }
         printf("Ingrese su nombre completo:\t");
         fflush(stdin);
         gets(nombre);
@@ -310,13 +319,13 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
         return check;
     }else{
         imprimirCarrito(colaPedidos->fin);
-        printf("Desesa asignar el pedido?[Y/N]\n");
+        printf("Desea asignar el pedido?[Y/N]\n");
         fflush(stdin);
         opc = getchar();
         fflush(stdin);
         if(opc == 'Y' || opc == 'y'){
             printf("Pedido Asignado\n");
-            repartidorOcupado = popRepartidor(colaRepartidores); //aqui se rompe
+            repartidorOcupado = popRepartidor(colaRepartidores);
             pedidoAsignado = popPedido(colaPedidos);
             repartidorOcupado->pedidoAsignado = pedidoAsignado;
             agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
@@ -382,6 +391,9 @@ Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidores
         r = r->ant;
     }while(r != NULL);
     r = listaRepartidores->inicio;
+    if(listaRepartidores->inicio == NULL){
+        return NULL;
+    }
     do{//Busqueda en la lista
         if(r->id == id){
             printf("Bienvenid@ %s\n", r->nombre);

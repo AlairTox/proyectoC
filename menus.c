@@ -57,8 +57,7 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
                 system("cls");
             }else{
                 do{
-                    check = realizarPedido(carrito, colaPedidos, check);
-                    carrito = nuevoCarrito();
+                    check = realizarPedido(lista, carrito, colaPedidos, check);
                     system("Pause");
                     system("cls");
                 }while(!check);
@@ -115,14 +114,10 @@ int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *col
 }
 
 //Impresión y selección de las opciones para el repartidor
-int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores){
+int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Repartidor *repartidor){
     int check = 0;
-    Repartidor *repartidor;
+
     do{
-        repartidor = pedirUsuario(colaRepartidores, listaRepartidores);
-        if(repartidor == NULL){
-            printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");        
-        }
         printf("Este es el menu del Repartidor\n");
         printf("Ingresa [1]: Ver Pedido Asignado\n");
         printf("Ingresa [2]: Notificar una entrega de pedido\n");

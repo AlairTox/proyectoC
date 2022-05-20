@@ -61,10 +61,6 @@ void recuperarStock(char *archivo, ListaProductos *lista){
     while(!feof(file)){
         fread(a, sizeof(struct infoProducto), 1, file);
         agregarProducto(lista, a->nombre, a->precio, a->existencias);
-        if(!feof(file)){
-            fclose(file);
-            return;
-        }
     }
     fclose(file);
 }

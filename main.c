@@ -12,6 +12,7 @@
 #include "stock.h"
 
 int main(void){ 
+    Repartidor *repartidor;
     Pedidos *colaPedidos = crearColaPedidos();
     int o = 0;
     ListaProductos *lista = nuevaListaProductos();
@@ -67,8 +68,12 @@ int main(void){
                     }while(opcionGerente != 5);
                     break;
                 case 3:
+                    repartidor = pedirUsuario(colaRep, listRep);
+                    if(repartidor == NULL){
+                        printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");        
+                    }
                     do{
-                        opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep);
+                        opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep, repartidor);
                     }while(opcionRepartidor != 3);
                     break;
                 case 4:

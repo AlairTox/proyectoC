@@ -51,8 +51,9 @@ void imprimirCliente(Cliente *c){
 Repartidor *crearRepartidor (char *nombre, int id){
     Repartidor *e;
     e = malloc(sizeof(Producto));
-    e->ant=e->sig=NULL;
+    e->ant = e->sig = NULL;
     e->nombre = malloc(sizeof(char)*(strlen(nombre)));
+    e->pedidoAsignado = NULL;
     strcpy(e->nombre, nombre);
     e->id = id;
     return e;
