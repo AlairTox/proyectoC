@@ -265,7 +265,6 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
         p = carrito->inicio;
         while(a != NULL){
             if(strcmp(a->info->nombre, p->info->nombre) == 0){
-                printf("Mismo nombre");
                 a->info->existencias = (a->info->existencias) - (p->info->existencias);
                 if(p!=carrito->fin)
                     p = p->sig;

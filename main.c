@@ -17,6 +17,7 @@ int main(void){
     int o = 0;
     ListaProductos *lista = nuevaListaProductos();
     ListaProductos *listProd = nuevaListaProductos();
+    ListaCarrito *carrito = nuevoCarrito();
     
     RepartidoresEspera *colaRep = crearColaRepartidores();
     inicializarColaRepartidores(colaRep);
@@ -48,7 +49,7 @@ int main(void){
             switch (opc)
             {
                 case 1:
-                    ListaCarrito *carrito = nuevoCarrito();
+                    carrito = nuevoCarrito();
                     system("cls");
                     do{
                         opcionCliente = menuCliente(opcionCliente, listProd, carrito, colaPedidos);

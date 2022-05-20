@@ -136,5 +136,5 @@ void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
     pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dominguez", 1302));
     pushRepartidor(colaRepartidores, crearRepartidor("Maria Aguilar", 1857));
     pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
-    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernandez", 2504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernandez", 1504));
 }

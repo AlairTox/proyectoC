@@ -131,6 +131,11 @@ int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaReparti
             pedidoAsignado(repartidor);
         break;
         case 2:
+            if(repartidor->pedidoAsignado == NULL){
+                printf("No tienes un pedido asignado que entregar, se te regresara al menu inicial\n");
+                system("pause");
+                return 3;
+            }
             do{
                 system("cls");
                 check = entregaPedido(repartidor, listaRepartidores, colaRepartidores, check);
