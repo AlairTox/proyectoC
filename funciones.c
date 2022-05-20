@@ -262,13 +262,14 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
     opcPedido = getchar();
     fflush(stdin);
     if(opcPedido == 'Y' || opcPedido == 'y'){
-        while(a != NULL ){
-            if(strcmp(a->info->nombre, p->info->nombre)){
-                a->info->existencias = a->info->existencias - p->info->existencias;
+        p = carrito->inicio;
+        while(a != NULL){
+            if(strcmp(a->info->nombre, p->info->nombre) == 0){
+                a->info->existencias = (a->info->existencias) - (p->info->existencias);
                 if(p!=carrito->fin)
-                    p = p->sig; 
+                    p = p->sig;
             }
-            a = p->sig;          
+            a = a->sig;
         }
         printf("Ingrese su nombre completo:\t");
         fflush(stdin);

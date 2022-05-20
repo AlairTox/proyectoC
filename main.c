@@ -26,18 +26,10 @@ int main(void){
         printf("Lista Vacia\n");
     else imprimirListaProductos(lista);
 
-    agregarProducto(lista, "AMD Ryzen 9 5950X", 12449.99, 10);
-    agregarProducto(lista, "AMD Ryzen 5 5600G", 3630.79, 10);
-    agregarProducto(lista, "Intel Core i9 12900K", 12099.99, 10);
-    agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);
-    agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);
-
+    crearStock(lista);
     printf("Stock creado");
     grabarStock("stock.dat", lista);
-
-    //crearStock(listProd);//FUNCION A REPARAR
-    
-    //recuperarStock("stock.dat", listProd);
+    recuperarStock("stock.dat", listProd);
 
     printf("Impresion antes de la lista\n");
     if(vaciaListaProductos(listProd))
@@ -70,11 +62,13 @@ int main(void){
                 case 3:
                     repartidor = pedirUsuario(colaRep, listRep);
                     if(repartidor == NULL){
-                        printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");        
+                        printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");
+                        opcionRepartidor = 3;
+                        system("pause");        
                     }
-                    do{
+                    while(opcionRepartidor != 3){
                         opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep, repartidor);
-                    }while(opcionRepartidor != 3);
+                    }
                     break;
                 case 4:
                     do{
