@@ -58,8 +58,10 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
             }else{
                 do{
                     check = realizarPedido(lista, carrito, colaPedidos, check);
+                    printf("Se te regresara al menu inicial\n");
                     system("Pause");
                     system("cls");
+                    return 4;
                 }while(!check);
             }
         break;

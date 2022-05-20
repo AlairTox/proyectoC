@@ -265,6 +265,7 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
         p = carrito->inicio;
         while(a != NULL){
             if(strcmp(a->info->nombre, p->info->nombre) == 0){
+                printf("Mismo nombre");
                 a->info->existencias = (a->info->existencias) - (p->info->existencias);
                 if(p!=carrito->fin)
                     p = p->sig;
@@ -329,7 +330,7 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
             repartidorOcupado = popRepartidor(colaRepartidores);
             pedidoAsignado = popPedido(colaPedidos);
             repartidorOcupado->pedidoAsignado = pedidoAsignado;
-            agregarRepartidor(listaRepartidores, repartidorOcupado->nombre, repartidorOcupado->id);
+            agregarRepartidor(listaRepartidores, repartidorOcupado);
         }else if(opc == 'N' || opc == 'n'){
             printf("Se le regresara al menu principal para gerente.\n");
             check = 1;

@@ -35,7 +35,7 @@ void eliminarProductoCarrito(Producto *p, ListaCarrito *carrito);
 ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void);
 int vaciaListaRepartidoresTransito(ListaRepartidoresTransito *lista);
 void imprimirListaRepartidoresTransito(ListaRepartidoresTransito *lista);
-void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id);
+void agregarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor);
 void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor);
 
 //Funciones Carrito

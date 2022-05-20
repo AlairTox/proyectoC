@@ -59,11 +59,11 @@ void imprimirColaPedidos(Pedidos *colaPedidos){
     if(c == colaPedidos->inicio){
         imprimirCarrito(c);
         return;
-    }else{
-        while(c != NULL){
-            imprimirCarrito(c);
-            c = c->ant;
-        }
+    }
+    for(int k = 0; k <= colaPedidos->numeroPedidos; k++){
+        printf("\n\n");
+        imprimirCarrito(c);
+        c = c->ant;
     }
     return;
 }

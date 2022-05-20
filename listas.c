@@ -83,8 +83,9 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
 }
 
 //Agrega un repartidor a la lista de repartidores
-void agregarRepartidor(ListaRepartidoresTransito *lista, char *nombre, int id){
-        Repartidor *r = crearRepartidor (nombre, id);
+void agregarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor){
+    Repartidor *r = crearRepartidor (repartidor->nombre, repartidor->id);
+    r->pedidoAsignado = repartidor->pedidoAsignado;
     if(vaciaListaRepartidoresTransito(lista)){
         lista->inicio = r;
         lista->fin = r;
