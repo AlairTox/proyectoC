@@ -56,7 +56,7 @@ void imprimirColaPedidos(Pedidos *colaPedidos){
     ListaCarrito *c = colaPedidos->fin;
     
     if(c == NULL){
-        printf("La cola de pedidos esta vacia\n");
+        printf("La cola de pedidos está vacía\n");
         return;
     }
     
@@ -101,7 +101,7 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
     Repartidor *repartidorOcupado;
 
     if(colaRepartidores->inicio ==  NULL){
-        printf("La cola de reaprtidores en espera ya esta vacia\n");
+        printf("La cola de repartidores en espera ya está vacía\n");
         return NULL;
     }
 
@@ -124,7 +124,7 @@ void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     Repartidor *r = colaRepartidores->fin;
     
     if(r == NULL){
-        printf("La cola de repartidores esta vacia\n");
+        printf("La cola de repartidores está vacía\n");
         return;
     }
     
@@ -141,10 +141,10 @@ void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
 }
 
 void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
-    pushRepartidor(colaRepartidores, crearRepartidor("Juan Perez", 2504));
-    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dominguez", 1302));
-    pushRepartidor(colaRepartidores, crearRepartidor("Maria Aguilar", 1857));
+    pushRepartidor(colaRepartidores, crearRepartidor("Juan Pérez", 2504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Domínguez", 1302));
+    pushRepartidor(colaRepartidores, crearRepartidor("María Aguilar", 1857));
     pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
-    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernandez", 1504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernández", 1504));
     return;
 }

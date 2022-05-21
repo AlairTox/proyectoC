@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "listas.h"
 #include "menus.h"
@@ -12,6 +13,9 @@
 #include "stock.h"
 
 int main(void){
+
+    setlocale (LC_CTYPE, "SPANISH");
+
     Repartidor *repartidor;
     Pedidos *colaPedidos = crearColaPedidos();
     ListaProductos *listProd = nuevaListaProductos();
@@ -43,7 +47,7 @@ int main(void){
             case 3:
                 repartidor = pedirUsuario(colaRep, listRep);
                 if(repartidor == NULL){
-                    printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");
+                    printf("No existe un repartidor con ese ID, se te regresará al menu inicial\n");
                     opcionRepartidor = 3;
                     system("pause");
                 }
