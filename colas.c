@@ -19,11 +19,13 @@ void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
         colaPedidos->inicio = colaPedidos->fin = carritoCliente;
         return;
     }
+
     imprimirCarrito(carritoCliente);
     carritoCliente->sig = colaPedidos->inicio;
     colaPedidos->inicio->ant = carritoCliente;
     colaPedidos->inicio = carritoCliente;
     colaPedidos->numeroPedidos++;
+    return;
 }
 
 //Elimina el pedido al final de la cola de pedidos, regresando su dirección
@@ -52,14 +54,17 @@ ListaCarrito* popPedido(Pedidos *colaPedidos){
 //Imprime la cola de Pedidos
 void imprimirColaPedidos(Pedidos *colaPedidos){
     ListaCarrito *c = colaPedidos->fin;
+    
     if(c == NULL){
         printf("La cola de pedidos esta vacia\n");
         return;
     }
+    
     if(c == colaPedidos->inicio){
         imprimirCarrito(c);
         return;
     }
+    
     for(int k = 0; k <= colaPedidos->numeroPedidos; k++){
         printf("\n\n");
         imprimirCarrito(c);
@@ -83,10 +88,12 @@ void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidor
     if(colaRepartidores->inicio == NULL){
     colaRepartidores->inicio = colaRepartidores->fin = repartidorLibre;
     }
+    
     repartidorLibre->sig = colaRepartidores->inicio;
     colaRepartidores->inicio->ant = repartidorLibre;
     colaRepartidores->inicio = repartidorLibre;
     colaRepartidores->numeroRepartidoresEspera++;
+    return;
 }
 
 //Elimina el último repartidor al final de la cola de repartidores//Regresando su dirección
@@ -115,10 +122,12 @@ Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
 //Imprime la cola de repartidores
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
     Repartidor *r = colaRepartidores->fin;
+    
     if(r == NULL){
         printf("La cola de repartidores esta vacia\n");
         return;
     }
+    
     if(r == colaRepartidores->inicio){
         imprimirRepartidor(r);
         return;
@@ -137,4 +146,5 @@ void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
     pushRepartidor(colaRepartidores, crearRepartidor("Maria Aguilar", 1857));
     pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
     pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hernandez", 1504));
+    return;
 }

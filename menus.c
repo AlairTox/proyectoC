@@ -16,8 +16,10 @@ int menuInicial(int opcion){
     fflush(stdin);
     gets(ingresado);
     opcion = atoi(ingresado);
+    
     if(opcion == 0)
         printf("Ingrese un valor numerico\n");
+    
     return opcion;
 }
 
@@ -33,8 +35,10 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
     fflush(stdin);
     gets(ingresado);
     opcionCliente = atoi(ingresado);
+    
     if(opcionCliente == 0)
         printf("Ingrese un valor numerico\n");
+    
     switch(opcionCliente){
         case 1:
             do{
@@ -84,8 +88,10 @@ int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *col
     fflush(stdin);
     gets(ingresado);
     opcionGerente = atoi(ingresado);
+    
     if(opcionGerente == 0)
         printf("Ingrese un valor numerico\n");
+    
     switch(opcionGerente){
         case 1:
             imprimirColaPedidos(colaPedidos);
@@ -128,6 +134,7 @@ int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaReparti
     fflush(stdin);
     gets(ingresado);
     opcionRepartidor = atoi(ingresado);
+    
     if(opcionRepartidor == 0)
         printf("Ingrese un valor numerico\n");
 
@@ -168,6 +175,7 @@ int menuAlmacenista(int opcionAlmacenista, ListaProductos *lista){
     fflush(stdin);
     gets(ingresado);
     opcionAlmacenista = atoi(ingresado);
+    
     if(opcionAlmacenista == 0)
         printf("Ingrese un valor numerico\n");
 

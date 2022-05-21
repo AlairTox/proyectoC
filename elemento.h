@@ -44,4 +44,5 @@ void imprimirRepartidor(Repartidor * r);
 
 //Funcion infoProducto
 infoProducto *inicializarInfoProducto();
+
 #endif // ELEMENTO_H_INCLUDED

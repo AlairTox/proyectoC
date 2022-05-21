@@ -19,15 +19,15 @@ int main(void){
     ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
     RepartidoresEspera *colaRep = crearColaRepartidores();
     inicializarColaRepartidores(colaRep);
+    inicializarListaProductos(listProd);
+    // FILE *file = fopen("stock.dat", "rb");
 
-    FILE *file = fopen("stock.dat", "rb");
-
-    if (file == NULL){
-        crearStock(listProd);
-        grabarStock("stock.dat", listProd);
-        printf("Stock creado\n");
-    }else
-        recuperarStock("stock.dat", listProd);
+    // if (file == NULL){
+    //     crearStock(listProd);
+    //     grabarStock("stock.dat", listProd);
+    //     printf("Stock creado\n");
+    // }else
+    //     recuperarStock("stock.dat", listProd);
 
     int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
     do{
@@ -69,7 +69,7 @@ int main(void){
         system("cls");
     }while(opc != 5);
 
-    grabarStock("stock.dat", listProd); //para guardar el stock actualizado
+    grabarStock("stock.dat", listProd);//Guardado del Stock
 
     return 0;
 }

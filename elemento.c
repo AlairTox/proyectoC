@@ -22,6 +22,7 @@ void imprimirProducto(Producto *e){
         printf("Producto: %s\n", e->info->nombre);
         printf("Existencias: %d\n", e->info->existencias);
         printf("Costo: %.2f\n", e->info->precio);
+        return;
 }
 
 //FUNCIONES CLIENTE
@@ -44,6 +45,7 @@ void imprimirCliente(Cliente *c){
     printf("Direccion: %s\n", c->direccion);
     printf("Telefono: %.0f\n", c->telefono);
     printf("Precio a pagar: %.2f\n", c->costo);
+    return;
 }
 
 //FUNCIONES REPARTIDOR
@@ -63,6 +65,7 @@ Repartidor *crearRepartidor (char *nombre, int id){
 void imprimirRepartidor(Repartidor *r){
     printf("Nombre del repartidor: %s\n", r->nombre);
     printf("ID: %d\n", r->id);
+    return;
 }
 
 //FUNCIONES INFOPRODUCTO
