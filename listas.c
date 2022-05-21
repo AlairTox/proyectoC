@@ -23,7 +23,7 @@ void imprimirListaProductos(ListaProductos *lista){
     Producto *p;
     
     if(vaciaListaProductos(lista)){
-        printf("Lista vacía\n");
+        printf("Lista vacia\n");
         return;
     }
     
@@ -76,7 +76,7 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     Repartidor *p;
     
     if(vaciaListaRepartidoresTransito(lista)){
-        printf("No hay repartidores en tránsito\n");
+        printf("No hay repartidores en transito\n");
         return;
     }
     
@@ -111,7 +111,7 @@ void agregarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor)
 //Elimina un repartidor de la lista de repartidores
 void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor){
     if (lista->inicio == NULL){
-        printf("La lista de repartidores en transito está vacía\n");
+        printf("La lista de repartidores en transito esta vacia\n");
     } else if (lista->inicio == repartidor && lista->fin == repartidor){
         lista->inicio = lista->fin = NULL;
         lista->n--;
@@ -146,7 +146,7 @@ void imprimirCarrito(ListaCarrito *carrito){
     Producto *p;
     
     if(vacioCarrito(carrito)){
-        printf("Su carrito está vacío\n");
+        printf("Su carrito esta vacio\n");
         return;
     }
     
