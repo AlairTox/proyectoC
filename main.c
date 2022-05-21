@@ -55,9 +55,9 @@ int main(void){
                     opcionRepartidor = 3;
                     system("pause");
                 }
-                do{
+                while(opcionRepartidor != 3){
                     opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep, repartidor);
-                }while(opcionRepartidor != 3);
+                }
                 break;
 
             case 4:
