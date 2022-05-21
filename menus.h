@@ -4,7 +4,7 @@
 #include "listas.h"
 #include "colas.h"
 
-int menuInicial(char opc);
+int menuInicial(int opcion);
 int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos);
 int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores);
 int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *lista, RepartidoresEspera *colaRepartidores, Repartidor *repartidor);

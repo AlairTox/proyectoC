@@ -11,75 +11,65 @@
 #include "funciones.h"
 #include "stock.h"
 
-int main(void){ 
+int main(void){
     Repartidor *repartidor;
     Pedidos *colaPedidos = crearColaPedidos();
-    int o = 0;
-    ListaProductos *lista = nuevaListaProductos();
     ListaProductos *listProd = nuevaListaProductos();
     ListaCarrito *carrito = nuevoCarrito();
-    
+    ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
     RepartidoresEspera *colaRep = crearColaRepartidores();
     inicializarColaRepartidores(colaRep);
-    printf("Lista creada\n");
-    if(vaciaListaProductos(lista))
-        printf("Lista Vacia\n");
-    else imprimirListaProductos(lista);
 
-    crearStock(lista);
-    printf("Stock creado");
-    grabarStock("stock.dat", lista);
-    recuperarStock("stock.dat", listProd);
+    FILE *file = fopen("stock.dat", "rb");
 
-    printf("Impresion antes de la lista\n");
-    if(vaciaListaProductos(listProd))
-        printf("Lista Vacia\n");
-    else imprimirListaProductos(listProd);
+    if (file == NULL){
+        crearStock(listProd);
+        grabarStock("stock.dat", listProd);
+        printf("Stock creado\n");
+    }else
+        recuperarStock("stock.dat", listProd);
 
-    ListaRepartidoresTransito *listRep = nuevaListaRepartidoresTransito();
+    int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
+    do{
+        opc = menuInicial(opc);
+        switch (opc){
 
-    printf("Inicializacion del programa completa. Desea continuar?");
-    scanf("%d", &o);
-    system("cls");
+            case 1:
+                carrito = nuevoCarrito();
+                system("cls");
+                do{
+                    opcionCliente = menuCliente(opcionCliente, listProd, carrito, colaPedidos);
+                }while(opcionCliente != 4);
+                break;
 
-    if(o){
-        int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
-        do{
-            opc = menuInicial(opc);
-            switch (opc)
-            {
-                case 1:
-                    carrito = nuevoCarrito();
-                    system("cls");
-                    do{
-                        opcionCliente = menuCliente(opcionCliente, listProd, carrito, colaPedidos);
-                    }while(opcionCliente != 4);
-                    break;
-                case 2:
-                    do{
-                        opcionGerente = menuGerente(opcionGerente, colaPedidos, colaRep, listRep);
-                    }while(opcionGerente != 5);
-                    break;
-                case 3:
-                    repartidor = pedirUsuario(colaRep, listRep);
-                    if(repartidor == NULL){
-                        printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");
-                        opcionRepartidor = 3;
-                        system("pause");        
-                    }
-                    while(opcionRepartidor != 3){
-                        opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep, repartidor);
-                    }
-                    break;
-                case 4:
-                    do{
-                        opcionAlmacenista = menuAlmacenista(opcionAlmacenista, listProd);
-                    }while(opcionAlmacenista != 3);
-                    break;
-            }
-            system("cls");
-        }while(opc != 5);
-    }
+            case 2:
+                do{
+                    opcionGerente = menuGerente(opcionGerente, colaPedidos, colaRep, listRep);
+                }while(opcionGerente != 5);
+                break;
+
+            case 3:
+                repartidor = pedirUsuario(colaRep, listRep);
+                if(repartidor == NULL){
+                    printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");
+                    opcionRepartidor = 3;
+                    system("pause");
+                }
+                do{
+                    opcionRepartidor = menuRepartidor(opcionRepartidor, listRep, colaRep, repartidor);
+                }while(opcionRepartidor != 3);
+                break;
+
+            case 4:
+                do{
+                    opcionAlmacenista = menuAlmacenista(opcionAlmacenista, listProd);
+                }while(opcionAlmacenista != 3);
+                break;
+        }
+        system("cls");
+    }while(opc != 5);
+
+    grabarStock("stock.dat", listProd); //para guardar el stock actualizado
 
     return 0;
 }

@@ -5,37 +5,36 @@
 #include "funciones.h"
 
 //Impresión y selección del submenu
-int menuInicial(void){
-    int opcion;
-    do{
-        printf("Te encuentras en el menú inicial\n");
-        printf("Ingresa [1]: Cliente\n");
-        printf("ingresa [2]: Gerente\n");
-        printf("Ingresa [3]: Repartidor\n");
-        printf("Ingresa [4]: Almacenista\n");
-        printf("ingresa [5]: Salir del Programa\n");
-        scanf("%d", &opcion);
-        //do{
-            //scanf("%d", &opcion);
-            //printf("%d", isdigit(opcion));
-            //if(!isdigit(opcion))
-                //printf("Ingrese un valor numerico\n");
-            //}while(!isdigit(opcion));
-    }while(opcion < 1 || opcion > 5);
+int menuInicial(int opcion){
+    char ingresado[2];
+    printf("Te encuentras en el menú inicial\n");
+    printf("Ingresa [1]: Cliente\n");
+    printf("ingresa [2]: Gerente\n");
+    printf("Ingresa [3]: Repartidor\n");
+    printf("Ingresa [4]: Almacenista\n");
+    printf("ingresa [5]: Salir del Programa\n");
+    fflush(stdin);
+    gets(ingresado);
+    opcion = atoi(ingresado);
+    if(opcion == 0)
+        printf("Ingrese un valor numerico\n");
     return opcion;
 }
 
 //Impresión de opciones iniciales para el cliente
 int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos){
     int check = 0;
-    do{
-        printf("Este es el menu para Clientes\n");
-        printf("Ingresa [1]: Seleccionar Productos\n");
-        printf("Ingresa [2]: Revisar el carrito de Compras\n");
-        printf("ingresa [3]: Realizar Pedido\n");
-        printf("Ingresa [4]: Salir de este menu\n");
-        scanf("%d", &opcionCliente);
-    }while(opcionCliente < 1 || opcionCliente > 4);
+    char ingresado[2];
+    printf("Este es el menu para Clientes\n");
+    printf("Ingresa [1]: Seleccionar Productos\n");
+    printf("Ingresa [2]: Revisar el carrito de Compras\n");
+    printf("ingresa [3]: Realizar Pedido\n");
+    printf("Ingresa [4]: Salir de este menu\n");
+    fflush(stdin);
+    gets(ingresado);
+    opcionCliente = atoi(ingresado);
+    if(opcionCliente == 0)
+        printf("Ingrese un valor numerico\n");
     switch(opcionCliente){
         case 1:
             do{
@@ -75,15 +74,18 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
 //Impresión y selección de las opciones para el gerente
 int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
     int check;
-    do{
-        printf("Este es el menu del Gerente\n");
-        printf("Ingresa [1]: Ver la cola de Pedidos\n");
-        printf("Ingresa [2]: Ver la cola de repartidores en espera\n");
-        printf("Ingresa [3]: Ver la lista de repartidores en transito\n");
-        printf("Ingresa [4]: Asignar un pedido\n");
-        printf("Ingresa [5]: Salir de este menu\n");
-        scanf("%d", &opcionGerente);
-    }while(opcionGerente < 1 || opcionGerente > 5);
+    char ingresado[2];
+    printf("Este es el menu del Gerente\n");
+    printf("Ingresa [1]: Ver la cola de Pedidos\n");
+    printf("Ingresa [2]: Ver la cola de repartidores en espera\n");
+    printf("Ingresa [3]: Ver la lista de repartidores en transito\n");
+    printf("Ingresa [4]: Asignar un pedido\n");
+    printf("Ingresa [5]: Salir de este menu\n");
+    fflush(stdin);
+    gets(ingresado);
+    opcionGerente = atoi(ingresado);
+    if(opcionGerente == 0)
+        printf("Ingrese un valor numerico\n");
     switch(opcionGerente){
         case 1:
             imprimirColaPedidos(colaPedidos);
@@ -118,14 +120,17 @@ int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *col
 //Impresión y selección de las opciones para el repartidor
 int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Repartidor *repartidor){
     int check = 0;
+    char ingresado[2];
+    printf("Este es el menu del Repartidor\n");
+    printf("Ingresa [1]: Ver Pedido Asignado\n");
+    printf("Ingresa [2]: Notificar una entrega de pedido\n");
+    printf("Ingresa [3]: Salir de este menu\n");
+    fflush(stdin);
+    gets(ingresado);
+    opcionRepartidor = atoi(ingresado);
+    if(opcionRepartidor == 0)
+        printf("Ingrese un valor numerico\n");
 
-    do{
-        printf("Este es el menu del Repartidor\n");
-        printf("Ingresa [1]: Ver Pedido Asignado\n");
-        printf("Ingresa [2]: Notificar una entrega de pedido\n");
-        printf("Ingresa [3]: Salir de este menu\n");
-        scanf("%d", &opcionRepartidor);
-    }while(opcionRepartidor < 1 || opcionRepartidor > 3);
     switch(opcionRepartidor){
         case 1:
             pedidoAsignado(repartidor);
@@ -151,14 +156,21 @@ int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaReparti
 
 //Impresión y selección de las opciones para el almacenista
 int menuAlmacenista(int opcionAlmacenista, ListaProductos *lista){
+
     int check = 0;
-    do{
-        printf("Este es el menu del Almacenista\n");
-        printf("Ingresa [1]: Mostrar la lista de Productos\n");
-        printf("Ingresa [2]: Registrar la llegada de un producto\n");
-        printf("Ingresa [3]: Salir de este menu\n");
-        scanf("%d", &opcionAlmacenista);
-    }while(opcionAlmacenista < 1 || opcionAlmacenista > 3);
+    char ingresado[2];
+
+    printf("Este es el menu del Almacenista\n");
+    printf("Ingresa [1]: Mostrar la lista de Productos\n");
+    printf("Ingresa [2]: Registrar la llegada de un producto\n");
+    printf("Ingresa [3]: Salir de este menu\n");
+
+    fflush(stdin);
+    gets(ingresado);
+    opcionAlmacenista = atoi(ingresado);
+    if(opcionAlmacenista == 0)
+        printf("Ingrese un valor numerico\n");
+
     switch(opcionAlmacenista){
         case 1:
             check = verificarListaProductos(lista, check);

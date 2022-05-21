@@ -363,6 +363,7 @@ int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, Repa
     fflush(stdin);
     if(opc == 'Y' || opc == 'y'){
         eliminarRepartidor(lista, repartidor);
+        repartidor->pedidoAsignado = NULL;
         pushRepartidor(colaRepartidores, repartidor);
         printf("Has regresado a la cola de repartidores, espera un nuevo pedido\n");
         check = 1;
