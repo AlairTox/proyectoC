@@ -20,14 +20,6 @@ int main(void){
     RepartidoresEspera *colaRep = crearColaRepartidores();
     inicializarColaRepartidores(colaRep);
     inicializarListaProductos(listProd);
-    // FILE *file = fopen("stock.dat", "rb");
-
-    // if (file == NULL){
-    //     crearStock(listProd);
-    //     grabarStock("stock.dat", listProd);
-    //     printf("Stock creado\n");
-    // }else
-    //     recuperarStock("stock.dat", listProd);
 
     int opc, opcionCliente, opcionGerente, opcionRepartidor, opcionAlmacenista;
     do{
