@@ -4,7 +4,7 @@
 #include "listas.h"
 
 //FUNCIONES DE LA LISTA DE PRODUCTOS------------------------------
-//Creación de la lista de productos
+//Creaci�n de la lista de productos
 ListaProductos *nuevaListaProductos(void){
     ListaProductos *p;
     p = malloc(sizeof(ListaProductos));
@@ -13,7 +13,7 @@ ListaProductos *nuevaListaProductos(void){
     return p;
 }
 
-//Verficia si la lista de productos está vacía
+//Verficia si la lista de productos est� vac�a
 int vaciaListaProductos(ListaProductos *lista){
     return lista->inicio == NULL;
 }
@@ -21,19 +21,19 @@ int vaciaListaProductos(ListaProductos *lista){
 //Imprime la lista de productos
 void imprimirListaProductos(ListaProductos *lista){
     Producto *p;
-    
+
     if(vaciaListaProductos(lista)){
-        printf("Lista vacia\n");
+        printf("Lista vac�a\n");
         return;
     }
-    
+
     p = lista->inicio;
-    
+
     while(p != NULL){
         imprimirProducto(p);
         p = p->sig;
     }
-    
+
     printf("-------------------------\n");
     return;
 }
@@ -41,14 +41,14 @@ void imprimirListaProductos(ListaProductos *lista){
 //Agrega productos a la lista de productos
 void agregarProducto(ListaProductos *lista, char *nombre, float precio, int existencias){
     Producto *e = crearProducto(nombre, precio, existencias);
-    
+
     if(vaciaListaProductos(lista)){
         lista->inicio = e;
         lista->fin = e;
         lista->n = 1;
         return;
     }
-    
+
     e->ant = lista->fin;
     lista->fin->sig = e;
     lista->fin = e;
@@ -57,7 +57,7 @@ void agregarProducto(ListaProductos *lista, char *nombre, float precio, int exis
 }
 
 //FUNCIONES DE LA LISTA DE REPARTIDORES---------------------------------------------------------
-//Creación de la lista de repartidores
+//Creaci�n de la lista de repartidores
 ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void){
     ListaRepartidoresTransito  *p;
     p = malloc(sizeof(ListaRepartidoresTransito));
@@ -66,28 +66,31 @@ ListaRepartidoresTransito *nuevaListaRepartidoresTransito(void){
     return p;
 }
 
-//Verifica si la lista de repartidores está vacía
+//Verifica si la lista de repartidores est� vac�a
 int vaciaListaRepartidoresTransito(ListaRepartidoresTransito *lista){
     return lista->inicio == NULL;
 }
 
-//Impresión de la lista de repartidores
+//Impresi�n de la lista de repartidores
 void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
     Repartidor *p;
-    
+    printf("------------------------------------------------\n");
+    printf("           REPARTIDORES EN TR�NSITO\n");
+    printf("------------------------------------------------\n");
     if(vaciaListaRepartidoresTransito(lista)){
-        printf("No hay repartidores en transito\n");
+        printf("No hay repartidores en tr�nsito\n");
         return;
     }
-    
+
     p = lista->inicio;
-    
+
     while(p != NULL){
         printf("Nombre: %s\n", p->nombre);
         printf("ID: %d\n", p->id);
         p = p->sig;
+        printf("------------------------------------------------\n");
     }
-    
+
     printf("\n");
     return;
 }
@@ -96,13 +99,13 @@ void imprimirListaRepartidoresTransito(ListaRepartidoresTransito * lista){
 void agregarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor){
     Repartidor *r = crearRepartidor (repartidor->nombre, repartidor->id);
     r->pedidoAsignado = repartidor->pedidoAsignado;
-    
+
     if(vaciaListaRepartidoresTransito(lista)){
         lista->inicio = r;
         lista->fin = r;
         return;
     }
-    
+
     r->ant = lista->fin;
     lista->fin->sig = r;
     lista->fin = r;
@@ -111,7 +114,7 @@ void agregarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor)
 //Elimina un repartidor de la lista de repartidores
 void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor){
     if (lista->inicio == NULL){
-        printf("La lista de repartidores en transito esta vacia\n");
+        printf("La lista de repartidores en tr�nsito esta vac�a\n");
     } else if (lista->inicio == repartidor && lista->fin == repartidor){
         lista->inicio = lista->fin = NULL;
         lista->n--;
@@ -132,7 +135,7 @@ void eliminarRepartidor(ListaRepartidoresTransito *lista, Repartidor *repartidor
 }
 
 //FUNCIONES DE CARRITO---------------------------------------------------------
-//Creación de carrito
+//Creaci�n de carrito
 ListaCarrito* nuevoCarrito(void){
     ListaCarrito *c;
     c = malloc(sizeof(ListaCarrito));
@@ -141,32 +144,33 @@ ListaCarrito* nuevoCarrito(void){
     return c;
 }
 
-//Impresión del carrito
+//Impresi�n del carrito
 void imprimirCarrito(ListaCarrito *carrito){
     Producto *p;
-    
+
     if(vacioCarrito(carrito)){
-        printf("Su carrito esta vacio\n");
+        printf("Su carrito esta vac�o\n");
         return;
     }
-    
+
     p = carrito->inicio;
-    
+
     while(p!=NULL){
         imprimirProducto(p);
         p = p->sig;
     }
-    
-    printf("-------------------------\n");
+
 
     if(carrito->cliente != NULL){
+        printf("------------------------------------------------\n");
+        printf("              INFORMACI�N DEL CLIENTE\n");
         imprimirCliente(carrito->cliente);
     }
 
     return;
 }
 
-//Verifica si el carrito está vacío
+//Verifica si el carrito est� vac�o
 int vacioCarrito(ListaCarrito *carrito){
     return carrito->inicio == NULL;
 }
@@ -174,13 +178,13 @@ int vacioCarrito(ListaCarrito *carrito){
 //Agrega un producto al carrito
 void agregarProductoCarrito(ListaCarrito *carrito, char *nombre, float precio, int existencias){
     Producto *e = crearProducto(nombre, precio, existencias);
-    
+
     if(vacioCarrito(carrito)){
         carrito->inicio = e;
         carrito->fin = e;
         return;
     }
-    
+
     e->ant = carrito->fin;
     carrito->fin->sig = e;
     carrito->fin = e;

@@ -1,44 +1,56 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <locale.h>
 #include "listas.h"
 #include "funciones.h"
 
-//ImpresiÃ³n y selecciÃ³n del submenu
+//Impresión y selección del submenu
 int menuInicial(int opcion){
+    setlocale(LC_CTYPE, "SPANISH");
     char ingresado[2];
-    printf("Te encuentras en el menu inicial\n");
-    printf("Ingresa [1]: Cliente\n");
-    printf("ingresa [2]: Gerente\n");
-    printf("Ingresa [3]: Repartidor\n");
-    printf("Ingresa [4]: Almacenista\n");
-    printf("ingresa [5]: Salir del Programa\n");
+    printf("----------------------(^._.^)----------------------\n");
+    printf("           Bienvenidx a El Huarache Veloz\n\n\n");
+    printf("---------------------------------------------------\n");
+    printf("                   MENÚ PRINCIPAL\n");
+    printf("---------------------------------------------------\n");
+    printf("Presione [1]: Cliente\n");
+    printf("Presione [2]: Gerente\n");
+    printf("Presione [3]: Repartidor\n");
+    printf("Presione [4]: Almacenista\n");
+    printf("Presione [5]: Salir del Programa\n");
+    printf("---------------------------------------------------\n");
     fflush(stdin);
     gets(ingresado);
     opcion = atoi(ingresado);
-    
+
     if(opcion == 0)
-        printf("Ingrese un valor numerico\n");
-    
+        printf("¡Error! Ingrese un valor dentro del rango\n");
+
     return opcion;
 }
 
-//ImpresiÃ³n de opciones iniciales para el cliente
+//Impresión de opciones iniciales para el cliente
 int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPedidos){
     int check = 0;
     char ingresado[2];
-    printf("Este es el menu para Clientes\n");
-    printf("Ingresa [1]: Seleccionar Productos\n");
-    printf("Ingresa [2]: Revisar el carrito de Compras\n");
-    printf("ingresa [3]: Realizar Pedido\n");
-    printf("Ingresa [4]: Salir de este menu\n");
+    printf("-------------------(^._.^)------------------\n");
+    printf("              El Huarache Veloz\n\n\n");
+    printf("--------------------------------------------\n");
+    printf("                   CLIENTE\n");
+    printf("--------------------------------------------\n");
+    printf("Presione [1]: Seleccionar Productos\n");
+    printf("Presione [2]: Revisar el carrito de Compras\n");
+    printf("Presione [3]: Realizar Pedido\n");
+    printf("Presione [4]: Salir de este menú\n");
+    printf("--------------------------------------------\n");
     fflush(stdin);
     gets(ingresado);
     opcionCliente = atoi(ingresado);
-    
+
     if(opcionCliente == 0)
-        printf("Ingrese un valor numerico\n");
-    
+        printf("¡Error! Ingrese un valor dentro del rango\n");
+
     switch(opcionCliente){
         case 1:
             do{
@@ -55,13 +67,16 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
         case 3:
             system("cls");
             if(vacioCarrito(carrito)){
-                printf("No hay ningun articulo en su carrito.\n");
+                printf("------------------------------------------------\n");
+                printf("                RESUMEN DEL PEDIDO\n");
+                printf("------------------------------------------------\n");
+                printf("No hay ningún artículo en su carrito.\n");
                 system("Pause");
                 system("cls");
             }else{
                 do{
                     check = realizarPedido(lista, carrito, colaPedidos, check);
-                    printf("Se te regresara al menu inicial\n");
+                    printf("Se te regresará al menú inicial\n");
                     system("Pause");
                     system("cls");
                     return 4;
@@ -75,26 +90,35 @@ int menuCliente(int opcionCliente, ListaProductos *lista, ListaCarrito *carrito,
     return opcionCliente;
 }
 
-//ImpresiÃ³n y selecciÃ³n de las opciones para el gerente
+//Impresión y selección de las opciones para el gerente
 int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores){
     int check;
     char ingresado[2];
-    printf("Este es el menu del Gerente\n");
-    printf("Ingresa [1]: Ver la cola de Pedidos\n");
-    printf("Ingresa [2]: Ver la cola de repartidores en espera\n");
-    printf("Ingresa [3]: Ver la lista de repartidores en transito\n");
-    printf("Ingresa [4]: Asignar un pedido\n");
-    printf("Ingresa [5]: Salir de este menu\n");
+    printf("-------------------------(^._.^)-------------------------\n");
+    printf("                    El Huarache Veloz\n\n\n");
+    printf("---------------------------------------------------------\n");
+    printf("                         GERENTE\n");
+    printf("---------------------------------------------------------\n");
+    printf("Presione [1]: Ver la cola de Pedidos\n");
+    printf("Presione [2]: Ver la cola de repartidores en espera\n");
+    printf("Presione [3]: Ver la lista de repartidores en tránsito\n");
+    printf("Presione [4]: Asignar un pedido\n");
+    printf("Presione [5]: Salir de este menú\n");
+    printf("---------------------------------------------------------\n");
     fflush(stdin);
     gets(ingresado);
     opcionGerente = atoi(ingresado);
-    
+
     if(opcionGerente == 0)
-        printf("Ingrese un valor numerico\n");
-    
+        printf("¡Error! Ingrese un valor dentro del rango\n");
+
     switch(opcionGerente){
         case 1:
+            printf("------------------------------------------------\n");
+            printf("                    PEDIDOS\n");
+            printf("------------------------------------------------\n");
             imprimirColaPedidos(colaPedidos);
+
             system("Pause");
             system("cls");
         break;
@@ -125,20 +149,23 @@ int menuGerente(int opcionGerente, Pedidos *colaPedidos, RepartidoresEspera *col
     return opcionGerente;
 }
 
-//ImpresiÃ³n y selecciÃ³n de las opciones para el repartidor
+//Impresión y selección de las opciones para el repartidor
 int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Repartidor *repartidor){
     int check = 0;
     char ingresado[2];
-    printf("Este es el menu del Repartidor\n");
-    printf("Ingresa [1]: Ver Pedido Asignado\n");
-    printf("Ingresa [2]: Notificar una entrega de pedido\n");
-    printf("Ingresa [3]: Salir de este menu\n");
+    printf("-----------------------------------------------\n");
+    printf("                   REPARTIDOR\n");
+    printf("-----------------------------------------------\n");
+    printf("Presione [1]: Ver Pedido Asignado\n");
+    printf("Presione [2]: Notificar una entrega de pedido\n");
+    printf("Presione [3]: Salir de este menú\n");
+    printf("-----------------------------------------------\n");
     fflush(stdin);
     gets(ingresado);
     opcionRepartidor = atoi(ingresado);
-    
+
     if(opcionRepartidor == 0)
-        printf("Ingrese un valor numerico\n");
+        printf("¡Error! Ingrese un valor dentro del rango\n");
 
     switch(opcionRepartidor){
         case 1:
@@ -148,7 +175,7 @@ int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaReparti
         break;
         case 2:
             if(repartidor->pedidoAsignado == NULL){
-                printf("No tienes un pedido asignado que entregar, se te regresara al menu inicial\n");
+                printf("No tienes un pedido asignado que entregar, se te regresará al menú inicial\n");
                 system("pause");
                 system("cls");
                 return 3;
@@ -166,23 +193,27 @@ int menuRepartidor(int opcionRepartidor, ListaRepartidoresTransito *listaReparti
     return opcionRepartidor;
 }
 
-//ImpresiÃ³n y selecciÃ³n de las opciones para el almacenista
+//Impresión y selección de las opciones para el almacenista
 int menuAlmacenista(int opcionAlmacenista, ListaProductos *lista){
 
     int check = 0;
     char ingresado[2];
-
-    printf("Este es el menu del Almacenista\n");
-    printf("Ingresa [1]: Mostrar la lista de Productos\n");
-    printf("Ingresa [2]: Registrar la llegada de un producto\n");
-    printf("Ingresa [3]: Salir de este menu\n");
+    printf("-----------------------(^._.^)-----------------------\n");
+    printf("                  El Huarache Veloz\n\n\n");
+    printf("-----------------------------------------------------\n");
+    printf("                     ALMACENISTA\n");
+    printf("-----------------------------------------------------\n");
+    printf("Presione [1]: Mostrar la lista de Productos\n");
+    printf("Presione [2]: Registrar la llegada de un producto\n");
+    printf("Presione [3]: Salir de este menú\n");
+    printf("-----------------------------------------------------\n");
 
     fflush(stdin);
     gets(ingresado);
     opcionAlmacenista = atoi(ingresado);
-    
+
     if(opcionAlmacenista == 0)
-        printf("Ingrese un valor numerico\n");
+        printf("¡Error! Ingrese un valor dentro del rango\n");
 
     switch(opcionAlmacenista){
         case 1:

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
 
 #include "listas.h"
 #include "menus.h"
@@ -12,7 +13,7 @@
 #include "stock.h"
 
 int main(void){
-
+    setlocale(LC_CTYPE, "SPANISH");
     Repartidor *repartidor;
     Pedidos *colaPedidos = crearColaPedidos();
     ListaProductos *listProd = nuevaListaProductos();
@@ -46,7 +47,7 @@ int main(void){
                 system("cls");
                 repartidor = pedirUsuario(colaRep, listRep);
                 if(repartidor == NULL){
-                    printf("No existe un repartidor con ese ID, se te regresara al menu inicial\n");
+                    printf("No existe un repartidor con ese ID, se te regresará al menu inicial\n");
                     opcionRepartidor = 3;
                     system("pause");
                 }
@@ -56,7 +57,7 @@ int main(void){
                 break;
 
             case 4:
-                
+
                 do{
                     system("cls");
                     opcionAlmacenista = menuAlmacenista(opcionAlmacenista, listProd);
@@ -66,7 +67,15 @@ int main(void){
         system("cls");
     }while(opc != 5);
 
-    printf("Vuelva pronto!");
+    printf("----------------------(^._.^)----------------------\n");
+    printf("                El Huarache Veloz\n\n\n");
+    printf("---------------------------------------------------\n");
+    printf("                 ¡Vuelva pronto!\n\n\n");
+    printf("                     CRÉDITOS:\n");
+    printf("             Magally Escamilla Suárez\n");
+    printf("             Darwin Leonel Luna Alberto\n");
+    printf("                Alair Toxtega Muñoz\n");
+    printf("---------------------------------------------------");
     grabarStock("stock.dat", listProd);//Guardado del Stock
 
     return 0;

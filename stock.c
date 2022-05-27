@@ -39,12 +39,12 @@ void grabarStock(char *archivo, ListaProductos *lista){
             printf("No se puede abrir el archivo: [%s]\n", archivo);
             exit(-1);
         }
-    
+
     while(a != NULL){
         fwrite(a->info, sizeof(infoProducto), 1, file);
         a = a->sig;
     }
-    
+
     fclose(file);
     return;
 }
@@ -64,7 +64,7 @@ void recuperarStock(char *archivo, ListaProductos *lista){
         fread(a, sizeof(struct infoProducto), 1, file);
         agregarProducto(lista, a->nombre, a->precio, a->existencias);
     }
-    
+
     fclose(file);
     return;
 }
@@ -75,9 +75,8 @@ void inicializarListaProductos(ListaProductos *lista){
     if (file == NULL){
         crearStock(lista);
         grabarStock("stock.dat", lista);
-        printf("Stock creado\n");
     }else
         recuperarStock("stock.dat", lista);
-    
+
     return;
 }

@@ -21,7 +21,7 @@ int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, Repa
 Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidoresTransito *listaRepartidores);
 
 //funciones Almacenista
-//void navegacionMenu-Usamos la misma función del cliente, solo queremos navegar en la lista
+//void navegacionMenu-Usamos la misma funci�n del cliente, solo queremos navegar en la lista
 void agregarProductos(ListaProductos *lista);
 int verificarListaProductos(ListaProductos *lista, int check);
 

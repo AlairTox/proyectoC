@@ -5,7 +5,7 @@
 #include <string.h>
 
 //FUNCIONES PRODUCTO
-//Creación de producto
+//Creaci�n de producto
 Producto *crearProducto(char *nombre, float precio, int existencias){
     Producto *e;
     e = malloc(sizeof(Producto));
@@ -17,7 +17,7 @@ Producto *crearProducto(char *nombre, float precio, int existencias){
     return e;
 }
 
-//Impresión de producto
+//Impresi�n de producto
 void imprimirProducto(Producto *e){
         printf("Producto: %s\n", e->info->nombre);
         printf("Existencias: %d\n", e->info->existencias);
@@ -26,7 +26,7 @@ void imprimirProducto(Producto *e){
 }
 
 //FUNCIONES CLIENTE
-//Creación del cliente
+//Creaci�n del cliente
 Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, float costo){
     Cliente* c;
     c = malloc(sizeof(Cliente));
@@ -39,7 +39,7 @@ Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, float cost
     return c;
 }
 
-//Impresión del Cliente
+//Impresi�n del Cliente
 void imprimirCliente(Cliente *c){
     printf("Nombre del Cliente: %s\n", c->nombre);
     printf("Direccion: %s\n", c->direccion);
@@ -49,7 +49,7 @@ void imprimirCliente(Cliente *c){
 }
 
 //FUNCIONES REPARTIDOR
-//Creación del repartidor
+//Creaci�n del repartidor
 Repartidor *crearRepartidor (char *nombre, int id){
     Repartidor *e;
     e = malloc(sizeof(Producto));
@@ -61,7 +61,7 @@ Repartidor *crearRepartidor (char *nombre, int id){
     return e;
 }
 
-//Impresión del repartidor
+//Impresi�n del repartidor
 void imprimirRepartidor(Repartidor *r){
     printf("Nombre del repartidor: %s\n", r->nombre);
     printf("ID: %d\n", r->id);
@@ -69,7 +69,7 @@ void imprimirRepartidor(Repartidor *r){
 }
 
 //FUNCIONES INFOPRODUCTO
-//Inicialización de infoProducto
+//Inicializaci�n de infoProducto
 infoProducto *inicializarInfoProducto(){
     infoProducto *a;
     a = malloc(sizeof(infoProducto));
