@@ -4,85 +4,85 @@
 #include "colas.h"
 
 //FUNCIONES COLA DE PEDIDOS
-//Creaci髇 de la cola de pedidos
-Pedidos* crearColaPedidos(void){
-    Pedidos* p;
-    p = malloc(sizeof(Pedidos));
-    p->numeroPedidos = 0;
-    p->inicio = p->fin = NULL;
-    return p;
+//Creacion de la cola de pedidos
+Pedidos* crearColaPedidos(void){//Funci贸n que regresa la direccion a una cola de pedidos, no recibe parametros
+    Pedidos* p;//Declaraci贸n de existencia de apuntador a una cola de pedidos
+    p = malloc(sizeof(Pedidos));//Reserva de espacio en memoria para una cola de pedidos
+    p->numeroPedidos = 0;//Se asigna un 0 al numero de pedidos al iniciarla
+    p->inicio = p->fin = NULL;//El inicio y el fin de la cola apuntan a NULL
+    return p;//retorno de la direcci贸n de la cola de pedidos
 }
 
-//A馻de un pedido al inicio de la cola de pedidos
-void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){
-    if(colaPedidos->inicio == NULL){
-        colaPedidos->inicio = colaPedidos->fin = carritoCliente;
+//A帽ade un pedido al inicio de la cola de pedidos
+void pushPedido(Pedidos *colaPedidos, ListaCarrito *carritoCliente){//Agrega un pedido(Carrito) a la cola de pedidos(inicio), recibe la direccion del carrito y de la cola
+    if(colaPedidos->inicio == NULL){//Si la cola de pedidos en su campo inicio apunta a NULL, la direcci贸n del carrito se asigna al inicio y fin de la cola
+        colaPedidos->inicio = colaPedidos->fin = carritoCliente;//Ligado del carrito a la cola(inicio y fin)
         return;
     }
 
-    imprimirCarrito(carritoCliente);
-    carritoCliente->sig = colaPedidos->inicio;
-    colaPedidos->inicio->ant = carritoCliente;
-    colaPedidos->inicio = carritoCliente;
-    colaPedidos->numeroPedidos++;
+    imprimirCarrito(carritoCliente);//Impresion del carrito agregado a la cola
+    carritoCliente->sig = colaPedidos->inicio;//Ligado del carrito(campo sig) al inicio de la cola de pedidos
+    colaPedidos->inicio->ant = carritoCliente;//ligado de la cola(campo inicio que es un carrito, en su campo ant) al carrito inicio
+    colaPedidos->inicio = carritoCliente;//El nuevo inicio de la cola es el carrito
+    colaPedidos->numeroPedidos++;//Se incrementa el numero de pedidos
     return;
 }
 
-//Elimina el pedido al final de la cola de pedidos, regresando su direcci髇
-ListaCarrito* popPedido(Pedidos *colaPedidos){
-    ListaCarrito *pedidoAsignado;
+//Elimina el pedido al final de la cola de pedidos, regresando su direccion
+ListaCarrito* popPedido(Pedidos *colaPedidos){//Devuelve la direccion de un carrito eliminado de la cola de pedidos, la cual recibe por parametro
+    ListaCarrito *pedidoAsignado;//Declaraci贸n de apuntador a carrito(se usara para retornar la direcci贸n del pedido eliminado)
 
-    if(colaPedidos->inicio == NULL){
+    if(colaPedidos->inicio == NULL){//Si la cola de pedidos esta vacia no hay nada que eliminar
         printf("La cola de pedidos esta vacia\n");
         return NULL;
     }
 
-    if(colaPedidos->inicio == colaPedidos->fin){
-        pedidoAsignado = colaPedidos->inicio;
-        colaPedidos->numeroPedidos--;
-        colaPedidos->inicio = colaPedidos->fin = NULL;
+    if(colaPedidos->inicio == colaPedidos->fin){//Si solo hay un pedido en la cola
+        pedidoAsignado = colaPedidos->inicio;//Se asigna la direccion del carrito al inicio de la cola al apuntador declarado anteriormente
+        colaPedidos->numeroPedidos--;//Se resta uno al numero de pedidos
+        colaPedidos->inicio = colaPedidos->fin = NULL;//El inicio y fin de la cola apuntan a NULL
         return pedidoAsignado;
     }
-
-    pedidoAsignado = colaPedidos->fin;
-    colaPedidos->fin->ant->sig = NULL;
-    colaPedidos->fin = colaPedidos->fin->ant;
-    pedidoAsignado->ant = NULL;
-    return pedidoAsignado;
+    //Si hay mas de un pedido en la cola
+    pedidoAsignado = colaPedidos->fin;//Se asigna la direccion del carrito al final de la cola al apuntador declarado anteriormente
+    colaPedidos->fin->ant->sig = NULL;//El penultimo pedido de la cola en su campo siguiente apunta a NULL, ahora sera ek fin de la cola
+    colaPedidos->fin = colaPedidos->fin->ant;//El penultimo pedido de la cola ahora es el fin
+    pedidoAsignado->ant = NULL;//Se desliga el pedido retirado de la cola
+    return pedidoAsignado;//Retorno de la direccion del pedido que fue eliminado de la cola
 }
 
 //Imprime la cola de Pedidos
-void imprimirColaPedidos(Pedidos *colaPedidos){
-    ListaCarrito *c = colaPedidos->fin;
+void imprimirColaPedidos(Pedidos *colaPedidos){//Impresion de la cola de pedidos
+    ListaCarrito *c = colaPedidos->fin;//Declaracion de un carrito, se le asigna la direccion del fin de la cola de pedidos
 
-    if(c == NULL){
+    if(c == NULL){//Si la cola de pedidos esta vacia
         printf("La cola de pedidos esta vacia\n");
         return;
     }
 
-    if(c == colaPedidos->inicio){
+    if(c == colaPedidos->inicio){//Si la cola de pedidos solo tiene un pedidos
         imprimirCarrito(c);
         return;
     }
 
-    for(int k = 0; k <= colaPedidos->numeroPedidos; k++){
+    for(int k = 0; k <= colaPedidos->numeroPedidos; k++){//Si la cola de pedidos tiene mas de un pedido, se repite hasta que ya no haya pedidos
         printf("\n");
-        imprimirCarrito(c);
+        imprimirCarrito(c);//Impresion del carrito//La primera impresion es el pedido con mas tiempo en la cola
         printf("------------------------------------------------\n");
         printf("------------------------------------------------\n");
-        c = c->ant;
+        c = c->ant;//Se avanza en la cola de pedidos
     }
     return;
 }
 
 //FUNCIONES COLA DE REPARTIDORES
-//Creaci髇 de la cola de repartidores
-RepartidoresEspera *crearColaRepartidores(void){
-    RepartidoresEspera *p;
-    p = malloc(sizeof(RepartidoresEspera));
-    p->numeroRepartidoresEspera = 0;
-    p->inicio = p->fin = NULL;
-    return p;
+//Creaci锟絥 de la cola de repartidores
+RepartidoresEspera *crearColaRepartidores(void){//Retorna una direccion de cola de repartidores en espera, no recibe parametros
+    RepartidoresEspera *p;//Apuntador a cola de repartidores
+    p = malloc(sizeof(RepartidoresEspera));//Reserva de espacio en memoria para una cola de repartidores
+    p->numeroRepartidoresEspera = 0;//Se inicia con un numerdo de repartidores en 0
+    p->inicio = p->fin = NULL;//Los apuntadores inicio y fin originalmente apuntan a NULL
+    return p;//Se retorna la direccion de la cola de repartidores
 }
 
 //Agrega un repartidor al inicio de la cola de repartidores
@@ -98,7 +98,7 @@ void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidor
     return;
 }
 
-//Elimina el 鷏timo repartidor al final de la cola de repartidores//Regresando su direcci髇
+//Elimina el 锟絣timo repartidor al final de la cola de repartidores//Regresando su direcci锟絥
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
     Repartidor *repartidorOcupado;
 
@@ -147,10 +147,10 @@ void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
 }
 
 void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
-    pushRepartidor(colaRepartidores, crearRepartidor("Ju醤 P閞ez", 2504));
-    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dom韓guez", 1302));
-    pushRepartidor(colaRepartidores, crearRepartidor("Mar韆 Aguilar", 1857));
+    pushRepartidor(colaRepartidores, crearRepartidor("Ju锟絥 P锟絩ez", 2504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dom锟絥guez", 1302));
+    pushRepartidor(colaRepartidores, crearRepartidor("Mar锟絘 Aguilar", 1857));
     pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
-    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hern醤dez", 1504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hern锟絥dez", 1504));
     return;
 }
