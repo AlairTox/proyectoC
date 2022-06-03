@@ -87,70 +87,71 @@ RepartidoresEspera *crearColaRepartidores(void){//Retorna una direccion de cola 
 
 //Agrega un repartidor al inicio de la cola de repartidores
 void pushRepartidor(RepartidoresEspera *colaRepartidores, Repartidor *repartidorLibre){
-    if(colaRepartidores->inicio == NULL){
-    colaRepartidores->inicio = colaRepartidores->fin = repartidorLibre;
+    if(colaRepartidores->inicio == NULL){//Si la cola de repartidores está vacía
+    colaRepartidores->inicio = colaRepartidores->fin = repartidorLibre;//El repartidor se agrega al inicio y al final de la cola
     }
-
-    repartidorLibre->sig = colaRepartidores->inicio;
-    colaRepartidores->inicio->ant = repartidorLibre;
-    colaRepartidores->inicio = repartidorLibre;
-    colaRepartidores->numeroRepartidoresEspera++;
+    //Si la cola de repartidores no está vacía
+    repartidorLibre->sig = colaRepartidores->inicio;//El nuevo repartidor en su campo siguiente tendrá al primer repartidor de la cola
+    colaRepartidores->inicio->ant = repartidorLibre;//El repartidor al inicio de la cola en su campo anterior tendra al nuevo repartidor
+    colaRepartidores->inicio = repartidorLibre;//El nuevo inicio de la cola tendrá la dirección del repartidor agregado
+    colaRepartidores->numeroRepartidoresEspera++;//Se suma en uno el numero de repartidores en la cola
     return;
 }
 
 //Elimina el �ltimo repartidor al final de la cola de repartidores//Regresando su direcci�n
 Repartidor* popRepartidor(RepartidoresEspera *colaRepartidores){
-    Repartidor *repartidorOcupado;
+    Repartidor *repartidorOcupado;//Declaracion de un apuntador a repartidor
 
-    if(colaRepartidores->inicio ==  NULL){
-        printf("La cola de repartidores en espera ya esta vacia\n");
-        return NULL;
+    if(colaRepartidores->inicio ==  NULL){//Si la cola de repartidores está vacía
+        printf("La cola de repartidores en espera ya esta vacia\n");//Se imprime mensaje
+        return NULL;//Se regresa una dirección nula
     }
 
-    if(colaRepartidores->inicio == colaRepartidores->fin){
-        repartidorOcupado = colaRepartidores->inicio;
-        colaRepartidores->numeroRepartidoresEspera--;
-        colaRepartidores->inicio = colaRepartidores->fin = NULL;
-        return repartidorOcupado;
+    if(colaRepartidores->inicio == colaRepartidores->fin){//Si la cola de repartidores solo tiene un repartidor
+        repartidorOcupado = colaRepartidores->inicio;//El repartidor a eliminar es el único repartidor en la cola
+        colaRepartidores->numeroRepartidoresEspera--;//Se resta en 1 el número de repartidores en la cola
+        colaRepartidores->inicio = colaRepartidores->fin = NULL;//El inicio y fin de la cola apuntan a tierra
+        return repartidorOcupado;//Se regresa la dirección del repartidor eliminado
     }
-
-    repartidorOcupado = colaRepartidores->fin;
-    colaRepartidores->fin->ant->sig = NULL;
-    colaRepartidores->fin = colaRepartidores->fin->ant;
-    repartidorOcupado->ant = NULL;
-    return repartidorOcupado;
+    //Si hay mas de un repartidor en la cola
+    repartidorOcupado = colaRepartidores->fin;//El repartidor a eliminar es el último en la cola
+    colaRepartidores->fin->ant->sig = NULL;//El penultimo repartidor de la cola en su campo siguiente apunta a NULL
+    colaRepartidores->fin = colaRepartidores->fin->ant;//El nuevo fin de la cola es el penultimo repartidor en esta
+    repartidorOcupado->ant = NULL;//El repartidor eliminado en su campo anterior ahora apunta a NULL
+    return repartidorOcupado;//Se regresa la dirección del repartidor eliminado
 }
 
 //Imprime la cola de repartidores
 void imprimirRepartidoresEspera(RepartidoresEspera *colaRepartidores){
-    Repartidor *r = colaRepartidores->fin;
+    Repartidor *r = colaRepartidores->fin;//Apuntador a repartidor tiene la dirección del último repartidor de la cola
     printf("------------------------------------------------\n");
     printf("             REPARTIDORES EN ESPERA\n");
     printf("------------------------------------------------\n");
-    if(r == NULL){
+    if(r == NULL){//Si la cola está vacía
         printf("La cola de repartidores esta vacia\n");
         return;
     }
 
-    if(r == colaRepartidores->inicio){
+    if(r == colaRepartidores->inicio){//Si la cola solo tiene un repartidor
 
-        imprimirRepartidor(r);
+        imprimirRepartidor(r);//Se imprime el repartidor
         return;
-    }else{
-        while(r != NULL){
-            imprimirRepartidor(r);
-            r = r->ant;
+    }else{//Si la cola tiene más de un repartidor
+        while(r != NULL){//Mientras el apuntador no apunte a tierra
+            imprimirRepartidor(r);//Se imprime el repartidor
+            r = r->ant;//El apuntador ahora apunta al repartidor que tiene en su campo anterior
             printf("------------------------------------------------\n");
         }
     }
     return;
 }
 
+//Inicialización de la cola de Repartidores
 void inicializarColaRepartidores(RepartidoresEspera *colaRepartidores){
-    pushRepartidor(colaRepartidores, crearRepartidor("Ju�n P�rez", 2504));
-    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dom�nguez", 1302));
-    pushRepartidor(colaRepartidores, crearRepartidor("Mar�a Aguilar", 1857));
-    pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));
-    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hern�ndez", 1504));
+    pushRepartidor(colaRepartidores, crearRepartidor("Ju�n P�rez", 2504));//Se agregan 5 repartidores a la cola
+    pushRepartidor(colaRepartidores, crearRepartidor("Pancracio Dom�nguez", 1302));//Con nombre y id
+    pushRepartidor(colaRepartidores, crearRepartidor("Mar�a Aguilar", 1857));//Usando la función crearRepartidor
+    pushRepartidor(colaRepartidores, crearRepartidor("Garry Flores", 2491));//en donde primer parametro es nombre
+    pushRepartidor(colaRepartidores, crearRepartidor("Daniela Hern�ndez", 1504));//y el segundo es el id
     return;
 }

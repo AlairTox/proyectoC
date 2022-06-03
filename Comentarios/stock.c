@@ -6,11 +6,11 @@
 
 //Esta funcion tiene los 21 productos originales y sirve para crear la lista de productos originales
 void crearStock(ListaProductos *lista){
-    agregarProducto(lista, "AMD Ryzen 9 5950X", 12449.99, 10);
-    agregarProducto(lista, "AMD Ryzen 5 5600G", 3630.79, 10);
-    agregarProducto(lista, "Intel Core i9 12900K", 12099.99, 10);
-    agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);
-    agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);
+    agregarProducto(lista, "AMD Ryzen 9 5950X", 12449.99, 10);//Se agregan productos a la lista de productos
+    agregarProducto(lista, "AMD Ryzen 5 5600G", 3630.79, 10);//con la función agregarProducto
+    agregarProducto(lista, "Intel Core i9 12900K", 12099.99, 10);//segundo parametro es el nombre 
+    agregarProducto(lista, "Intel Core i7 12700K", 9100.00, 10);//tercer parametro el precio 
+    agregarProducto(lista, "Intel Core i5 12400", 9950.30, 10);//Cuarto parametro las existencias
     agregarProducto(lista, "GIGABYTE RTX 3070 Ti", 14169.99, 5);
     agregarProducto(lista, "ASrock Radeon RX 6700 XT", 10300.50, 5);
     agregarProducto(lista, "ASUS RTX 3050", 7700.50, 5);
@@ -31,52 +31,52 @@ void crearStock(ListaProductos *lista){
 
 //Esta funcion crea el .dat con la lista de Productos indicada
 void grabarStock(char *archivo, ListaProductos *lista){
-    Producto *a = lista->inicio;
-    FILE *file;
-    file = fopen(archivo, "wb");
+    Producto *a = lista->inicio;//Asignación del inicio de la lista de productos a un apuntador
+    FILE *file;//Declaración de apuntador a archivo
+    file = fopen(archivo, "wb");//Se abre el archivo en modo escritura binaria
 
-    if (file == NULL){
+    if (file == NULL){//Si no se pudo encontrar el archivo
             printf("No se puede abrir el archivo: [%s]\n", archivo);
             exit(-1);
         }
 
-    while(a != NULL){
-        fwrite(a->info, sizeof(infoProducto), 1, file);
-        a = a->sig;
+    while(a != NULL){//Mientras el apuntador no apunte a NULL
+        fwrite(a->info, sizeof(infoProducto), 1, file);//Se escribe la informacion del producto en el archivo
+        a = a->sig;//Se avanza añ siguiente producto de la lista
     }
 
-    fclose(file);
+    fclose(file);//Se cierra el archivo
     return;
 }
 
 //Esta funcion lee el .dat para crear la lista de Productos
 void recuperarStock(char *archivo, ListaProductos *lista){
-    infoProducto *a = inicializarInfoProducto();
-    FILE *file;
-    file = fopen(archivo, "rb");
+    infoProducto *a = inicializarInfoProducto();//Se crea un apuntador a una estructura infoProducto
+    FILE *file;//Declaración de apuntador a archivo
+    file = fopen(archivo, "rb");//Se abre el archivo en modo lectura binaria
 
-    if (file == NULL){
+    if (file == NULL){//Si no se pudo encontrar el archivo
         printf("No existe el archivo: [%s]\n", archivo);
         exit(-2);
     }
 
-    while(!feof(file)){
-        fread(a, sizeof(struct infoProducto), 1, file);
-        agregarProducto(lista, a->nombre, a->precio, a->existencias);
+    while(!feof(file)){//Mientras no se llegue al final del archivo
+        fread(a, sizeof(struct infoProducto), 1, file);//Se escribe la información del producto en la estructura creada
+        agregarProducto(lista, a->nombre, a->precio, a->existencias);//Se agrega el producto a la lista con su respectiva información
     }
 
-    fclose(file);
+    fclose(file);//Se cierra el archivo
     return;
 }
 
 void inicializarListaProductos(ListaProductos *lista){
-    FILE *file = fopen("stock.dat", "rb");
+    FILE *file = fopen("stock.dat", "rb");//Se abre el archivo en modo lectura binaria
 
-    if (file == NULL){
+    if (file == NULL){//Si no se encuentra el archivo entonces se crea desde cero con el stock inicial
         crearStock(lista);
         grabarStock("stock.dat", lista);
-    }else
-        recuperarStock("stock.dat", lista);
+    }else//Si el archivo ya existe
+        recuperarStock("stock.dat", lista);//Se recupera el stock del archivo
 
     return;
 }

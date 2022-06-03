@@ -6,15 +6,15 @@
 
 //COLA DE PEDIDOS
 typedef struct Pedidos{
-    int numeroPedidos;
-    ListaCarrito *inicio, *fin;
+    int numeroPedidos;//Contiene un entero para indicar el número de elementos dentro de la cols
+    ListaCarrito *inicio, *fin;//Contiene 2 apuntadores a estructura ListaCarrito
 
 }Pedidos;
 
 //COLA DE REPARTIDORES
 typedef struct RepartidoresEspera{
-    Repartidor *inicio, *fin;
-    int numeroRepartidoresEspera;
+    Repartidor *inicio, *fin;//Contiene dos apuntddores a estructura Repartidor
+    int numeroRepartidoresEspera;//Contiene un entero para indicar el número de elementos dentro de la cola
 }RepartidoresEspera;
 
 //Funciones Cola de Pedidos

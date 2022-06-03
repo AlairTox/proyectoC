@@ -3,31 +3,31 @@
 
 //INFO PRODUCTO
 typedef struct infoProducto{
-    char nombre[35];
-    float precio;
-    int existencias;
+    char nombre[35];//Contiene un string de tamaño 35 como máximo para el nombre del producto
+    float precio;//Contiene un float para el precio del producto
+    int existencias;//Contiene un entero para el número de existencias del producto
 } infoProducto;
 
 //PRODUCTO
 typedef struct Producto{
-    struct Producto *ant, *sig;
-    infoProducto *info;
+    struct Producto *ant, *sig;//Contiene dos apuntadores a estructura Producto
+    infoProducto *info;//Contiene un apuntador a estructura infoProducto
 }Producto;
 
 //CLIENTE
 typedef struct Cliente{
-    char *nombre;
-    char *direccion;
-    double telefono;
-    float costo;
+    char *nombre;//Contiene un apuntador a caracter(string) para el nombre del cliente
+    char *direccion;//Contiene una puntador a caracter(string) para la dirección del cliente
+    double telefono;//Contiene un double para el telefono del cliente
+    float costo;//Contiene un float para el precio a pagar por parte del cliente
 }Cliente;
 
 //REPARTIDOR
 typedef struct Repartidor{
-    struct Repartidor *ant, *sig;
-    void *pedidoAsignado;
-    char *nombre;
-    int id;
+    struct Repartidor *ant, *sig;//Contiene dos apuntadores a estructura Repartidor
+    void *pedidoAsignado;//Contiene un apuntador a una estructura ListaCarrito(se usa void para evitar problemas de llamamda redonda)
+    char *nombre;//Contiene apuntador a caracter(string) para el nombre del repartidor
+    int id;//Contiene un entero para el id del repartidor
 }Repartidor;
 
 //Funciones Producto

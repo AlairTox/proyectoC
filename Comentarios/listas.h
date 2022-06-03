@@ -5,22 +5,22 @@
 
 //LISTA DE PRODUCTOS
 typedef struct ListaProductos{
-    Producto *inicio, *fin;
-    int n;
+    Producto *inicio, *fin;//Contiene dos apuntadores a estructura Producto
+    int n;//Contiene un entero para indicar la cantidad de productos en la lista
 }ListaProductos;
 
 //lISTA DE REPARTIDORES
 typedef struct ListaRepartidoresTransito{
-    Repartidor  *inicio, *fin;
-    int n;
+    Repartidor  *inicio, *fin;//Contiene dos apuntadores a estructura Repartidor
+    int n;//Contiene un entero para indicar la cantidad de repartidores en la lista
 }ListaRepartidoresTransito;
 
 //LISTA CARRITO
 typedef struct ListaCarrito{
-    struct ListaCarrito *ant, *sig;
-    Producto *inicio, *fin;
-    int n;
-    Cliente* cliente;
+    struct ListaCarrito *ant, *sig;//Contiene dos apuntadores a estructura ListaCarrito(para viajar en la cola de pedidos)
+    Producto *inicio, *fin;//Contiene dos apuntadores a estructura Producto
+    int n;//Esto es lo mismo que los otros
+    Cliente* cliente;//Contiene apuntador a estructura Cliente para guardar su información correspondiente
 }ListaCarrito;
 
 

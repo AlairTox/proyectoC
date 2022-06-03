@@ -5,76 +5,76 @@
 #include <string.h>
 
 //FUNCIONES PRODUCTO
-//Creaci髇 de producto
+//Creaci锟絥 de producto
 Producto *crearProducto(char *nombre, float precio, int existencias){
-    Producto *e;
-    e = malloc(sizeof(Producto));
-    e->ant = e->sig = NULL;
-    e->info = malloc(sizeof(infoProducto));
-    strcpy(e->info->nombre, nombre);
-    e->info->existencias = existencias;
-    e->info->precio = precio;
-    return e;
+    Producto *e;//Declaraci贸n de apuntador a producto
+    e = malloc(sizeof(Producto));//Reserva de memoria para una estructura Producto
+    e->ant = e->sig = NULL;//Inicializaci贸n de los campos anterior y siguiente(Apuntan a NULL)
+    e->info = malloc(sizeof(infoProducto));//Reserva de memoria para una estructura infoProducto en el campo info
+    strcpy(e->info->nombre, nombre);//Asignacion de nombre del producto en el campo info en el campo nombre
+    e->info->existencias = existencias;//Asignacion de n煤mero de existencias en el campo info en el campo existencias
+    e->info->precio = precio;//Asignaci贸n de precio en el campo info en el campo precio
+    return e;//Se regresa la direcci贸n del producto
 }
 
-//Impresi髇 de producto
+//Impresi锟絥 de producto
 void imprimirProducto(Producto *e){
-        printf("Producto: %s\n", e->info->nombre);
-        printf("Existencias: %d\n", e->info->existencias);
-        printf("Costo: %.2f\n", e->info->precio);
+        printf("Producto: %s\n", e->info->nombre);//Impresi贸n del nombre del producto
+        printf("Existencias: %d\n", e->info->existencias);//Impresi贸n de las existencias del producto
+        printf("Costo: %.2f\n", e->info->precio);//Impresi贸n del precio del producto
         return;
 }
 
 //FUNCIONES CLIENTE
-//Creaci髇 del cliente
+//Creaci锟絥 del cliente
 Cliente *nuevoCliente(char *nombre, char *direccion, double telefono, float costo){
-    Cliente* c;
-    c = malloc(sizeof(Cliente));
-    c->costo = costo;
-    c->telefono = telefono;
-    c->nombre = malloc(sizeof(char)*(strlen(nombre)));
-    strcpy(c->nombre, nombre);
-    c->direccion = malloc(sizeof(char)*(strlen(direccion)));
-    strcpy(c->direccion, direccion);
-    return c;
+    Cliente* c;//Declaracion de apuntador a Cliente
+    c = malloc(sizeof(Cliente));//Reserva de espacio para una estructura de tipo Cliente
+    c->costo = costo;//Asignaci贸n del precio a pagar 
+    c->telefono = telefono;//Asignaci贸n del telefono del cliente
+    c->nombre = malloc(sizeof(char)*(strlen(nombre)));//Reserva de espacio para el nombre del cliente
+    strcpy(c->nombre, nombre);//Asignaci贸n del nombre del cliente
+    c->direccion = malloc(sizeof(char)*(strlen(direccion)));//Reserva de espacio para la direcci贸n del cliente
+    strcpy(c->direccion, direccion);//Asingaci贸n de la direcci贸n del cliente
+    return c;//Se regresa la direcci贸n del cliente
 }
 
-//Impresi髇 del Cliente
+//Impresi锟絥 del Cliente
 void imprimirCliente(Cliente *c){
-    printf("Nombre del Cliente: %s\n", c->nombre);
-    printf("Direccion: %s\n", c->direccion);
-    printf("Telefono: %.0f\n", c->telefono);
-    printf("Precio a pagar: %.2f\n", c->costo);
+    printf("Nombre del Cliente: %s\n", c->nombre);//Impresi贸n del nombre del cliente
+    printf("Direccion: %s\n", c->direccion);//Impresi贸n de la direcci贸n del cliente
+    printf("Telefono: %.0f\n", c->telefono);//Impresi贸n del telefono del cliente
+    printf("Precio a pagar: %.2f\n", c->costo);//Impresi贸n del precio a pagar
     return;
 }
 
 //FUNCIONES REPARTIDOR
-//Creaci髇 del repartidor
+//Creaci锟絥 del repartidor
 Repartidor *crearRepartidor (char *nombre, int id){
-    Repartidor *e;
-    e = malloc(sizeof(Producto));
-    e->ant = e->sig = NULL;
-    e->nombre = malloc(sizeof(char)*(strlen(nombre)));
-    e->pedidoAsignado = NULL;
-    strcpy(e->nombre, nombre);
-    e->id = id;
-    return e;
+    Repartidor *e;//Declaraci贸n de apuntador a repartidor
+    e = malloc(sizeof(Producto));//Reserva de espacio de una estructura Repartidor
+    e->ant = e->sig = NULL;//Inicializaci贸n de campos anterior y siguiente(NULL)
+    e->nombre = malloc(sizeof(char)*(strlen(nombre)));//Reserva de espacio para el nombre del repartidor
+    e->pedidoAsignado = NULL;//Inicializaci贸n de campo pedidoAsignado(NULL)
+    strcpy(e->nombre, nombre);//Asignaci贸n de nombre del repartidor
+    e->id = id;//Asignaci贸n del id del cliente
+    return e;//Se regresa la direcci贸n del Repartidor
 }
 
-//Impresi髇 del repartidor
+//Impresi锟絥 del repartidor
 void imprimirRepartidor(Repartidor *r){
-    printf("Nombre del repartidor: %s\n", r->nombre);
-    printf("ID: %d\n", r->id);
+    printf("Nombre del repartidor: %s\n", r->nombre);//Impresi贸n del nombre del repartidor
+    printf("ID: %d\n", r->id);//Impresi贸n de id del repartidor
     return;
 }
 
 //FUNCIONES INFOPRODUCTO
-//Inicializaci髇 de infoProducto
+//Inicializaci锟絥 de infoProducto
 infoProducto *inicializarInfoProducto(){
-    infoProducto *a;
-    a = malloc(sizeof(infoProducto));
-    a->existencias = 0;
-    a->nombre[0] = 'a';
-    a->precio = 0;
-    return a;
+    infoProducto *a;//Declaraci贸n de apuntador a infoProducto
+    a = malloc(sizeof(infoProducto));//Reserva de espacio para una estructura InfoProducto
+    a->existencias = 0;//Inicializaci贸n de existencias
+    a->nombre[0] = 'a';//Inicializaci贸n de nombre
+    a->precio = 0;//Inicilizaci贸n de precio
+    return a;//Se regresa la direcci贸n de infoProducto
 }

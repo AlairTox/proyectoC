@@ -9,10 +9,10 @@
 #define MAX_CHAR 100
 
 //FUNCIONES CLIENTE------------------------------------------------------------------------------------------------------------------------
-//Conversión de caracteres de minúculas a mayúsculas
+//Conversiï¿½n de caracteres de minï¿½culas a mayï¿½sculas
 char convertirMayus(char caracter){
-    if (isalpha(caracter)){
-        if(caracter>=97 && caracter<=122){
+    if (isalpha(caracter)){//Determina si el caracter ingresado pertenece al abecedario
+        if(caracter>=97 && caracter<=122){//Si el caracter es minÃºscula se convierte en mayÃºscula
             caracter-=32;
             return caracter;
         }else
@@ -21,63 +21,63 @@ char convertirMayus(char caracter){
         return caracter;
 }
 
-//Impresión de la navegación entre productos
+//Impresiï¿½n de la navegaciï¿½n entre productos
 void impresionNavegacion(void){
     printf("------------------------------------------------\n");
-    printf("                    NAVEGACIÓN\n");
+    printf("                    NAVEGACIï¿½N\n");
     printf("------------------------------------------------\n");
     printf("Para ver el siguiente producto, pulse D\n");
     printf("Para ver el producto anterior, pulse A\n");
     printf("Para ver el primer producto, pulse W\n");
-    printf("Para ver el último producto, pulse S\n");
-    printf("Para salir del menú, pulse X\n");
+    printf("Para ver el ï¿½ltimo producto, pulse S\n");
+    printf("Para salir del menï¿½, pulse X\n");
     printf("------------------------------------------------\n");
     return;
 }
 
-//Selección de cantidad de producto a agregar al carrito
+//Selecciï¿½n de cantidad de producto a agregar al carrito
 void seleccionProducto(Producto *p, ListaCarrito *carrito){
     int articulos;
 
-    printf("¿Cuántos artículos desea agregar a su carrito? \t");
-    scanf("%d", &articulos);
+    printf("ï¿½Cuï¿½ntos artï¿½culos desea agregar a su carrito? \t");
+    scanf("%d", &articulos);//Se pregunta cuantos articulos se van a agregar al carrito
 
-    if(articulos > p->info->existencias){
-        printf("No puede pedir tantos artículos. Intente de nuevo.\n");
+    if(articulos > p->info->existencias){//Si el nÃºmero de articulos pedidos son mayores a las existencias
+        printf("No puede pedir tantos artï¿½culos. Intente de nuevo.\n");
     }else{
-        agregarProductoCarrito(carrito, p->info->nombre, p->info->precio, articulos);
+        agregarProductoCarrito(carrito, p->info->nombre, p->info->precio, articulos);//Se agrega el respectivo producto al carrito
         printf("El producto ha sido agregado al carrito.\n");
     }
     return;
 }
 
-//Navegación de la lista de productos, se puede acceder a la función para agregar productos al carrito
+//Navegaciï¿½n de la lista de productos, se puede acceder a la funciï¿½n para agregar productos al carrito
 int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check){
     char opc;
     Producto *p;
     check = 0;
 
-    if(vaciaListaProductos(lista)){
-        printf("No hay ningún artículo disponible.\n");
+    if(vaciaListaProductos(lista)){//Si la lista de productos estÃ¡ vacÃ­a
+        printf("No hay ningï¿½n artï¿½culo disponible.\n");
         system("Pause");
         check = 1;
         system("cls");
         return check;
-    }else{
+    }else{//Si la lista de productos no estÃ¡ vacÃ­a
         p = lista->inicio;
         do{
             system("cls");
-            impresionNavegacion();
+            impresionNavegacion();//Se imprime las posibles navegaciones que se puede realizar
             printf("Para agregar un producto a su carrito, pulse +\n");
             printf("------------------------------------------------\n");
-            printf("                    CATÁLOGO\n");
-            imprimirProducto(p);
+            printf("                    CATï¿½LOGO\n");
+            imprimirProducto(p);//Se imprime el producto actual
             printf("------------------------------------------------\n");
             fflush(stdin);
-            opc = getchar();
+            opc = getchar();//Se obtiene la opciÃ³n deseada
             fflush(stdin);
-            opc = convertirMayus(opc);
-            switch(opc){
+            opc = convertirMayus(opc);//Se convierte a mayus en caso de ser necesario
+            switch(opc){//Esto no lo voy a explicar mÃ¡s por que pss ahÃ­ dice
                 case 'D': //ir al siguiente
                     if(p == lista->fin){
                         p = lista->inicio;
@@ -105,7 +105,7 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check)
 
                 case 'S': //ir al final
                     if(p == lista->fin){
-                        printf("\nYa se encuentra en el último elemento de la lista\n");
+                        printf("\nYa se encuentra en el ï¿½ltimo elemento de la lista\n");
                         system("Pause");
                         break;
                     }
@@ -117,13 +117,13 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check)
                     system("cls");
                     break;
 
-                case '+': //añadir al carro
+                case '+': //aï¿½adir al carro
                     seleccionProducto(p, carrito);
                     system("Pause");
                     break;
 
                 default:
-                    printf("Opción incorrecta. Intente de nuevo.\n");
+                    printf("Opciï¿½n incorrecta. Intente de nuevo.\n");
                     system("Pause");
                 break;
             }
@@ -132,7 +132,7 @@ int navegacionProductos(ListaProductos *lista, ListaCarrito *carrito, int check)
     return check;
 }
 
-//Navegación por el carrito, permite elimnar prodctos de este total o parcialmente
+//Navegaciï¿½n por el carrito, permite elimnar prodctos de este total o parcialmente
 int revisarCarrito(ListaCarrito *carrito, int check){
     char opc;
     Producto *p, *a;
@@ -142,7 +142,7 @@ int revisarCarrito(ListaCarrito *carrito, int check){
     if(vacioCarrito(carrito)){
         printf("------------------------------------------------\n");
         printf("                   SU CARRITO\n");
-        printf("No hay ningún artículo en su carrito.\n");
+        printf("No hay ningï¿½n artï¿½culo en su carrito.\n");
         printf("------------------------------------------------\n");
         system("Pause");
         check = 1;
@@ -163,10 +163,10 @@ int revisarCarrito(ListaCarrito *carrito, int check){
             imprimirProducto(p);
             printf("------------------------------------------------\n");
             fflush(stdin);
-            opc = getchar();
+            opc = getchar();//Se obtiene la opciÃ³n deseada
             fflush(stdin);
-            opc = convertirMayus(opc);
-            switch(opc){
+            opc = convertirMayus(opc);//Se convierte en mayus en caso de ser necesario
+            switch(opc){//xd
                 case 'D': //ir al siguiente
                     if(p == carrito->fin){
                         p = carrito->inicio;
@@ -194,7 +194,7 @@ int revisarCarrito(ListaCarrito *carrito, int check){
 
                 case 'S': //ir al final
                     if(p == carrito->fin){
-                        printf("\nYa se encuentra en el último elemento de su carrito\n");
+                        printf("\nYa se encuentra en el ï¿½ltimo elemento de su carrito\n");
                         system("Pause");
                         break;
                     }
@@ -221,38 +221,38 @@ int revisarCarrito(ListaCarrito *carrito, int check){
                     printf("------------------------------------------------\n");
                     printf("              ELIMINAR DEL CARRITO\n");
                     printf("------------------------------------------------\n");
-                    printf("Presione [1] Eliminar todo el producto \nPresione [2] Reducir número de existencias\n");
+                    printf("Presione [1] Eliminar todo el producto \nPresione [2] Reducir nï¿½mero de existencias\n");
                     scanf("%d", &opcEliminar);
 
                     if(opcEliminar == 1){
-                        eliminarProductoCarrito(p, carrito);
+                        eliminarProductoCarrito(p, carrito);//Se elimina todo el producto como dice justo arriba
                         printf("Producto eliminado. \n");
                         system("Pause");
                         return check;
-                    }else if(opcEliminar == 2){
-                        printf("Ingrese cuántas unidades desea eliminar: \t");
+                    }else if(opcEliminar == 2){//Si desea eliminar solo cierta cantidad de producto
+                        printf("Ingrese cuï¿½ntas unidades desea eliminar: \t");
                         scanf("%d", &unidadesMenos);
 
-                        if(unidadesMenos > p->info->existencias){
-                            printf("¡Error! No puede eliminar tantas unidades. Intente de nuevo.\n");
+                        if(unidadesMenos > p->info->existencias){//Si desea eliminar mÃ¡s existencias de las que hay en el carrito
+                            printf("ï¿½Error! No puede eliminar tantas unidades. Intente de nuevo.\n");
                             system("Pause");
-                        }else if(unidadesMenos == p->info->existencias){
+                        }else if(unidadesMenos == p->info->existencias){//Si quiere eliminar la misma cantidad de producto como de existencia que hay en el carrito
                             eliminarProductoCarrito(p, carrito);
                             printf("Producto eliminado. \n");
                             system("Pause");
                             return check;
                         }else{
-                            p->info->existencias = p->info->existencias - unidadesMenos;
+                            p->info->existencias = p->info->existencias - unidadesMenos;//Se restan las unidades de las existencias en el carrito
                         }
                     }else{
-                        printf("Opción incorrecta. Intente de nuevo.\n");
+                        printf("Opciï¿½n incorrecta. Intente de nuevo.\n");
                         system("Pause");
                     }
 
                     break;
 
                 default:
-                    printf("Opción incorrecta. Intente de nuevo.\n");
+                    printf("Opciï¿½n incorrecta. Intente de nuevo.\n");
                     system("Pause");
                 break;
             }
@@ -271,9 +271,9 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
     double telefono;
     float pago = 0;
 
-    while(p != NULL){
-        pago = pago + (p->info->precio * p->info->existencias);
-        p = p->sig;
+    while(p != NULL){//Mientras que no se llegue al final del carrito
+        pago = pago + (p->info->precio * p->info->existencias);//Se va aumentando el precio a pagar 
+        p = p->sig;//Se avanza al siguiente producto
     }
 
     printf("------------------------------------------------\n");
@@ -283,49 +283,49 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
     imprimirCarrito(carrito);
     printf("------------------------------------------------\n");
     printf("Total del pedido: %.2f\n", pago);
-    printf("¿Desea finalizar su pedido? [Y/N]\n");
+    printf("ï¿½Desea finalizar su pedido? [Y/N]\n");
     printf("------------------------------------------------\n");
     fflush(stdin);
     opcPedido = getchar();
     fflush(stdin);
 
-    if(opcPedido == 'Y' || opcPedido == 'y'){
+    if(opcPedido == 'Y' || opcPedido == 'y'){//Si desea hacer el pedido
         p = carrito->inicio;
-        while(a != NULL){
-            if(strcmp(a->info->nombre, p->info->nombre) == 0){
-                a->info->existencias = (a->info->existencias) - (p->info->existencias);
-                if(p!=carrito->fin)
+        while(a != NULL){//Mientras no se llegue al final de la lista de productos
+            if(strcmp(a->info->nombre, p->info->nombre) == 0){//Si el nombre del carrito y lista de productos coinciden
+                a->info->existencias = (a->info->existencias) - (p->info->existencias);//Se restan las existencias de la lista de productos
+                if(p!=carrito->fin)//Se avanza en el carrito
                     p = p->sig;
             }
-            a = a->sig;
+            a = a->sig;//Se avanza en la lista de productos
         }
-        printf("------------------------------------------------\n");
-        printf("              INFORMACIÓN DE ENVÍO\n");
+        printf("------------------------------------------------\n");//Se le pide la informaciÃ³n al cliente
+        printf("              INFORMACIï¿½N DE ENVï¿½O\n");
         printf("------------------------------------------------\n");
         printf("Ingrese su nombre completo:\t");
         fflush(stdin);
         gets(nombre);
         fflush(stdin);
-        printf("Ingrese su dirección:\t");
+        printf("Ingrese su direcciï¿½n:\t");
         fflush(stdin);
         gets(direccion);
         fflush(stdin);
-        printf("Ingrese su teléfono:\t");
+        printf("Ingrese su telï¿½fono:\t");
         scanf("%lf", &telefono);
         system("cls");
-        agregarCliente(carrito, nombre, direccion, telefono, pago);
-        pushPedido(colaPedidos, carrito);
+        agregarCliente(carrito, nombre, direccion, telefono, pago);//Se agrega el cliente al carrito
+        pushPedido(colaPedidos, carrito);//Se aÃ±ade el carrito a la cola de pedidos 
         printf("------------------------------------------------\n");
-        printf("¡Su pedido se ha realizado exitosamente!\n");
+        printf("ï¿½Su pedido se ha realizado exitosamente!\n");
         printf("------------------------------------------------\n");
         check = 1;
-    } else if (opcPedido == 'N' || opcPedido == 'n'){
-        printf("Se le regresará al menú principal para clientes.\n");
+    } else if (opcPedido == 'N' || opcPedido == 'n'){//Si no desea finalizar el pedido
+        printf("Se le regresarï¿½ al menï¿½ principal para clientes.\n");
         printf("Carrito desechado\n");
         check = 1;
         return check;
     } else{
-        printf("Ingrese una opción válida.\n");
+        printf("Ingrese una opciï¿½n vï¿½lida.\n");
         return check;
     }
     return check;
@@ -333,47 +333,47 @@ int realizarPedido(ListaProductos *lista, ListaCarrito *carrito, Pedidos *colaPe
 
 //FUNCIONES GERENTE------------------------------------------------------------------------------------------------------------------
 //Se muestra el pedido y repartidor con mas tiempo de espera para decidir si se le asigna el pedido, se hace pop a ambas colas y se
-//añade al repartidor a la lista de repartidores
+//aï¿½ade al repartidor a la lista de repartidores
 int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspera *colaRepartidores, Pedidos *colaPedidos, int check){
     check = 0;
     char opc;
     printf("------------------------------------------------\n");
-    printf("             ASIGNACIÓN DE UN PEDIDO\n");
+    printf("             ASIGNACIï¿½N DE UN PEDIDO\n");
     printf("------------------------------------------------\n");
     Repartidor *repartidorOcupado;
     ListaCarrito *pedidoAsignado;
-    printf("Repartidor con más tiempo en la cola:\n");
+    printf("Repartidor con mï¿½s tiempo en la cola:\n");
 
-    if(colaRepartidores->fin != NULL){
-        imprimirRepartidor(colaRepartidores->fin);
+    if(colaRepartidores->fin != NULL){//Si la cola de repartidores no estÃ¡ vacÃ­a
+        imprimirRepartidor(colaRepartidores->fin);//Se imprime el Ãºltimo repartidor en la cola
     }else{
         printf("No hay repartidores en la cola\n");
     }
 
-    printf("\nPedido con más tiempo en la cola:\n");
-    if(colaPedidos->fin == NULL){
-        printf("No hay ningún pedido\n");
+    printf("\nPedido con mï¿½s tiempo en la cola:\n");
+    if(colaPedidos->fin == NULL){//Si la cola de pedidos estÃ¡ vacÃ­a
+        printf("No hay ningï¿½n pedido\n");
         check = 1;
         return check;
     } else{
-        imprimirCarrito(colaPedidos->fin);
-        printf("¿Desea asignar el pedido?[Y/N]\t");
+        imprimirCarrito(colaPedidos->fin);//Se imprime el Ãºltimo pedido de la cola de pedidos
+        printf("ï¿½Desea asignar el pedido?[Y/N]\t");
         fflush(stdin);
         opc = getchar();
         fflush(stdin);
 
-        if(opc == 'Y' || opc == 'y'){
+        if(opc == 'Y' || opc == 'y'){//Si desea asignar el pedido
             printf("Pedido Asignado\n");
-            repartidorOcupado = popRepartidor(colaRepartidores);
-            pedidoAsignado = popPedido(colaPedidos);
-            repartidorOcupado->pedidoAsignado = pedidoAsignado;
-            agregarRepartidor(listaRepartidores, repartidorOcupado);
-        } else if(opc == 'N' || opc == 'n'){
-            printf("Se le regresará al menú principal para gerente.\n");
+            repartidorOcupado = popRepartidor(colaRepartidores);//Se elimina el Ãºltimo repartidor de la cola
+            pedidoAsignado = popPedido(colaPedidos);//Se elimina el Ãºltimo pedido de la cola
+            repartidorOcupado->pedidoAsignado = pedidoAsignado;//se le asigna el pedido al repartidor
+            agregarRepartidor(listaRepartidores, repartidorOcupado);//Se asigna el repartidor a la lista
+        } else if(opc == 'N' || opc == 'n'){//Si no desea asignar el pedido
+            printf("Se le regresarï¿½ al menï¿½ principal para gerente.\n");
             check = 1;
             return check;
         } else{
-            printf("Ingrese una opción valida\n");
+            printf("Ingrese una opciï¿½n valida\n");
             return check;
         }
     }
@@ -383,11 +383,11 @@ int asignarPedido(ListaRepartidoresTransito *listaRepartidores, RepartidoresEspe
 //FUNCIONES REPARTIDOR-----------------------------------------------------------------------------------------------------------------
 //Se muestra el pedido asignado al repartidor
 void pedidoAsignado(Repartidor *repartidor){
-    if(repartidor->pedidoAsignado == NULL){
-        printf("Por el momento no tiene ningún pedido asignado.\n");
+    if(repartidor->pedidoAsignado == NULL){//Si no tiene un pedido asignado
+        printf("Por el momento no tiene ningï¿½n pedido asignado.\n");
     } else{
-        printf("Hola %s, se le asignó este pedido:\n", repartidor->nombre);
-        imprimirCarrito(repartidor->pedidoAsignado);
+        printf("Hola %s, se le asignï¿½ este pedido:\n", repartidor->nombre);
+        imprimirCarrito(repartidor->pedidoAsignado);//Se imprime el pedido asignado
     }
     return;
 }
@@ -401,21 +401,21 @@ int entregaPedido(Repartidor *repartidor, ListaRepartidoresTransito *lista, Repa
     opc = getchar();
     fflush(stdin);
 
-    if(opc == 'Y' || opc == 'y'){
-        eliminarRepartidor(lista, repartidor);
-        repartidor->pedidoAsignado = NULL;
-        pushRepartidor(colaRepartidores, repartidor);
+    if(opc == 'Y' || opc == 'y'){//Si ya entregÃ³ el pedido
+        eliminarRepartidor(lista, repartidor);//Se elimina el repartidor de la lista
+        repartidor->pedidoAsignado = NULL;//Se desliga el pedido del repartidor
+        pushRepartidor(colaRepartidores, repartidor);//Se regresa el repartidor a la cola
         printf("------------------------------------------------\n");
-        printf("               ¡PEDIDO FINALIZADO!\n");
+        printf("               ï¿½PEDIDO FINALIZADO!\n");
         printf("------------------------------------------------\n");
         printf("Ha regresado a la cola de repartidores, espere un nuevo pedido\n");
         check = 1;
-    } else if(opc == 'N' || opc == 'n'){
-        printf("Se le regresara al menú principal para repartidores.\n");
+    } else if(opc == 'N' || opc == 'n'){//Si aÃºn no entrega el pedido
+        printf("Se le regresara al menï¿½ principal para repartidores.\n");
         check = 1;
         return check;
     } else{
-        printf("Ingrese una opción válida\n");
+        printf("Ingrese una opciï¿½n vï¿½lida\n");
         return check;
     }
     return check;
@@ -427,34 +427,34 @@ Repartidor *pedirUsuario(RepartidoresEspera *colaRepartidores, ListaRepartidores
     printf("---------------------(^._.^)---------------------\n");
     printf("                El Huarache Veloz\n\n\n");
     printf("-------------------------------------------------\n");
-    printf("                  INCIAR SESIÓN\n");
+    printf("                  INCIAR SESIï¿½N\n");
     printf("-------------------------------------------------\n");
     printf("Ingrese su ID: \t");
-    scanf("%d", &id);
+    scanf("%d", &id);//Se obtiene el id del repartidor
 
     do{//Busqueda en la cola
-        if(r->id == id){
+        if(r->id == id){//Si el repartidor estÃ¡ en la cola
             printf("Bienvenid@ %s\n", r->nombre);
-            return r;
+            return r;//Se regresa la direcciÃ³n del repartidor
         }
         r = r->ant;
     }while(r != NULL);
 
     r = listaRepartidores->inicio;
 
-    if(listaRepartidores->inicio == NULL){
+    if(listaRepartidores->inicio == NULL){//Si la lista estÃ¡ vacÃ­a
         return NULL;
     }
 
     do{//Busqueda en la lista
-        if(r->id == id){
+        if(r->id == id){//Si el repartidor estÃ¡ en la lista
             printf("Bienvenid@ %s\n", r->nombre);
-            return r;
+            return r;//Se regresa la direcciÃ³n del repartidor
         }
         r = r->sig;
     }while(r != NULL);
 
-    return NULL;
+    return NULL;//Se regresa un NULL indicando que no hay un repartidor con ese id
 }
 
 //FUNCIONES ALMACENISTA--------------------------------------------------------------------------------------------------------------
@@ -478,42 +478,42 @@ void agregarProductos(ListaProductos *lista){
     scanf("%f", &precio);
 
     while(vaciaListaProductos(lista)){
-        if(strcmpi(nombre, p->info->nombre)){
-            p->info->precio = precio;
-            p->info->existencias += cantidad;
+        if(strcmpi(nombre, p->info->nombre)){//Si ya hay un producto en la lista con el nombre 
+            p->info->precio = precio;//Se modifica el precio 
+            p->info->existencias += cantidad;//Se incrementa las existencias
             return;
         }
-        p = p->sig;
+        p = p->sig;//Se avanza en la lista
     }
 
-    agregarProducto(lista, nombre, precio, cantidad);
+    agregarProducto(lista, nombre, precio, cantidad);//Se agrega el producto
     return;
 }
 
-//Navegación de productos para el almacenista
+//Navegaciï¿½n de productos para el almacenista
 int verificarListaProductos(ListaProductos *lista, int check){
     check = 0;
     char opc;
     Producto *p;
 
-    if(vaciaListaProductos(lista)){
-        printf("No hay ningún artículo disponible.\n");
+    if(vaciaListaProductos(lista)){//Si la lista de productos estÃ¡ vacÃ­a
+        printf("No hay ningï¿½n artï¿½culo disponible.\n");
         system("Pause");
         check = 1;
         system("cls");
         return check;
-    } else{
+    } else{//Si la lista de productos no estÃ¡ vacÃ­a
         p = lista->inicio;
         do{
             system("cls");
-            impresionNavegacion();
-            imprimirProducto(p);
+            impresionNavegacion();//Se imprime el menÃº de navegaciÃ³n
+            imprimirProducto(p);//Se imprime el producto
             fflush(stdin);
-            opc = getchar();
+            opc = getchar();//Se obtiene la opciÃ³n necesaria
             fflush(stdin);
-            opc = convertirMayus(opc);
+            opc = convertirMayus(opc);//Se convierte a mayus en caso de ser necesario
 
-            switch(opc){
+            switch(opc){//Si
                 case 'D': //ir al siguiente
                     if(p == lista->fin){
                         p = lista->inicio;
@@ -541,7 +541,7 @@ int verificarListaProductos(ListaProductos *lista, int check){
 
                 case 'S': //ir al final
                     if(p == lista->fin){
-                        printf("\nYa se encuentra en el último elemento de la lista\n");
+                        printf("\nYa se encuentra en el ï¿½ltimo elemento de la lista\n");
                         system("Pause");
                         break;
                     }
@@ -554,7 +554,7 @@ int verificarListaProductos(ListaProductos *lista, int check){
                     break;
 
                 default:
-                    printf("Opción incorrecta. Intente de nuevo.\n");
+                    printf("Opciï¿½n incorrecta. Intente de nuevo.\n");
                     system("Pause");
                 break;
             }
